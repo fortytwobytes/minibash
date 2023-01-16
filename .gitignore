@@ -1,3 +1,7 @@
+# MINISHEL
+bin/
+minishell
+
 # Prerequisites
 *.d
 
