@@ -11,7 +11,7 @@ OBJ_DIR	=	../bin/
 OBJS	=	$(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
 
 INC_DIR	=	../includes/
-INCLUDE	=	$(addprefix $(INC_DIR),srcs.h)
+INCLUDE	=	$(addprefix $(INC_DIR),minishell.h)
 
 all:	$(NAME)
 
