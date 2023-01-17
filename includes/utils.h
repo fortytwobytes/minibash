@@ -1,4 +1,4 @@
-#ifndef LIB_H
-# define LIB_H
+#ifndef UTILS_H
+# define UTILS_H
 
 #endif // LIB_H
