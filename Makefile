@@ -1,29 +1,29 @@
-NAME		=	minishell	
-RM			=	rm -rf
-OBJ_DIR		=	bin/
-UTILS		=	utils.a
-SRCS		=	srcs.a
+CC		= gcc
+# CFLAGS		= -Wall -Werror -Wextra -g -I includes
+CFLAGS		= -g -I includes
+RM		= rm -rf
 
-all:	$(NAME) 
+SRCS		= $(wildcard srcs/*.c builtins/*.c execution/*.c parsing/*.c utils/*.c main.c)
+SRC_DIRS	= $(dir $(SRCS))
+OBJ_DIR		= bin/
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)%.o)
+INCLUDE_FILES	= $(wildcard includes/*.h)
 
-$(NAME):	$(UTILS) $(SRCS)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(UTILS) $(SRCS) -o $(NAME)
-	@echo "compiled"
+NAME		= minishell
 
-$(UTILS):
-	@mkdir -p $(OBJ_DIR)
-	@make -C utils
+all: $(NAME)
 
-$(SRCS):
-	@mkdir -p $(OBJ_DIR)
-	@make -C srcs
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
+
+$(OBJ_DIR)%.o: %.c $(INCLUDE_FILES)
+	@mkdir -p $(OBJ_DIR) $(foreach dir, $(SRC_DIRS), $(OBJ_DIR)/$(dir))
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJ_DIR) $(UTILS) $(SRCS)
-	@echo "cleaned"
+	$(RM) $(OBJ_DIR)
 
 fclean:	clean
-	@$(RM) $(NAME)
-	@echo "erased"
+	$(RM) $(NAME)
 
-re:	fclean all
+re: fclean all
