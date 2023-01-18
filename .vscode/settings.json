@@ -10,4 +10,5 @@
 	"editor.tabCompletion": "on",
 	"editor.suggestOnTriggerCharacters": true,
 	"editor.rulers": [80],
+	"files.insertFinalNewline": true,
 }

@@ -1,6 +1,7 @@
 # MINISHEL
 bin/
 minishell
+venv/
 
 # Prerequisites
 *.d
