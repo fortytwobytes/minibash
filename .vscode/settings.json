@@ -11,4 +11,5 @@
 	"editor.suggestOnTriggerCharacters": true,
 	"editor.rulers": [80],
 	"files.insertFinalNewline": true,
+	"C_Cpp.errorSquiggles": "disabled",
 }
