@@ -8,6 +8,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "utils.h"
 # include "parsing.h"

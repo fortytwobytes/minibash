@@ -3,8 +3,10 @@
 
 # include "minishell.h"
 
-void	*ft_calloc(size_t size);
 int		ft_strcmp(char *s1, char *s2);
+void	ft_putstr_fd(char *str, int fd);
+void	*ft_calloc(size_t size);
 void	ft_exit(int status, char *msg);
+size_t	ft_strlen(char *str);
 
 #endif // UTILS_H
