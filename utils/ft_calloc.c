@@ -8,7 +8,7 @@ void	*ft_calloc(size_t size)
 	i = 0;
 	memory_area = malloc(size);
 	if (!memory_area)
-		return (NULL);
+		ft_exit("malloc error", 1);
 	while (i <= size)
 	{
 		memory_area[i] = 0;
