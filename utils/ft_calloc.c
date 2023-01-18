@@ -1,18 +1,24 @@
 #include "utils.h"
 
-void	*ft_calloc(size_t size)
+void ft_bzero(void *p, size_t bytes)
 {
-	size_t	i;
-	char	*memory_area;
+	size_t i;
 
 	i = 0;
-	memory_area = malloc(size);
-	if (!memory_area)
-		return (NULL);
-	while (i <= size)
+	while (i < bytes)
 	{
-		memory_area[i] = 0;
+		*((char *)p + i) = 0;
 		i++;
 	}
-	return ((void *)memory_area);
+}
+
+void *ft_calloc(size_t bytes)
+{
+	void *p;
+
+	p = malloc(bytes);
+	if (!p)
+		ft_exit(EXIT_FAILURE, "malloc error");
+	ft_bzero(p, bytes);
+	return (p);
 }
