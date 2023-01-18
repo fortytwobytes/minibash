@@ -1,0 +1,13 @@
+{
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"editor.detectIndentation": false,
+	"editor.renderWhitespace": "all",
+	"editor.renderControlCharacters": true,
+	"editor.formatOnSave": true,
+	"editor.trimAutoWhitespace": true,
+	"editor.formatOnPaste": true,
+	"editor.tabCompletion": "on",
+	"editor.suggestOnTriggerCharacters": true,
+	"editor.rulers": [80],
+}
