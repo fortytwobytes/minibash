@@ -1,29 +1,44 @@
-CC		= gcc
-# CFLAGS		= -Wall -Werror -Wextra -g -I includes
-CFLAGS		= -g -I includes
-RM		= rm -rf
+CC			= gcc
+CFLAGS		= -g -I includes # -Wall -Wextra -Werror
+RM			= rm -rf
+MKDIR		= mkdir -p
+
+RED             = \033[0;31m
+GREEN           = \033[0;32m
+YELLOW          = \033[0;33m
+BLUE			= \033[0;34m
+NO_COLOR        = \033[0m
 
 SRCS		= $(wildcard srcs/*.c builtins/*.c execution/*.c parsing/*.c utils/*.c main.c)
-SRC_DIRS	= $(dir $(SRCS))
-OBJ_DIR		= bin/
-OBJS		= $(SRCS:%.c=$(OBJ_DIR)%.o)
-INCLUDE_FILES	= $(wildcard includes/*.h)
+SRCS_DIRS	= $(dir $(SRCS))
+
+BIN_DIR		= bin/
+
+OBJS		= $(SRCS:%.c=$(BIN_DIR)%.o)
+OBJS_DIRS	= $(dir $(OBJS))
+
+INCLUDES	= $(wildcard includes/*.h)
 
 NAME		= minishell
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	@echo -e "$(YELLOW)Linking object files... $(NO_COLOR)"
+	@$(CC) $(OBJS) -o $(NAME)
+	@echo -e "$(GREEN)Build completed successfully!$(NO_COLOR)"
 
-$(OBJ_DIR)%.o: %.c $(INCLUDE_FILES)
-	@mkdir -p $(OBJ_DIR) $(foreach dir, $(SRC_DIRS), $(OBJ_DIR)/$(dir))
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BIN_DIR)%.o: %.c $(INCLUDES)
+	@$(MKDIR) $(OBJS_DIRS)
+	@echo -e "$(BLUE)[Compiling] $(NO_COLOR) $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_DIR)
+	@echo -e "$(RED)Cleaning up object files... $(NO_COLOR)"
+	@$(RM) $(BIN_DIR)
 
-fclean:	clean
-	$(RM) $(NAME)
+fclean: clean
+	@echo -e "$(RED)Cleaning up executable... $(NO_COLOR)"
+	@$(RM) $(NAME)
 
 re: fclean all
