@@ -1,4 +1,4 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-#endif // LIB_H
+#endif // PARSING_H
