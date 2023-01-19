@@ -2,6 +2,11 @@
 
 static void	put_nbr_base(unsigned long nbr, char *base, int base_len, int fd);
 
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
@@ -34,12 +39,6 @@ void	ft_puthex_fd(unsigned long nbr, int fd, char form)
 		put_nbr_base((unsigned int)nbr, upp_hex, 16, fd);
 	else
 		put_nbr_base((unsigned long)nbr, low_hex, 16, fd);
-}
-
-void	ft_putptr_fd(void *nbr, int fd)
-{
-	ft_putstr_fd("0x", fd);
-	ft_puthex_fd((unsigned long)nbr, fd, 'p');
 }
 
 static void	put_nbr_base(unsigned long nbr,
