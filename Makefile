@@ -1,5 +1,6 @@
 CC			= cc
-CFLAGS		= -g -I includes # -Wall -Wextra -Werror
+CFLAGS		= -g -I includes -fsanitize=leak -fsanitize=address
+ # -Wall -Wextra -Werror
 RM			= rm -rf
 MKDIR		= mkdir -p
 
