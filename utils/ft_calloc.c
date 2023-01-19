@@ -13,12 +13,12 @@ void *ft_calloc(size_t bytes)
 	return (p);
 }
 
-void ft_bzero(void *p, size_t bytes)
+static void ft_bzero(void *p, size_t bytes)
 {
 	size_t i;
 
 	i = 0;
-	while (i <= bytes)
+	while (i < bytes)
 	{
 		*((char *)p + i) = 0;
 		i++;
