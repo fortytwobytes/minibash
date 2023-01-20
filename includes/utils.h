@@ -13,6 +13,8 @@ char	*ft_strdup(char *s1);
 char	**ft_split(char *s, char c);
 void	*ft_calloc(size_t size);
 size_t	ft_strlen(char *str);
+void	free_split(char **s);
+char	*ft_substr(char *s, size_t start, size_t end);
 
 /* ---------- PRINTS ------------ */
 void	ft_putchar_fd(char c, int fd);

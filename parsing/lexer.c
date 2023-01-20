@@ -12,22 +12,24 @@
 
 #include "minishell.h"
 
-size_t next_quote(size_t i, char quote, char *line)
+// a function that return the position of the next quote char
+int next_quote(int i, char quote, char *line)
 {
 	while (line[i])
 	{
 		if (line[i] == quote)
-			return i;
+			return (i);
 		i++;
 	}
-	ft_exit(EXIT_FAILURE, "syntax error");
-	return -1;
+	return (-1);
 }
 
-size_t word_count(char *line)
+// a function that returns the number of words splited by blank 
+// or -1 if the quotes are umatching
+int word_count(char *line)
 {
-	size_t count;
-	size_t i;
+	int count;
+	int i;
 	int flag;
 
 	flag = 1;
@@ -39,6 +41,8 @@ size_t word_count(char *line)
 		{
 			if (line[i] == '"' || line[i] == '\'')
 				i = next_quote(i + 1, line[i], line);
+			if (i == -1)
+				return -1;
 			if (flag != 0)
 				count++;
 			flag = 0;
@@ -47,14 +51,14 @@ size_t word_count(char *line)
 			flag = 1;
 		i++;
 	}
-	return count;
+	return (count);
 }
 
-char *get_next_word(char *s, size_t *index)
+char *get_next_word(char *s, int *index)
 {
-	size_t i;
-	size_t j;
-	size_t k;
+	int i;
+	int j;
+	int k;
 	char *word;
 
 	k = 0;
@@ -78,15 +82,18 @@ char *get_next_word(char *s, size_t *index)
 	*index = i;
 	return (word);
 }
-
+// a function that split a string by blank and returns the result in a 2d array 
+// or -1 if the quotes are umatching
 char **split_by_blank(char *line)
 {
 	char **res;
-	size_t wc;
-	size_t i;
-	size_t j;
+	int wc;
+	int i;
+	int j;
 
 	wc = word_count(line);
+	if (wc == -1)
+		return (NULL);
 	res = ft_calloc((wc + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
@@ -97,11 +104,25 @@ char **split_by_blank(char *line)
 	}
 	return res;
 }
-
-void parse_line(char *line)
+// in first we split the words by blank characters and remove them , then we separate the words from the operators 
+// and create token ,then we parse the semantics of the tokens created
+void parse_line(char *line,char **envp)
 {
 	char **words;
+	t_token *tokens;
 
 	words = split_by_blank(line);
-	// words = split_by_metachar(words); // to do
+	if (words == NULL)
+	{
+		ft_putstr_fd("$> : syntax errorrr\n",2);
+		return;
+	}
+	tokens = split_by_operator(words);
+	free_split(words);
+	if (!parse(tokens))
+	{
+		ft_putstr_fd("$> : syntax error\n",2);
+		return;
+	}
+	// expand_tokens(tokens,envp);
 }
