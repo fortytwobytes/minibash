@@ -3,6 +3,7 @@
 
 #include "minishell.h"
 
+int		ft_open(char *path, int oflag, int mode);
 void	ft_close(int fildes);
 void	ft_pipe(int fd[2]);
 void	ft_dup(int fildes);
