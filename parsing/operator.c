@@ -11,7 +11,6 @@ int	is_operator(char c)
 	return (0);
 }
 
-// echo, "hello      there", how, are, 'you 'doing?, pixel, |wc, -l, >outfile, NULL
 int	position_of_operator(char *s)
 {
 	int i;
