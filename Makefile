@@ -2,6 +2,8 @@ CC			= cc
 CFLAGS		=  -g -I includes # -Wall -Wextra -Werror 
 RM			= rm -rf
 MKDIR		= mkdir -p
+COMP        = -L/goinfre/mtagemou/.brew/opt/readline/lib
+LINK 		= -I/goinfre/mtagemou/.brew/opt/readline/include
 
 RED             = \033[0;31m
 GREEN           = \033[0;32m
@@ -24,21 +26,16 @@ NAME		= minishell
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo -e "$(YELLOW)Linking object files... $(NO_COLOR)"
-	@$(CC)  $(OBJS) -o $(NAME)
-	@echo -e "$(GREEN)Build completed successfully!$(NO_COLOR)"
+	@$(CC) -L/goinfre/mtagemou/.brew/opt/readline/lib -I/goinfre/mtagemou/.brew/opt/readline/include -lreadline $(OBJS)  -o $(NAME)
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@echo -e "$(BLUE)[Compiling] $(NO_COLOR) $<"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(LINK) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo -e "$(RED)Cleaning up object files... $(NO_COLOR)"
 	@$(RM) $(BIN_DIR)
 
 fclean: clean
-	@echo -e "$(RED)Cleaning up executable... $(NO_COLOR)"
 	@$(RM) $(NAME)
 
 re: fclean all

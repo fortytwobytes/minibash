@@ -6,6 +6,8 @@ void free_split(char **s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return;
 	while(s[i])
 	{
 		free(s[i]);

@@ -8,8 +8,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "readline/readline.h"
+#include "readline/history.h"
 
 #define TRUE 1
 #define FALSE 0

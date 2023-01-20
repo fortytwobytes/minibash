@@ -21,10 +21,10 @@ typedef struct s_cmd {
 }t_cmd;
 
 // void	parse(t_main *main, char *line);
-void	parse(t_token *tokens);
-void	parse_line(char *line);
+int		parse(t_token *tokens);
+void	parse_line(char *line, char **envp);
 t_token *split_by_operator(char **words);
-size_t next_quote(size_t i, char quote, char *line);
+int next_quote(int i, char quote, char *line);
 
 void	add_back(t_token **head,char *s);
 void	print_list(t_token *head);
