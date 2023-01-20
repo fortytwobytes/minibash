@@ -114,14 +114,14 @@ void parse_line(char *line,char **envp)
 	words = split_by_blank(line);
 	if (words == NULL)
 	{
-		ft_putstr_fd("haha : syntax error\n",2);
+		ft_putstr_fd("$> : syntax errorrr\n",2);
 		return;
 	}
 	tokens = split_by_operator(words);
 	free_split(words);
 	if (!parse(tokens))
 	{
-		ft_putstr_fd("haha : syntax error\n",2);
+		ft_putstr_fd("$> : syntax error\n",2);
 		return;
 	}
 	// expand_tokens(tokens,envp);

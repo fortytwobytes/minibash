@@ -74,9 +74,9 @@ int	parse(t_token *tokens)
 {
 	if (!check_invalid_operator(tokens))
 		return (0);
-	if (check_redirections(tokens))
+	if (!check_redirections(tokens))
 		return (0);
-	if (check_pipes(tokens))
+	if (!check_pipes(tokens))
 		return (0);
 	return (1);
 }
