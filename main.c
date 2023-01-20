@@ -7,6 +7,8 @@ int	main(int argc, char **argv, char **envp)
 	main.argc = argc;
 	main.argv = argv;
 	main.envp = envp;
-	shell_loop(&main);
+	// shell_loop(&main);
+	parse_line(" echo     ");
+	// system("leaks minishell");
 	return (0);
 }

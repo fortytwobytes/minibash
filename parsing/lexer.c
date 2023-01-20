@@ -17,11 +17,11 @@ size_t next_quote(size_t i, char quote, char *line)
 	while (line[i])
 	{
 		if (line[i] == quote)
-			return i;
+			return (i);
 		i++;
 	}
-	ft_exit(EXIT_FAILURE, "syntax error");
-	return -1;
+	ft_exit(EXIT_SYNTAX, "syntax error");
+	return (0);
 }
 
 size_t word_count(char *line)
@@ -47,7 +47,7 @@ size_t word_count(char *line)
 			flag = 1;
 		i++;
 	}
-	return count;
+	return (count);
 }
 
 char *get_next_word(char *s, size_t *index)
@@ -97,11 +97,17 @@ char **split_by_blank(char *line)
 	}
 	return res;
 }
-
+// in first we split the words by blank characters and remove them , then we separate the words from the operators 
+// and create token ,then we parse the semantics of the tokens created 
 void parse_line(char *line)
 {
 	char **words;
+	t_token *tokens;
 
 	words = split_by_blank(line);
-	// words = split_by_metachar(words); // to do
+	tokens = split_by_operator(words);
+	free_split(words);
+	parse(tokens);
 }
+// wc => ||||| => ls
+// word operator word

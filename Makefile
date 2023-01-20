@@ -1,5 +1,5 @@
 CC			= cc
-CFLAGS		= -g -I includes # -Wall -Wextra -Werror
+CFLAGS		=  -g -I includes # -Wall -Wextra -Werror 
 RM			= rm -rf
 MKDIR		= mkdir -p
 
@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo -e "$(YELLOW)Linking object files... $(NO_COLOR)"
-	@$(CC) $(OBJS) -o $(NAME)
+	@$(CC)  $(OBJS) -o $(NAME)
 	@echo -e "$(GREEN)Build completed successfully!$(NO_COLOR)"
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
