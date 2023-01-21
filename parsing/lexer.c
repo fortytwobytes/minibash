@@ -124,5 +124,6 @@ void parse_line(char *line,char **envp)
 		ft_putstr_fd("$> : syntax error\n",2);
 		return;
 	}
-	// expand_tokens(tokens,envp);
+	expand_tokens(tokens,envp);
+	print_list(tokens);
 }
