@@ -25,6 +25,7 @@ int		parse(t_token *tokens);
 void	parse_line(char *line, char **envp);
 t_token *split_by_operator(char **words);
 int next_quote(int i, char quote, char *line);
+void expand_tokens(t_token *tokens, char *envp[]);
 
 void	add_back(t_token **head,char *s);
 void	print_list(t_token *head);
