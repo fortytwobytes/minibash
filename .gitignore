@@ -2,6 +2,8 @@
 bin/
 minishell
 venv/
+Makefile
+.vscode/
 
 # Prerequisites
 *.d

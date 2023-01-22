@@ -7,7 +7,7 @@ void	shell_loop(t_main *main)
 	while (TRUE)
 	{
 		line = readline(PROMPT);
-		if (!line || !ft_strcmp(line, "exit"))
+		if (!line || !ft_strcmp(line, "exit")) // || or a sigkill, to handle later
 			/*
 				TODO: 	add a function that frees the memory,
 						clears history, etc.
