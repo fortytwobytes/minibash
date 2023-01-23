@@ -1,12 +1,23 @@
 #include "minishell.h"
 
+t_global	global;
+
+t_envs  *envs_init(void);
+void	pop_env(char *name);
+char	*ft_getenv(char *name);
+
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_main	main;
+	global.env = envp;
+	global.envs = envs_init();
+	global.path = ft_getenv("PATH");	
 
-	main.argc = argc;
-	main.argv = argv;
-	main.envp = envp;
-	shell_loop(&main);
+	// when they run `bash -i ./minishell` or 'unset PATH'
+	// we should hardcode some paths to make the same behavior as bash
+
+	shell_loop();
 	return (0);
 }
+
+

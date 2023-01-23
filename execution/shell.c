@@ -9,19 +9,9 @@
 */
 
 // just for testing
-void	hardcode(char **args)
-{
-	if (*args == NULL)
-		return ;
-	if (!ft_strcmp(args[0], "cd"))
-		cd(args);
-	if (!ft_strcmp(args[0], "pwd"))
-		pwd(args);
-	if (!ft_strcmp(args[0], "echo"))
-		echo(args);
-}
 
-void	shell_loop(t_main *main)
+
+void	shell_loop(void)
 {
 	char	*line;
 
@@ -29,10 +19,10 @@ void	shell_loop(t_main *main)
 	{
 		line = readline(PROMPT);
 		char **args = ft_split(line, ' ');
-		if (!line || !ft_strcmp(line, "exit")) // || or a sigkill, to handle later
+		if (!line) // or a sigkill, to handle later
 			break ;
 		add_history(line);
-		hardcode(args);	
+		hardcode_builtins(args);	
 		free(line);
 		free_split(args);
 	}

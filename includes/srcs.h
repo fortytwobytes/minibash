@@ -15,4 +15,10 @@ void	ft_wait3(int *wstatus, int options, struct rusage *rusage);
 void	ft_wait4(pid_t pid, int *wstatus, int options, struct rusage *rusage);
 pid_t	ft_fork(void);
 
+/* ------- ENVS -------*/
+t_envs  *envs_init(void);
+void    add_env(t_envs **envs, char *env);
+void    pop_env(char *name);
+char    *ft_getenv(char *name);
+
 #endif // SRCS_H

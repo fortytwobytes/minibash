@@ -20,15 +20,33 @@
 #define READ 0
 #define WRITE 1
 
-typedef struct s_main t_main;
-struct s_main
+typedef struct s_envs t_envs;
+typedef struct s_global t_global;
+
+/* ---- Global variable ---- */
+extern t_global global;
+/* ------------------------- */
+
+struct s_envs
 {
-	int		argc;
-	char	**argv;
-	char	**envp;
+	char	*name;
+	char	*value;
+	t_envs	*next;
 };
 
-void shell_loop(t_main *main);
+struct s_global
+{
+	char	**env;
+	char	*path;	
+	t_envs	*envs;
+};
+
+void shell_loop(void);
+
+
+/*----- DEBUGGIN -----*/
+void	print_global(char *path, char *env, char *our_env);
+void    hardcode_builtins(char **args);
 
 #include "utils.h"
 #include "parsing.h"
