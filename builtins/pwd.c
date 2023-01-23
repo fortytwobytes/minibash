@@ -1,14 +1,14 @@
 #include "builtin.h"
 
-void    pwd(char **args)
+void    pwd(char **args, int fd)
 {
     char *cwd;
 
     (void) args;
     cwd = getcwd(NULL, 0);
     if (!cwd)
-        fatal("pwd", strerror(errno));
-    ft_putstr_fd(cwd, 1);
-    ft_putchar_fd('\n', 1);
+        fatal("pwd", strerror(errno), fd);
+    ft_putstr_fd(cwd, fd);
+    ft_putchar_fd('\n', fd);
     free(cwd);
 }

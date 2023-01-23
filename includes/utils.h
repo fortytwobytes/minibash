@@ -6,7 +6,7 @@
 
 /* ---------- ERRORS ------------ */
 void	ft_exit(int status, char *msg);
-void    fatal(char *cmd, char *msg);
+void    fatal(char *cmd, char *msg, int fd);
 
 /* ---------- STRINGS ------------ */
 int		ft_strcmp(char *s1, char *s2);

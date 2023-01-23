@@ -3,26 +3,23 @@
 static int  args_len(char **args);
 char    *ft_getenv(char *name);
 
-void    cd(char **args)
+void    cd(char **args, int fd)
 {
     int i = args_len(args);
-    if (i > 2)
-        fatal("cd", "too many arguments");
-    else if (i == 1)
+    if (i == 1)
     {
         char *home = ft_getenv("HOME");
         if (!home)
-            fatal("cd", "HOME not set");
+            fatal("cd", "HOME not set", fd);
         else if (chdir(home) != 0)
-            fatal("cd", "no such file or directory");
+            fatal("cd", "no such file or directory", fd);
     }
-    else if (i == 2)
+    else if (i >= 2)
     {
         if (chdir(args[1]))
-            fatal("cd", "no such file or directory");
+            fatal("cd", "no such file or directory", fd);
     }
 }
-
 
 static int  args_len(char **args)
 {

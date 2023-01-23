@@ -38,17 +38,17 @@ void	hardcode_builtins(char **args)
 	if (*args == NULL)
 		return ;
 	if (!ft_strcmp(args[0], "cd"))
-		cd(args);
+		cd(args, 1);
 	if (!ft_strcmp(args[0], "pwd"))
-		pwd(args);
+		pwd(args, 1);
 	if (!ft_strcmp(args[0], "echo"))
-		echo(args);
+		echo(args, 1);
 	if (!ft_strcmp(args[0], "export"))
-		export(args);
+		export(args, 1);
 	if (!ft_strcmp(args[0], "unset"))
-		unset(args);
+		unset(args, 1);
 	if (!ft_strcmp(args[0], "env"))
-		env(args);
+		env(args, 1);
 	if (!ft_strcmp(args[0], "exit"))
 	{
 		free_split(args);

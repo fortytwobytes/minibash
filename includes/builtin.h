@@ -3,11 +3,11 @@
 
 # include "minishell.h"
 
-void    cd(char **args);
-void    pwd(char **args);
-void    echo(char **args);
-void    env(char **args);
-void    unset(char **args);
-void    export(char **args);
+void    cd(char **args, int fd);
+void    pwd(char **args, int fd);
+void    echo(char **args, int fd);
+void    env(char **args, int fd);
+void    unset(char **args, int fd);
+void    export(char **args, int fd);
 
 #endif // BUILITIN_H

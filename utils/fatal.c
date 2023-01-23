@@ -1,10 +1,10 @@
 #include "utils.h"
 
-void    fatal(char *cmd, char *msg)
+void    fatal(char *cmd, char *msg, int fd)
 {
-    ft_putstr_fd("rmshell: ", 2);
-    ft_putstr_fd(cmd, 2);
-    ft_putstr_fd(": ", 2);
-    ft_putstr_fd(msg, 2);
-    ft_putchar_fd('\n', 2);
+    ft_putstr_fd("rmshell: ", fd);
+    ft_putstr_fd(cmd, fd);
+    ft_putstr_fd(": ", fd);
+    ft_putstr_fd(msg, fd);
+    ft_putchar_fd('\n', fd);
 }
