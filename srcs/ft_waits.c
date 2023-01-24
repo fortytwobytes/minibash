@@ -1,9 +1,11 @@
 #include "srcs.h"
 
-void	ft_waitpid(pid_t pid, int *status, int options)
+void	ft_waitpid(pid_t pid)
 {
-	if (waitpid(pid, status, options) == -1)
-		ft_exit(errno, strerror(errno));
+	int	status;
+
+	if (waitpid(pid, &status, 0) == -1)
+		ft_exit(WEXITSTATUS(status), strerror(errno));
 }
 
 void	ft_wait(int *status)

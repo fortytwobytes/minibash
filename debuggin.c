@@ -49,9 +49,20 @@ void	hardcode_builtins(char **args)
 		unset(args, 1);
 	if (!ft_strcmp(args[0], "env"))
 		env(args, 1);
+	if (!ft_strcmp(args[0], "./minishell")) // this case should be added
+	{
+		global.shlvl++;
+		// for dubshells
+		shell_loop();
+		// we should execute minishell as a normal command here
+	}
 	if (!ft_strcmp(args[0], "exit"))
 	{
 		free_split(args);
+		global.shlvl--;
 		exit(EXIT_SUCCESS);
+		// exit should behave like ctrl + d
+		// if we are in a subshell we should exit the subshell
+		// not the whole program
 	}
 }
