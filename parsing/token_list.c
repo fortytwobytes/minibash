@@ -4,7 +4,7 @@ void print_list(t_token *head)
 {
 	while(head)
 	{
-		printf("_%s_ type : %d \n",head->token,head->type);
+		printf("%s\n",head->token);
 		head = head ->next;
 	}
 }
@@ -19,7 +19,9 @@ int choose_token_type(char *s)
 	i =0;
 	if (!ft_strcmp(s,"|"))
 		return (PIPE);
-	if (!ft_strcmp(s,">>") || !ft_strcmp(s,"<<") )
+	if (!ft_strcmp(s,"<<"))
+		return (HEREDOC);
+	if (!ft_strcmp(s,">>"))
 		return (REDIRECTION);
 	if (!ft_strcmp(s,"<") || !ft_strcmp(s,">"))
 		return (REDIRECTION);
@@ -53,4 +55,26 @@ void add_back(t_token **head,char *s)
 	while(i->next)
 		i = i->next;
 	i->next = p;
+}
+
+void add_middle(t_token *token,char *word)
+{
+	t_token *p;
+
+	p = create_node(word);
+	p->type = WORD;
+	p->next = token->next;
+	token->next = p;
+}
+
+// this function checks for heredoc and set the word next to it to a limiter
+void check_heredoc(t_token *token)
+{
+	while (token)
+	{
+		if (token->type == HEREDOC)
+			(token->next)->type = LIMITER;
+		token = token->next;
+	}
+	
 }

@@ -19,6 +19,9 @@ void	*ft_calloc(size_t size);
 size_t	ft_strlen(char *str);
 void	free_split(char **s);
 char	*ft_substr(char *s, size_t start, size_t end);
+int		is_upper(char c);
+int		is_lower(char c);
+int		is_num(char c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_sep(char *s1, char *s2, char sep);
 

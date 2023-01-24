@@ -54,7 +54,7 @@ int word_count(char *line)
 	return (count);
 }
 
-char *get_next_word(char *s, int *index)
+static char *get_next_word(char *s, int *index)
 {
 	int i;
 	int j;
@@ -108,8 +108,9 @@ char **split_by_blank(char *line)
 // and create token ,then we parse the semantics of the tokens created
 void parse_line(char *line,char **envp)
 {
-	char **words;
+	char	**words;
 	t_token *tokens;
+	t_cmd	*cmds;
 
 	words = split_by_blank(line);
 	if (words == NULL)
@@ -124,6 +125,9 @@ void parse_line(char *line,char **envp)
 		ft_putstr_fd("$> : syntax error\n",2);
 		return;
 	}
-	expand_tokens(tokens,envp);
-	print_list(tokens);
+	check_heredoc(tokens);
+	tokens = expand_tokens(tokens,envp);
+	// free_tokens(tokens);
+	cmds = convert_to_cmds(tokens);
+	print_cmd(cmds);
 }

@@ -6,11 +6,6 @@ int	ft_open(char *path, int flags, int mode)
 
 	fd = open(path, flags, mode); 
 	if (fd == -1)
-	{
-		ft_putstr_fd("rmshell: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		exit(errno);
-	}
+		perror(path);
 	return (fd);
 }

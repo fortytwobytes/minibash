@@ -57,7 +57,8 @@ char	*get_word(char *s, size_t *index)
 	*index += pos ;
 	return ft_substr(&s[i], 0, pos);
 }
-// this function split the words by operator 
+// this function split the words by operator and create a linked list with the tokens 
+
 t_token *split_by_operator(char **words)
 {
 	t_token	*tokens;

@@ -50,27 +50,69 @@ char *quotes_removal(char *token)
 		return token;
 	return trim_quotes(token, quotes_len);
 }
-// // this function return the value of a variable given its name
-// char *get_paramter_value(char *name)
-// {
 
-// }
-// // this function performs the neccessary parameter expansions
-// char *parameter_expansion(char *token,char *envp[])
-// {
-
-// }
-// in the expansion part we only have to handle paramter expansion ($) and quotes removal .
-// and we will implement these expansions in the same order of the bash cad variable expansion then quotes removal
-void expand_tokens(t_token *tokens, char *envp[])
+// we will loop the linked list and remove empty strings that resulted from an unkown variable expansion .
+t_token	*remove_empty_tokens(t_token *tokens)
 {
+	t_token *prev;
+	t_token *head;
+
+	prev = NULL;
+	head = tokens;
+	while (tokens)
+	{
+		if (*(tokens->token) == 0)
+		{
+			if (prev == NULL)
+			{
+				head = tokens->next;
+				free(tokens->token);
+				free(tokens);
+				tokens = head;
+			}
+			else
+			{
+				prev->next = tokens->next;
+				free(tokens->token);
+				free(tokens);
+				tokens = prev->next;
+			}
+		}
+		else
+		{
+			prev = tokens;
+			tokens = tokens->next;
+		}
+	}
+	return (head);
+}
+
+// in the expansion part we only have to handle paramter expansion ($) and quotes removal .
+// and we will implement these expansions in the same order of the bash cad variable expansion , word spliting => after word spliting we shall remove
+// unquoted  empty strings that did result from a variable expension ,then quotes removal
+t_token *expand_tokens(t_token *tokens, char *envp[])
+{
+	t_token *token;
+	t_token *head;
+
+	token = tokens;
+	while (token)
+	{
+		if (token->type == WORD)
+		{
+			token->token = parameter_expansion(token->token,envp);
+			token = word_spliting(token);
+		}
+		token = token->next;
+	}
+	token = tokens;
+	tokens = remove_empty_tokens(token);
+	head = tokens;
 	while (tokens)
 	{
 		if (tokens->type == WORD)
-		{
-			// tokens->token = parameter_expansion(tokens->token,envp);
 			tokens->token = quotes_removal(tokens->token);
-		}
 		tokens = tokens->next;
 	}
+	return head;
 }
