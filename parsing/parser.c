@@ -17,7 +17,7 @@ int check_redirections(t_token *tokens)
 {
 	while (tokens)
 	{
-		if (tokens->type == REDIRECTION)
+		if (tokens->type == REDIRECTION || tokens->type == HEREDOC)
 		{
 			if (tokens->next)
 			{

@@ -28,11 +28,13 @@ struct s_main
 	char	**envp;
 };
 
+
 void shell_loop(t_main *main);
 
 #include "utils.h"
 #include "parsing.h"
 #include "builtin.h"
 #include "parsing.h"
+#include "srcs.h"
 
 #endif // MINISHELL_H

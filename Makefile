@@ -1,5 +1,5 @@
 CC			= cc
-CFLAGS		=  -g -I includes # -Wall -Wextra -Werror 
+CFLAGS		=  -g -I includes  -Wall -Wextra -Werror 
 RM			= rm -rf
 MKDIR		= mkdir -p
 COMP        = -L/goinfre/mtagemou/.brew/opt/readline/lib

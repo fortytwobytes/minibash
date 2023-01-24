@@ -8,5 +8,6 @@ int	main(int argc, char **argv, char **envp)
 	main.argv = argv;
 	main.envp = envp;
 	shell_loop(&main);
+	// parse_line("echo a bc c",envp);
 	return (0);
 }

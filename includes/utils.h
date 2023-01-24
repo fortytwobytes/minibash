@@ -15,6 +15,10 @@ void	*ft_calloc(size_t size);
 size_t	ft_strlen(char *str);
 void	free_split(char **s);
 char	*ft_substr(char *s, size_t start, size_t end);
+int		is_upper(char c);
+int		is_lower(char c);
+int		is_num(char c);
+
 
 /* ---------- PRINTS ------------ */
 void	ft_putchar_fd(char c, int fd);
