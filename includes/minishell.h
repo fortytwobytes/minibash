@@ -36,5 +36,6 @@ void shell_loop(t_main *main);
 #include "builtin.h"
 #include "parsing.h"
 #include "srcs.h"
+#include "execution.h"
 
 #endif // MINISHELL_H
