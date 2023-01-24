@@ -11,15 +11,16 @@ void cd(char **args, int fd)
 	{
 		char *home = ft_getenv("HOME");
 		if (!home)
-			fatal("cd", "HOME not set", fd);
+			fatal("cd", "HOME not set");
 		else if (chdir(home) != 0)
-			fatal("cd", "no such file or directory", fd);
+			fatal("cd", "no such file or directory");
 	}
 	else if (i >= 2)
 	{
 		if (chdir(args[1]))
-			fatal("cd", "no such file or directory", fd);
+			fatal("cd", "no such file or directory");
 	}
+	ft_putchar_fd(0, fd); // just in case of a redirection or a pipe
 	update_pwd();
 }
 

@@ -5,10 +5,11 @@
 
 /* ---------- MISC ------------ */
 int		ft_atoi(char *str);
+int		is_char_in_str(char *str, char c);
 
 /* ---------- ERRORS ------------ */
 void	ft_exit(int status, char *msg);
-void    fatal(char *cmd, char *msg, int fd);
+void	fatal(char *cmd, char *msg);
 
 /* ---------- STRINGS ------------ */
 int		ft_strcmp(char *s1, char *s2);

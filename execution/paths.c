@@ -1,7 +1,5 @@
 #include "execution.h"
 
-static int	is_char_in_str(char *str, char c);
-
 char	*ft_getpath(char *cmd)
 {
 	int		i;
@@ -31,7 +29,7 @@ char	*ft_getpath(char *cmd)
 	}
 }
 
-static int	is_char_in_str(char *str, char c)
+int	is_char_in_str(char *str, char c)
 {
 	while (str && *str)
 	{

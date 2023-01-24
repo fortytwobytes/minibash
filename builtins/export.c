@@ -14,7 +14,18 @@ void export(char **args, int fd)
 	args++;
 	while (*args)
 	{
+		if (is_char_in_str(*args, '=') == FALSE)
+		{
+			args++;
+			continue ;
+		}
 		sp = ft_split(*args, '=');
+		if (sp[1] == NULL)
+		{
+			free_split(sp);
+			args++;
+			continue ;
+		}
 		name = sp[0];
 		value = sp[1];
 		if (is_updated(name, value) == FALSE)
