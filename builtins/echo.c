@@ -42,7 +42,10 @@ static	int is_flag_n(char *flag)
 
 static	void echo_args(int *n, char **args, int fd)
 {
-	int i = 0;
+	int i;
+
+	(void) n;
+	i = 0;
 	while (args && args[i])
 	{
 		ft_putstr_fd(args[i], fd);

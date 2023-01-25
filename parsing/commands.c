@@ -14,6 +14,10 @@ void open_pipes(t_token	*tokens)
 
 t_token	*next_pipe(t_token *tokens)
 {
+	if (!tokens)
+		return NULL;
+	if (tokens->type == PIPE)
+		tokens = tokens->next;
 	while(tokens && tokens->type != PIPE)
 		tokens = tokens->next;
 	return tokens;
@@ -123,21 +127,23 @@ t_token	*add_cmd(t_cmd **cmds,t_token *tokens)
 	int		status;
 
 	last = *cmds;
-	// create cmd
 	new = ft_calloc(sizeof(t_cmd));
 	handle_pipes(new,tokens);
+	if(tokens->type == PIPE)
+		tokens = tokens->next;
 	status = handle_redirection(new,tokens);
 	if (!status)
 	{
-		close_fds(new); // to do
+		close_fds(new);
 		free(new);
 		return next_pipe(tokens);
 	}
 	handle_cmd(new,tokens);
-	// add last
 	if (!last)
+	{
 		*cmds = new;
-	return next_pipe(tokens);
+		return next_pipe(tokens);
+	}
 	while (last->next)
 		last = last->next;
 	last->next = new;

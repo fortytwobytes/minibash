@@ -1,11 +1,12 @@
 #include "minishell.h"
 
 // this function returns the len of the variable name , exp : $abc => 4 , $ => 1
+// [A-Z]{1,}[A-Z0-9_]
 int get_name_len(char *token, int i)
 {
 	int name_len;
 
-	if (token[i+1] == 0)
+	if (!(is_upper(token[i + 1]) || is_lower(token[i + 1])))
 		return 0;
 	name_len = 1;
 	while(is_env_name(token[i+1]))
@@ -16,25 +17,29 @@ int get_name_len(char *token, int i)
 	return name_len;
 }
 
-// this function returns the first occurence of a variable name
+// this function returns the first occurence of a variable name 
+// if we have an occurence of a $ alone we just mark it with -1 to not interump with further calls to this function
+// we will change the -1 latter
 char *get_name(char *token)
 {
 	int	i;
 	int	name_len;
 
 	i = 0;
-	name_len = 0;
+	name_len = -1;
 	while(token[i])
 	{
 		if (token[i] == '\'')
 			i = next_quote(i+1,token[i],token);
 		if (token[i] == '$')
 			name_len = get_name_len(token,i);
+		if (name_len == 0)
+			token[i] = -1;
 		if (name_len > 0)
 			break;
 		i++;
 	}
-	if (name_len == 0)
+	if (name_len == 0 || name_len == -1)
 		return NULL;
 	return ft_substr(token,i,i + name_len);
 }
@@ -69,10 +74,20 @@ char *replace_name_value(char *token, char *name, char *value)
 	free(token);
 	return new_token;
 }
-
+// in this function we remplace the -1 occurences with $
+// i need dollars dollars dollars is what i need
+void expands_dollars_dollars(char *token)
+{
+	while(*token)
+	{
+		if (*token == -1)
+			*token = '$';
+		token++;
+	}
+}
 
 // this funtion search for variable name and replace it by its value recursivly
-char *parameter_expansion(char *token,char *envp[])
+char *parameter_expansion(char *token)
 {
 	char *name;
 	char *value;
@@ -80,9 +95,14 @@ char *parameter_expansion(char *token,char *envp[])
 
 	name = get_name(token);
 	if (!name)
-		return token;
-	value =  get_value(name); // should be get_value(name) later;
+	{
+		expands_dollars_dollars(token);
+		return (token);
+	}
+	value =  get_env_value(name +1 ); 
 	new_token = replace_name_value(token,name,value);
 	free(name);
-	return parameter_expansion(new_token,envp);
+	return parameter_expansion(new_token);
 }
+
+// $$

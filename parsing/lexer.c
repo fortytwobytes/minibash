@@ -106,7 +106,7 @@ char **split_by_blank(char *line)
 }
 // in first we split the words by blank characters and remove them , then we separate the words from the operators 
 // and create token ,then we parse the semantics of the tokens created
-void parse_line(char *line,char **envp)
+void parse_line(char *line)
 {
 	char	**words;
 	t_token *tokens;
@@ -126,7 +126,7 @@ void parse_line(char *line,char **envp)
 		return;
 	}
 	check_heredoc(tokens);
-	tokens = expand_tokens(tokens,envp);
+	tokens = expand_tokens(tokens);
 	// free_tokens(tokens);
 	cmds = convert_to_cmds(tokens);
 	print_cmd(cmds);

@@ -11,6 +11,7 @@ int		is_updated(char *name, char *value);
 void	add_env(t_envs **envs, char *name, char *value);
 void	pop_env(char *name);
 char	*ft_getenv(char *name);
+char	*get_env_value(char *name);
 t_envs	*envs_init(void);
 
 char	*ft_getpath(char *cmd);

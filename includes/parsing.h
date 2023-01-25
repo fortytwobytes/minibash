@@ -36,13 +36,13 @@ typedef struct s_cmd
 
 // void	parse(t_main *main, char *line);
 int parse(t_token *tokens);
-void parse_line(char *line, char **envp);
+void parse_line(char *line);
 t_token *split_by_operator(char **words);
 int next_quote(int i, char quote, char *line);
-t_token *expand_tokens(t_token *tokens, char *envp[]);
+t_token *expand_tokens(t_token *tokens);
 int is_env_name(char c);
 t_cmd *convert_to_cmds(t_token *tokens);
-char *parameter_expansion(char *token, char *envp[]);
+char *parameter_expansion(char *token);
 char *get_value(char *s);
 
 void add_back(t_token **head, char *s);

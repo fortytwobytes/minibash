@@ -90,7 +90,7 @@ t_token	*remove_empty_tokens(t_token *tokens)
 // in the expansion part we only have to handle paramter expansion ($) and quotes removal .
 // and we will implement these expansions in the same order of the bash cad variable expansion , word spliting => after word spliting we shall remove
 // unquoted  empty strings that did result from a variable expension ,then quotes removal
-t_token *expand_tokens(t_token *tokens, char *envp[])
+t_token *expand_tokens(t_token *tokens)
 {
 	t_token *token;
 	t_token *head;
@@ -100,7 +100,7 @@ t_token *expand_tokens(t_token *tokens, char *envp[])
 	{
 		if (token->type == WORD)
 		{
-			token->token = parameter_expansion(token->token,envp);
+			token->token = parameter_expansion(token->token);
 			token = word_spliting(token);
 		}
 		token = token->next;

@@ -3,9 +3,9 @@
 
 void print_cmd(t_cmd *cmd)
 {
-	int i =0 ;
 	while (cmd)
 	{
+	int i =0 ;
 		printf("name :%s\n",cmd->cmd);
 		printf("options:\n");
 		while (cmd->args[i])
@@ -13,7 +13,7 @@ void print_cmd(t_cmd *cmd)
 			printf("%s\n",cmd->args[i]);
 			i++;
 		}
-		printf("outf : %d , inf : %d\n",cmd->infile,cmd->outfile);
+		printf("inf : %d , outf : %d\n",cmd->infile,cmd->outfile);
 		cmd = cmd->next;
 	}
 	

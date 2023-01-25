@@ -82,7 +82,21 @@ char	*ft_getenv(char *name)
 	}
 	return (NULL);
 }
+char	*get_env_value(char *name)
+{
+	t_envs *tmp;
 
+	tmp = global.envs;
+	if (!tmp)
+		return (NULL);
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, name))
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return ("");
+}
 int	is_updated(char *name, char *value)
 {
 	t_envs	*tmp;
