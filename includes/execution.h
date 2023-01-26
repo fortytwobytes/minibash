@@ -13,6 +13,8 @@ void	pop_env(char *name);
 char	*ft_getenv(char *name);
 t_envs	*envs_init(void);
 
+char	**dynamic_env(void);
+char    *here_doc_name(void);
 char	*ft_getpath(char *cmd);
 
 #endif // EXECUTION_H
