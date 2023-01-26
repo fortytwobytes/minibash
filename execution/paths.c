@@ -27,6 +27,7 @@ char	*ft_getpath(char *cmd)
 		else
 			return (free_split(sp_paths), tmp);
 	}
+	return NULL;
 }
 
 int	is_char_in_str(char *str, char c)

@@ -106,7 +106,7 @@ char **split_by_blank(char *line)
 }
 // in first we split the words by blank characters and remove them , then we separate the words from the operators 
 // and create token ,then we parse the semantics of the tokens created
-void parse_line(char *line)
+t_cmd *parse_line(char *line)
 {
 	char	**words;
 	t_token *tokens;
@@ -116,18 +116,19 @@ void parse_line(char *line)
 	if (words == NULL)
 	{
 		ft_putstr_fd("$> : syntax errorrr\n",2);
-		return;
+		return NULL;
 	}
 	tokens = split_by_operator(words);
 	free_split(words);
 	if (!parse(tokens))
 	{
 		ft_putstr_fd("$> : syntax error\n",2);
-		return;
+		return NULL;
 	}
-	check_heredoc(tokens);
+	tokenise_heredoc(tokens);
 	tokens = expand_tokens(tokens);
-	// free_tokens(tokens);
 	cmds = convert_to_cmds(tokens);
-	print_cmd(cmds);
+	// print_cmd(cmds);
+	free_tokens(tokens);
+	return cmds;
 }

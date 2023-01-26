@@ -5,7 +5,7 @@
 
 void	shell_loop(void);
 void	execute(t_cmd *head);
-void	exec_single_cmd(t_cmd *head, t_cmd *cmd);
+int		exec_single_cmd(t_cmd *head, t_cmd *cmd);
 
 int		is_updated(char *name, char *value);
 void	add_env(t_envs **envs, char *name, char *value);

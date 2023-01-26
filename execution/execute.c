@@ -7,40 +7,66 @@ void	close_all_fds(t_cmd *head)
 	tmp = head;
 	while (tmp)
 	{
-		// i think we should ignore the error of close
-		// to disccuss
-		ft_close(tmp->outfile);
-		ft_close(tmp->infile);
+		if (tmp->outfile != 0)
+			ft_close(tmp->outfile);
+		if (tmp->infile != 0)
+			ft_close(tmp->infile);
 		tmp = tmp->next;
 	}
 }
-
-void	exec_single_cmd(t_cmd *head, t_cmd *cmd)
+void command_not_found()
+{
+	printf("command not found\n");
+	exit(127);
+}
+int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 {
 	pid_t	pid;
 
+	// check if builtin;
 	pid = ft_fork();
+	if (pid == -1)
+		return -1;
 	if (pid == 0)
 	{
-		if (cmd->infile != READ)
-			ft_dup2(cmd->infile, READ);
-		if (cmd->outfile != WRITE)
-			ft_dup2(cmd->outfile, WRITE);
+		if (cmd->infile != 0)
+			ft_dup2(cmd->infile, 0);
+		if (cmd->outfile != 0)
+			ft_dup2(cmd->outfile, 1);
 		close_all_fds(head);
+		cmd->path = ft_getpath(cmd->cmd);
+		if (cmd->path == NULL)
+			command_not_found();
 		ft_execve(cmd->path, cmd->args);
 	}
-	ft_waitpid(pid); // also i didn't close all process here, todo later
-	// we will catch the return value of each process
+	return pid;
 }
 
 void	execute(t_cmd *head)
 {
 	t_cmd	*tmp;
+	int		last_pid;
+	int		status;
+	int		pid;
 
+	tmp = head;
+	last_pid = 0;
+	pid = 0;
 	while (tmp)
 	{
-		exec_single_cmd(head, tmp);
+		if (tmp->cmd)
+			last_pid = exec_single_cmd(head, tmp);
+		if (last_pid == -1)
+			break;
 		tmp = tmp->next;
 	}
 	close_all_fds(head);
+	if (last_pid == 0)
+		return ;
+	while (pid != -1)
+	{
+		pid = wait(&status);
+		if (last_pid == pid)
+			global.exit_status = WEXITSTATUS(status);
+	}
 }

@@ -25,6 +25,7 @@ void	init_global(char **envp)
 	char	*tmp_shlvl;
 
 	global.env = envp;
+	global.exit_status = 0;
 	global.pwd = getcwd(NULL, 0);
 	global.envs = envs_init();
 	global.path = ft_strdup("/bin/");

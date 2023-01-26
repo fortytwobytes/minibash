@@ -36,7 +36,7 @@ typedef struct s_cmd
 
 // void	parse(t_main *main, char *line);
 int parse(t_token *tokens);
-void parse_line(char *line);
+t_cmd *parse_line(char *line);
 t_token *split_by_operator(char **words);
 int next_quote(int i, char quote, char *line);
 t_token *expand_tokens(t_token *tokens);
@@ -48,7 +48,8 @@ char *get_value(char *s);
 void add_back(t_token **head, char *s);
 void add_middle(t_token *token, char *word);
 void print_list(t_token *head);
-void check_heredoc(t_token *token);
+void free_tokens(t_token *tokens);
+void tokenise_heredoc(t_token *token);
 int is_operator(char c);
 t_token *word_spliting(t_token *token);
 

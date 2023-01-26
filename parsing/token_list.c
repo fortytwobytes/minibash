@@ -68,7 +68,7 @@ void add_middle(t_token *token,char *word)
 }
 
 // this function checks for heredoc and set the word next to it to a limiter
-void check_heredoc(t_token *token)
+void tokenise_heredoc(t_token *token)
 {
 	while (token)
 	{
@@ -77,4 +77,16 @@ void check_heredoc(t_token *token)
 		token = token->next;
 	}
 	
+}
+
+void free_tokens(t_token *tokens)
+{	
+	t_token *prev;
+
+	while(tokens)
+	{
+		prev = tokens;
+		tokens = tokens->next;
+		free(prev);
+	}
 }

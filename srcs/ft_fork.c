@@ -6,6 +6,6 @@ int	ft_fork(void)
 
 	pid = fork();
 	if (pid == -1)
-		ft_exit(errno, strerror(errno));
+		perror("");
 	return (pid);
 }
