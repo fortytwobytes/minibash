@@ -114,3 +114,29 @@ int	is_updated(char *name, char *value)
 	}
 	return (FALSE);
 }
+
+char	**dynamic_env(void)
+{
+	int		i;
+	char	**env;
+	t_envs	*tmp;
+
+	i = 0;
+	tmp = global.envs;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	env = ft_calloc(sizeof(char *) * (i + 1));
+	i = -1;
+	tmp = global.envs;
+	while (env[++i])
+	{
+		if (tmp->value == NULL)
+			tmp->value = "";
+		env[i] = ft_strjoin_sep(tmp->name, tmp->value, '=');
+		tmp = tmp->next;
+	}
+	return (env);
+}

@@ -37,7 +37,7 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		cmd->path = ft_getpath(cmd->cmd);
 		if (cmd->path == NULL)
 			command_not_found();
-		ft_execve(cmd->path, cmd->args, NULL);
+		ft_execve(cmd->path, cmd->args);
 	}
 	return pid;
 }
