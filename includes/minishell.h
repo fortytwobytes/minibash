@@ -42,6 +42,7 @@ struct s_global
 	char	*pwd;
 	char	_;
 	int		shlvl;
+	int		exitstatus;
 	t_envs	*envs;
 };
 

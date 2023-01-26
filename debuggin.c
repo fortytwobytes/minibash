@@ -65,4 +65,8 @@ void	hardcode_builtins(char **args)
 		// if we are in a subshell we should exit the subshell
 		// not the whole program
 	}
+	if (!ft_strcmp("here", args[0]))
+	{
+		here_doc_name();
+	}
 }

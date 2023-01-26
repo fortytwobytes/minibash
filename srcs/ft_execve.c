@@ -1,8 +1,8 @@
 #include "srcs.h"
 
-void	ft_execve(char *path, char **argv, char **envp)
+void	ft_execve(char *path, char **argv)
 {
-	if (execve(path, argv, envp) == -1)
+	if (execve(path, argv, dynamic_env()) == -1)
 	{
 		ft_putstr_fd("rmshell: ", STDERR_FILENO);
 		ft_putstr_fd(argv[0], STDERR_FILENO);
