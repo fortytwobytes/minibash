@@ -82,11 +82,14 @@ char	*ft_getenv(char *name)
 	}
 	return (NULL);
 }
+
 char	*get_env_value(char *name)
 {
 	t_envs *tmp;
 
 	tmp = global.envs;
+	if (*name == '?')
+		return ft_itoa(global.exit_status);
 	if (!tmp)
 		return (NULL);
 	while (tmp)
@@ -97,6 +100,7 @@ char	*get_env_value(char *name)
 	}
 	return ("");
 }
+
 int	is_updated(char *name, char *value)
 {
 	t_envs	*tmp;

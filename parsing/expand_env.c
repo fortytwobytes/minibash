@@ -6,6 +6,8 @@ int get_name_len(char *token, int i)
 {
 	int name_len;
 
+	if (token[i+1] == '?')
+		return 2;
 	if (!(is_upper(token[i + 1]) || is_lower(token[i + 1])))
 		return 0;
 	name_len = 1;
@@ -26,9 +28,9 @@ char *get_name(char *token)
 	int	name_len;
 
 	i = 0;
-	name_len = -1;
 	while(token[i])
 	{
+		name_len = -1;
 		if (token[i] == '\'')
 			i = next_quote(i+1,token[i],token);
 		if (token[i] == '$')
@@ -101,6 +103,8 @@ char *parameter_expansion(char *token)
 	}
 	value =  get_env_value(name +1 ); 
 	new_token = replace_name_value(token,name,value);
+	if (*(name+1) == '?')
+		free(value);
 	free(name);
 	return parameter_expansion(new_token);
 }
