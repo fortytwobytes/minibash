@@ -60,6 +60,48 @@ int redirect(t_cmd *cmd, char *type, char *file)
 	}
 	return 1;
 }
+
+int	is_expand(char **limiter)
+{
+	if (contains(*limiter,'"') || contains(*limiter,'\''))
+	{
+		*limiter = quotes_removal(*limiter);
+		return 0;
+	}
+	return 1;
+}
+//
+int	handle_heredoc(t_cmd *cmd,char *limiter, char *file)
+{
+	int		expand_mode;
+	char	*line;
+	char	*joined_line;
+	int		fd;
+
+	expand_mode = is_expand(&limiter);
+	fd = ft_open(file,O_CREAT | O_WRONLY | O_TRUNC ,0600);
+	if (fd == -1)
+		return 0;
+	line = readline("> ");
+	while (ft_strcmp(line,limiter))
+	{
+		if (!line)
+			break;
+		if(expand_mode && *line)
+			line = parameter_expansion(line);
+		joined_line = ft_strjoin(line,"\n");
+		write(fd,joined_line,ft_strlen(joined_line));
+		free(line);
+		free(joined_line);
+		line = readline("> ");
+	}
+	close(fd);
+	fd = open(file,O_RDONLY,0);
+	if (fd == -1)
+		return 0;
+	cmd->infile = fd;
+	return 1;
+}
 // if a redirection fails we stop and don't execute the command
 int handle_redirection(t_cmd *cmd,t_token *tokens)
 {
@@ -67,7 +109,7 @@ int handle_redirection(t_cmd *cmd,t_token *tokens)
 
 	while (tokens && tokens->type != PIPE)
 	{
-		if (tokens->type == REDIRECTION)
+		if (tokens->type == REDIRECTION )
 		{
 			status = redirect(cmd,tokens->token,(tokens->next)->token);
 			if (!status)
@@ -78,6 +120,9 @@ int handle_redirection(t_cmd *cmd,t_token *tokens)
 		else if (tokens->type == HEREDOC)
 		{
 			tokens = tokens->next;
+			status = handle_heredoc(cmd,tokens->token,here_doc_name());
+			if (!status)
+				return status;
 		}
 		else
 			tokens = tokens->next;
@@ -136,6 +181,7 @@ t_token	*add_cmd(t_cmd **cmds,t_token *tokens)
 	{
 		close_fds(new);
 		free(new);
+		perror("");
 		return next_pipe(tokens);
 	}
 	handle_cmd(new,tokens);

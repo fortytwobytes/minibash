@@ -13,7 +13,6 @@ char    *here_doc_name(void)
     id = get_id(tty_name);
     tmp = id;
     name = ft_strjoin("/tmp/.heredoc_", id);
-    free(tty_name);
     free(id);
     return (name);
 }

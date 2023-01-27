@@ -14,7 +14,7 @@ int	main(int argc, char **argv, char **envp)
 	init_global(envp);
 
 	shell_loop();
-	// parse_line("$HOME");
+	// parse_line("$@");
 	// printf("%s",get_env_value("$HOME"));
 	return (0);
 }

@@ -67,6 +67,6 @@ void	hardcode_builtins(char **args)
 	}
 	if (!ft_strcmp("here", args[0]))
 	{
-		here_doc_name();
+		printf("%s\n",here_doc_name());
 	}
 }

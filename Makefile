@@ -6,7 +6,7 @@ USERS		= $(USER)
 COMP        = -L/goinfre/$(USERS)/.brew/opt/readline/lib
 LINK 		= -I/goinfre/$(USERS)/.brew/opt/readline/include
 
-SRCS		= $(wildcard srcs/*.c builtins/*.c execution/*.c parsing/*.c utils/*.c main.c)
+SRCS		= $(wildcard srcs/*.c builtins/*.c execution/*.c parsing/*.c utils/*.c main.c debuggin.c)
 SRCS_DIRS	= $(dir $(SRCS))
 
 BIN_DIR		= bin/
@@ -18,8 +18,6 @@ INCLUDES	= $(wildcard includes/*.h)
 
 NAME		= minishell
 
-test:
-	echo $(USERS)
 all: $(NAME)
 
 $(NAME): $(OBJS)
