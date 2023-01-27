@@ -60,18 +60,41 @@ int redirect(t_cmd *cmd, char *type, char *file)
 	}
 	return 1;
 }
-//
-void handle_heredoc(t_cmd *cmd,char *limiter)
-{
-	int expand_mode;
 
-	expand_mode = 1;
-	if (contains(limiter,'"') || contains(limiter,'\''))
+int	is_expand(char **limiter)
+{
+	if (contains(*limiter,'"') || contains(*limiter,'\''))
 	{
-		expand_mode = 0;
-		limiter = quotes_removal(limiter);
+		*limiter = quotes_removal(*limiter);
+		return 0;
 	}
-	
+	return 1;
+}
+//
+void handle_heredoc(t_cmd *cmd,char *limiter, char *file)
+{
+	int		expand_mode;
+	char	*line;
+	char	*joined_line;
+	int		fd;
+
+	expand_mode = is_expand(&limiter);
+	fd = open(file,O_CREAT | O_WRONLY,0666);
+	line = readline("> ");
+	while (ft_strcmp(line,limiter))
+	{
+		if(expand_mode)
+			line = parameter_expansion(line);
+		joined_line = ft_strjoin(line,"\n");
+		write(fd,joined_line,ft_strlen(joined_line));
+		free(line);
+		free(joined_line);
+		line = readline("> ");
+	}
+	close(fd);
+	fd = open(file,O_RDONLY,0);
+	cmd->infile = fd;
+	return;
 }
 // if a redirection fails we stop and don't execute the command
 int handle_redirection(t_cmd *cmd,t_token *tokens)
@@ -91,7 +114,7 @@ int handle_redirection(t_cmd *cmd,t_token *tokens)
 		else if (tokens->type == HEREDOC)
 		{
 			tokens = tokens->next;
-			handle_heredoc(cmd,tokens->token);
+			handle_heredoc(cmd,tokens->token,here_doc_name());
 		}
 		else
 			tokens = tokens->next;
