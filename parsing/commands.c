@@ -60,6 +60,19 @@ int redirect(t_cmd *cmd, char *type, char *file)
 	}
 	return 1;
 }
+//
+void handle_heredoc(t_cmd *cmd,char *limiter)
+{
+	int expand_mode;
+
+	expand_mode = 1;
+	if (contains(limiter,'"') || contains(limiter,'\''))
+	{
+		expand_mode = 0;
+		limiter = quotes_removal(limiter);
+	}
+	
+}
 // if a redirection fails we stop and don't execute the command
 int handle_redirection(t_cmd *cmd,t_token *tokens)
 {
@@ -67,7 +80,7 @@ int handle_redirection(t_cmd *cmd,t_token *tokens)
 
 	while (tokens && tokens->type != PIPE)
 	{
-		if (tokens->type == REDIRECTION)
+		if (tokens->type == REDIRECTION )
 		{
 			status = redirect(cmd,tokens->token,(tokens->next)->token);
 			if (!status)
@@ -78,6 +91,7 @@ int handle_redirection(t_cmd *cmd,t_token *tokens)
 		else if (tokens->type == HEREDOC)
 		{
 			tokens = tokens->next;
+			handle_heredoc(cmd,tokens->token);
 		}
 		else
 			tokens = tokens->next;
@@ -136,6 +150,7 @@ t_token	*add_cmd(t_cmd **cmds,t_token *tokens)
 	{
 		close_fds(new);
 		free(new);
+		perror("");
 		return next_pipe(tokens);
 	}
 	handle_cmd(new,tokens);

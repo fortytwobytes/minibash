@@ -44,6 +44,7 @@ int is_env_name(char c);
 t_cmd *convert_to_cmds(t_token *tokens);
 char *parameter_expansion(char *token);
 char *get_value(char *s);
+char *quotes_removal(char *token);
 
 void add_back(t_token **head, char *s);
 void add_middle(t_token *token, char *word);

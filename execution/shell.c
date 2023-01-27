@@ -22,6 +22,7 @@ void	shell_loop(void)
 			NB:	if NULL is returned syntax error will be printed and the variable $? needs to be set to 258 like bash
 				this function also need to take the env variables as argument so it can expand them during the parsing phase.
 		*/
+		// hardcode_builtins(cmd->args);
 		execute(cmd);
 		free(line);
 	}
