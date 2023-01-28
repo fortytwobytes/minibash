@@ -4,7 +4,7 @@ t_global	global;
 void	init_global(char **envp);
 
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char *envp[])
 {
 	// first we need to search inside the ft_getenv() if NULL
 	// we test the hardcoded PATH if not we print fatal
@@ -12,7 +12,6 @@ int	main(int argc, char **argv, char **envp)
 	// when they run `bash -i ./minishell` or 'unset PATH'
 	// we should hardcode some paths to make the same behavior as bash
 	init_global(envp);
-
 	shell_loop();
 	// parse_line("$@");
 	// printf("%s",get_env_value("$HOME"));
@@ -36,5 +35,4 @@ void	init_global(char **envp)
 		global.shlvl = ft_atoi(tmp_shlvl) + 1;
 	// +1 because we are in a new shell level
 	free(tmp_shlvl);
-
 }

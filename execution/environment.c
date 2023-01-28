@@ -122,6 +122,7 @@ int	is_updated(char *name, char *value)
 char	**dynamic_env(void)
 {
 	int		i;
+	int		j;
 	char	**env;
 	t_envs	*tmp;
 
@@ -133,14 +134,15 @@ char	**dynamic_env(void)
 		i++;
 	}
 	env = ft_calloc(sizeof(char *) * (i + 1));
-	i = -1;
+	j = 0;
 	tmp = global.envs;
-	while (env[++i])
+	while (j < i)
 	{
 		if (tmp->value == NULL)
 			tmp->value = "";
-		env[i] = ft_strjoin_sep(tmp->name, tmp->value, '=');
+		env[j] = ft_strjoin_sep(tmp->name, tmp->value, '=');
 		tmp = tmp->next;
+		j++;
 	}
 	return (env);
 }
