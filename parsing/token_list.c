@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-void print_list(t_token *head)
-{
-	while(head)
-	{
-		printf("%s\n",head->token);
-		head = head ->next;
-	}
-}
 // in this function we chose the type of passed string 
 // the possible strings are sequences of operators or  noraml chars
 // if the sequence of operators is not to be handle by our minishell we name it by the token OPERATOR wich should syntax error

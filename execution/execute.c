@@ -16,7 +16,7 @@ void	close_all_fds(t_cmd *head)
 }
 void command_not_found()
 {
-	printf("command not found\n");
+	write(2,"command not found\n",19);
 	exit(127);
 }
 int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
@@ -29,14 +29,14 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		return -1;
 	if (pid == 0)
 	{
+		cmd->path = ft_getpath(cmd->cmd);
+		if (cmd->path == NULL)
+			command_not_found();
 		if (cmd->infile != 0)
 			ft_dup2(cmd->infile, 0);
 		if (cmd->outfile != 0)
 			ft_dup2(cmd->outfile, 1);
 		close_all_fds(head);
-		cmd->path = ft_getpath(cmd->cmd);
-		if (cmd->path == NULL)
-			command_not_found();
 		ft_execve(cmd->path, cmd->args);
 	}
 	return pid;

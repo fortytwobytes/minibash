@@ -33,7 +33,7 @@ char	*ft_strjoin_sep(char *s1, char *s2, char sep)
 	i = -1;
 	if (!s1 || !s2)
 		return (NULL);
-	buffer = ft_calloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	buffer = ft_calloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
 	while (s1[++i])
 		buffer[i] = s1[i];
 	buffer[i] = sep;
