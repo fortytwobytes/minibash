@@ -146,3 +146,22 @@ char	**dynamic_env(void)
 	}
 	return (env);
 }
+
+void ft_setenv(char *name, char *value)
+{
+	t_envs *tmp;
+
+	tmp = global.envs;
+	if (!tmp)
+		return ;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, name))
+		{
+			free(tmp->value);
+			tmp->value = value;
+			return ;
+		}
+		tmp = tmp->next;
+	}
+}

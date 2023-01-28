@@ -13,6 +13,7 @@ void	pop_env(char *name);
 char	*ft_getenv(char *name);
 char	*get_env_value(char *name);
 t_envs	*envs_init(void);
+void	ft_setenv(char *name, char *value);
 
 char	**dynamic_env(void);
 char    *here_doc_name(void);
