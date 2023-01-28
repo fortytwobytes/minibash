@@ -12,8 +12,8 @@ int	main(int argc, char **argv, char *envp[])
 	// when they run `bash -i ./minishell` or 'unset PATH'
 	// we should hardcode some paths to make the same behavior as bash
 	init_global(envp);
-	shell_loop();
-	// parse_line("$@");
+	// shell_loop();
+	parse_line("$HD");
 	// printf("%s",get_env_value("$HOME"));
 	return (0);
 }
