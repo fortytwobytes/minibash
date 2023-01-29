@@ -9,7 +9,7 @@ void    echo(char **args, int fd);
 void    env(char **args, int fd);
 void    unset(char **args, int fd);
 void    export(char **args, int fd);
-
+void	shell_exit(char **args);
 int		is_builtins(char *cmd);
 int		exec_builtins(char **args, int outfile);
 
