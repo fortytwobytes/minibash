@@ -33,8 +33,8 @@ int	exec_builtins(char **args, int outfile)
 		unset(args, outfile);
 	if (!ft_strcmp(args[0], "env"))
 		env(args, outfile);
-	if (!ft_strcmp(args[0], "exit"))
-		shell_exit(EXIT_SUCCESS);
+	// if (!ft_strcmp(args[0], "exit"))
+	// 	shell_exit(EXIT_SUCCESS);
 	return (111111);
 }
 

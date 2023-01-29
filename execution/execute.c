@@ -38,7 +38,7 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		close_all_fds(head);
 		if (is_builtins(cmd->cmd))
 		{
-			hardcode_builtins(cmd->args,1); 
+			exec_builtins(cmd->args, cmd->outfile);
 			exit(1111); // ^ should return exit status
 		}
 		cmd->path = ft_getpath(cmd->cmd);
@@ -80,7 +80,7 @@ void	execute(t_cmd *head)
 		return;
 	if (is_builtins(head->cmd) && !head->next)
 	{
-		hardcode_builtins(head->args,head->outfile); // this fucntion should return the exit status of the builtins 
+		exec_builtins(head->args, head->outfile); // this fucntion should return the exit status of the builtins 
 		close_all_fds(head);
 		return ;
 	}
