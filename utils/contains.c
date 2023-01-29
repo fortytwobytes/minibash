@@ -1,14 +1,26 @@
-int contains(char *s, char c)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   contains.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 20:15:12 by mtagemou          #+#    #+#             */
+/*   Updated: 2023/01/29 20:15:13 by mtagemou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int	contains(char *s, char c)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (s[i])
 	{
-		if(s[i] == c)
-			return 1;
+		if (s[i] == c)
+			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
-//this is opti branch
+

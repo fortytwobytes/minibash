@@ -15,9 +15,9 @@ void	close_all_fds(t_cmd *head)
 	}
 }
 
-void command_not_found()
+void	command_not_found(void)
 {
-	write(2,"command not found\n",19);
+	write(2, "command not found\n", 19);
 	exit(127);
 }
 
@@ -25,10 +25,11 @@ void command_not_found()
 int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 {
 	pid_t	pid;
+	int		exit_status;
 
 	pid = ft_fork();
 	if (pid == -1)
-		return -1;
+		return (-1);
 	if (pid == 0)
 	{
 		if (cmd->infile != 0)
@@ -38,18 +39,18 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		close_all_fds(head);
 		if (is_builtins(cmd->cmd))
 		{
-			exec_builtins(cmd->args, cmd->outfile);
-			exit(1111); // ^ should return exit status
+			exit_status = exec_builtins(cmd->args, cmd->outfile);
+			exit(exit_status);
 		}
 		cmd->path = ft_getpath(cmd->cmd);
 		if (cmd->path == NULL)
 			command_not_found();
 		ft_execve(cmd->path, cmd->args);
 	}
-	return pid;
+	return (pid);
 }
 
-void wait_all_childs(int last_pid)
+void	wait_all_childs(int last_pid)
 {
 	int		pid;
 	int		status;
@@ -77,10 +78,10 @@ void	execute(t_cmd *head)
 	tmp = head;
 	last_pid = 0;
 	if (!head)
-		return;
+		return ;
 	if (is_builtins(head->cmd) && !head->next)
 	{
-		exec_builtins(head->args, head->outfile); // this fucntion should return the exit status of the builtins 
+		global.exit_status = exec_builtins(head->args, head->outfile);
 		close_all_fds(head);
 		return ;
 	}
@@ -89,7 +90,7 @@ void	execute(t_cmd *head)
 		if (tmp->cmd)
 			last_pid = exec_single_cmd(head, tmp);
 		if (last_pid == -1)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	close_all_fds(head);

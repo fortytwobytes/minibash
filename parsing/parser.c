@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 19:44:31 by mtagemou          #+#    #+#             */
+/*   Updated: 2023/01/29 19:44:33 by mtagemou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 // this function checks if we have another type of operator except the ones handled by our minishell
@@ -13,7 +25,7 @@ int check_invalid_operator(t_token *tokens)
 }
 
 // this one checks if every redirection token is followed by a word
-int check_redirections(t_token *tokens)
+int	check_redirections(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -36,10 +48,10 @@ int check_redirections(t_token *tokens)
 // word | word => valid
 // word | | word => invalid
 
-int word_after(t_token *tokens)
+int	word_after(t_token *tokens)
 {
 	tokens = tokens->next;
-	while(tokens && tokens->type != PIPE)
+	while (tokens && tokens->type != PIPE)
 	{
 		if (tokens->type == WORD)
 			return (1);
@@ -49,11 +61,11 @@ int word_after(t_token *tokens)
 }
 
 // this function checks if every pipe is preceded by a word AND followed by a word
-int check_pipes(t_token *tokens)
+int	check_pipes(t_token *tokens)
 {
-	int word_before;
+	int	word_before;
 
-	word_before = 0; 
+	word_before = 0;
 	while (tokens)
 	{
 		if (tokens->type == WORD)
@@ -61,7 +73,7 @@ int check_pipes(t_token *tokens)
 		if (tokens->type == PIPE)
 		{
 			if (!word_before || !word_after(tokens))
-				return 0;
+				return (0);
 			word_before = 0;
 		}
 		tokens = tokens->next;

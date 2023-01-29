@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 20:12:46 by mtagemou          #+#    #+#             */
+/*   Updated: 2023/01/29 20:12:47 by mtagemou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ft_num_of_characters(int n, int *signe)
@@ -30,10 +42,8 @@ char	*ft_itoa(int n)
 	num_of_characters = ft_num_of_characters(n, &signe);
 	if (signe == -1)
 		n *= -1;
-	sol = malloc (num_of_characters);
-	if (!sol)
-		return (NULL);
-	sol[--num_of_characters] = '\0';
+	sol = ft_calloc(num_of_characters);
+	--num_of_characters;
 	while (n / 10)
 	{
 		sol[--num_of_characters] = n % 10 + '0';
