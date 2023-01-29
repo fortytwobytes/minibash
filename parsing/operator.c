@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operator.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 19:45:08 by mtagemou          #+#    #+#             */
+/*   Updated: 2023/01/29 19:45:09 by mtagemou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	is_operator(char c)
@@ -13,13 +25,13 @@ int	is_operator(char c)
 
 int	position_of_operator(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' || s[i] =='\'')
-			i = next_quote(i+1, s[i], s);
+		if (s[i] == '"' || s[i] == '\'')
+			i = next_quote(i + 1, s[i], s);
 		if (is_operator(s[i]))
 			return (i);
 		i++;
@@ -41,7 +53,7 @@ char	*get_word(char *s, size_t *index)
 	i = *index;
 	pos = position_of_operator(&s[i]);
 	len = 0;
-	if (pos == -1) 
+	if (pos == -1)
 	{
 		len = ft_strlen(&s[i]);
 		*index += len;
@@ -49,17 +61,17 @@ char	*get_word(char *s, size_t *index)
 	}
 	if (pos == 0)
 	{
-		while(is_operator(s[i + len]))
+		while (is_operator(s[i + len]))
 			len++;
 		*index += len;
-		return ft_substr(&s[i], 0, len);
+		return (ft_substr(&s[i], 0, len));
 	}
 	*index += pos ;
-	return ft_substr(&s[i], 0, pos);
+	return (ft_substr(&s[i], 0, pos));
 }
-// this function split the words by operator and create a linked list with the tokens 
 
-t_token *split_by_operator(char **words)
+// this function split the words by operator and create a linked list with the tokens 
+t_token	*split_by_operator(char **words)
 {
 	t_token	*tokens;
 	size_t	i;

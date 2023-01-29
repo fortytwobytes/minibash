@@ -3,13 +3,13 @@
 
 # include "minishell.h"
 
-void    cd(char **args, int fd);
-void    pwd(char **args, int fd);
-void    echo(char **args, int fd);
-void    env(char **args, int fd);
-void    unset(char **args, int fd);
-void    export(char **args, int fd);
-void	shell_exit(char **args);
+void	cd(char **args, int fd);
+void	pwd(char **args, int fd);
+void	echo(char **args, int fd);
+void	env(char **args, int fd);
+void	unset(char **args, int fd);
+void	export(char **args, int fd);
+int		shell_exit(char **args);
 int		is_builtins(char *cmd);
 int		exec_builtins(char **args, int outfile);
 

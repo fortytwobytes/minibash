@@ -3,17 +3,15 @@
 t_global	global;
 void	init_global(char **envp);
 
-
 int	main(int argc, char **argv, char *envp[])
 {
 	(void)argc;
 	(void)argv;
-	
+
 	init_global(envp);
 	shell_loop();
 	return (0);
 }
-
 
 void	init_global(char **envp)
 {
@@ -26,7 +24,7 @@ void	init_global(char **envp)
 	global.path = ft_strdup("/bin/");
 	tmp_shlvl = ft_getenv("SHLVL");
 	if (!tmp_shlvl)
-		add_env(&global.envs,ft_strdup("SHLVL"),ft_strdup("1"));
+		add_env(&global.envs, ft_strdup("SHLVL"), ft_strdup("1"));
 	else
-		ft_setenv("SHLVL" , ft_itoa(ft_atoi(tmp_shlvl) + 1));
+		ft_setenv("SHLVL", ft_itoa(ft_atoi(tmp_shlvl) + 1));
 }

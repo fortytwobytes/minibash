@@ -6,14 +6,14 @@
 /*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:58:50 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/01/17 11:58:51 by mtagemou         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:44:49 by mtagemou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // a function that return the position of the next quote char
-int next_quote(int i, char quote, char *line)
+int	next_quote(int i, char quote, char *line)
 {
 	while (line[i])
 	{
@@ -26,11 +26,11 @@ int next_quote(int i, char quote, char *line)
 
 // a function that returns the number of words splited by blank 
 // or -1 if the quotes are umatching
-int word_count(char *line)
+int	word_count(char *line)
 {
-	int count;
-	int i;
-	int flag;
+	int	count;
+	int	i;
+	int	flag;
 
 	flag = 1;
 	i = 0;
@@ -42,7 +42,7 @@ int word_count(char *line)
 			if (line[i] == '"' || line[i] == '\'')
 				i = next_quote(i + 1, line[i], line);
 			if (i == -1)
-				return -1;
+				return (-1);
 			if (flag != 0)
 				count++;
 			flag = 0;
@@ -54,12 +54,12 @@ int word_count(char *line)
 	return (count);
 }
 
-static char *get_next_word(char *s, int *index)
+static char	*get_next_word(char *s, int *index)
 {
-	int i;
-	int j;
-	int k;
-	char *word;
+	int		i;
+	int		j;
+	int		k;
+	char	*word;
 
 	k = 0;
 	i = *index;
@@ -82,14 +82,15 @@ static char *get_next_word(char *s, int *index)
 	*index = i;
 	return (word);
 }
+
 // a function that split a string by blank and returns the result in a 2d array 
 // or -1 if the quotes are umatching
-char **split_by_blank(char *line)
+char	**split_by_blank(char *line)
 {
-	char **res;
-	int wc;
-	int i;
-	int j;
+	char	**res;
+	int		wc;
+	int		i;
+	int		j;
 
 	wc = word_count(line);
 	if (wc == -1)
@@ -102,33 +103,33 @@ char **split_by_blank(char *line)
 		res[i] = get_next_word(line, &j);
 		i++;
 	}
-	return res;
+	return (res);
 }
+
 // in first we split the words by blank characters and remove them , then we separate the words from the operators 
 // and create token ,then we parse the semantics of the tokens created
-t_cmd *parse_line(char *line)
+t_cmd	*parse_line(char *line)
 {
 	char	**words;
-	t_token *tokens;
+	t_token	*tokens;
 	t_cmd	*cmds;
 
 	words = split_by_blank(line);
 	if (words == NULL)
 	{
-		ft_putstr_fd("$> : syntax errorrr\n",2);
-		return NULL;
+		ft_putstr_fd("$> : syntax errorrr\n", 2);
+		return (NULL);
 	}
 	tokens = split_by_operator(words);
 	free_split(words);
 	if (!parse(tokens))
 	{
-		ft_putstr_fd("$> : syntax error\n",2);
-		return NULL;
+		ft_putstr_fd("$> : syntax error\n", 2);
+		return (NULL);
 	}
 	tokenise_heredoc(tokens);
 	tokens = expand_tokens(tokens);
 	cmds = convert_to_cmds(tokens);
-	// print_cmd(cmds);
 	free_tokens(tokens);
-	return cmds;
+	return (cmds);
 }

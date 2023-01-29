@@ -2,8 +2,8 @@
 
 void	add_env(t_envs **envs, char *name, char *value)
 {
-	t_envs *new;
-	t_envs *tmp;
+	t_envs	*new;
+	t_envs	*tmp;
 
 	new = ft_calloc(sizeof(t_envs));
 	new->name = ft_strdup(name);
@@ -12,7 +12,7 @@ void	add_env(t_envs **envs, char *name, char *value)
 	if (!envs || !*envs)
 	{
 		*envs = new;
-		return;
+		return ;
 	}
 	tmp = *envs;
 	while (tmp->next)
@@ -22,8 +22,8 @@ void	add_env(t_envs **envs, char *name, char *value)
 
 void	pop_env(char *name)
 {
-	t_envs *tmp;
-	t_envs *prev;
+	t_envs	*tmp;
+	t_envs	*prev;
 
 	tmp = global.envs;
 	prev = NULL;
@@ -38,7 +38,7 @@ void	pop_env(char *name)
 			free(tmp->name);
 			free(tmp->value);
 			free(tmp);
-			return;
+			return ;
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -69,7 +69,7 @@ t_envs	*envs_init(void)
 
 char	*ft_getenv(char *name)
 {
-	t_envs *tmp;
+	t_envs	*tmp;
 
 	tmp = global.envs;
 	while (tmp)
@@ -83,11 +83,11 @@ char	*ft_getenv(char *name)
 
 char	*get_env_value(char *name)
 {
-	t_envs *tmp;
+	t_envs	*tmp;
 
 	tmp = global.envs;
 	if (*name == '?')
-		return ft_itoa(global.exit_status);
+		return (ft_itoa(global.exit_status));
 	if (!tmp)
 		return (NULL);
 	while (tmp)
@@ -145,9 +145,9 @@ char	**dynamic_env(void)
 	return (env);
 }
 
-void ft_setenv(char *name, char *value)
+void	ft_setenv(char *name, char *value)
 {
-	t_envs *tmp;
+	t_envs	*tmp;
 
 	tmp = global.envs;
 	while (tmp)

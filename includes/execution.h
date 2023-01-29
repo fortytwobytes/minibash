@@ -16,7 +16,7 @@ t_envs	*envs_init(void);
 void	ft_setenv(char *name, char *value);
 
 char	**dynamic_env(void);
-char    *here_doc_name(void);
+char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);
 
 #endif // EXECUTION_H

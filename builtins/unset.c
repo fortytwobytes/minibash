@@ -1,5 +1,6 @@
 #include "builtin.h"
 
+// should print if a valid identifier : bash: unset: `/Users/mtagemou': not a valid identifier
 void unset(char **args, int fd)
 {
 	if (*(args + 1) == NULL)

@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   commands.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/29 19:44:16 by mtagemou          #+#    #+#             */
+/*   Updated: 2023/01/29 19:44:18 by mtagemou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //!! to handle : exit status of a failed rederction
-
-void open_pipes(t_token	*tokens)
+void	open_pipes(t_token	*tokens)
 {
 	while (tokens)
 	{
-		if(tokens->type == PIPE)
+		if (tokens->type == PIPE)
 			ft_pipe(tokens->pipe);
 		tokens = tokens->next;
 	}
@@ -15,16 +26,18 @@ void open_pipes(t_token	*tokens)
 t_token	*next_pipe(t_token *tokens)
 {
 	if (!tokens)
-		return NULL;
+		return (NULL);
 	if (tokens->type == PIPE)
 		tokens = tokens->next;
-	while(tokens && tokens->type != PIPE)
+	while (tokens && tokens->type != PIPE)
 		tokens = tokens->next;
-	return tokens;
+	return (tokens);
 }
+
 // cat | ls | grep
-// during exucution infile and outfile should be close in the child and parent process
-void handle_pipes(t_cmd *cmd, t_token *tokens)
+// during exucution infile and outfile should be closee
+// in the child and parent process
+void	handle_pipes(t_cmd *cmd, t_token *tokens)
 {
 	if (tokens->type == PIPE)
 		cmd->infile = tokens->pipe[READ_END];
@@ -33,45 +46,45 @@ void handle_pipes(t_cmd *cmd, t_token *tokens)
 		cmd->outfile = tokens->pipe[WRITE_END];
 }
 
-int redirect(t_cmd *cmd, char *type, char *file)
+int	redirect(t_cmd *cmd, char *type, char *file)
 {
-	int fd;
+	int	fd;
 
-	if (!ft_strcmp(type,">>"))
+	if (!ft_strcmp(type, ">>"))
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
-			return 0;
+			return (0);
 		cmd->outfile = fd;
 	}
-	if (!ft_strcmp(type,">"))
+	if (!ft_strcmp(type, ">"))
 	{
-		fd = ft_open(file, O_CREAT | O_WRONLY ,0644);
+		fd = ft_open(file, O_CREAT | O_WRONLY, 0644);
 		if (fd == -1)
-			return 0;
+			return (0);
 		cmd->outfile = fd;
 	}
-	if (!ft_strcmp(type,"<"))
+	if (!ft_strcmp(type, "<"))
 	{
 		fd = ft_open(file, O_RDONLY, 0);
 		if (fd == -1)
-			return 0;
+			return (0);
 		cmd->infile = fd;
 	}
-	return 1;
+	return (1);
 }
 
 int	is_expand(char **limiter)
 {
-	if (contains(*limiter,'"') || contains(*limiter,'\''))
+	if (contains(*limiter, '"') || contains(*limiter, '\''))
 	{
 		*limiter = quotes_removal(*limiter);
-		return 0;
+		return (0);
 	}
-	return 1;
+	return (1);
 }
-//
-int	handle_heredoc(t_cmd *cmd,char *limiter, char *file)
+
+int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 {
 	int		expand_mode;
 	char	*line;
@@ -79,58 +92,60 @@ int	handle_heredoc(t_cmd *cmd,char *limiter, char *file)
 	int		fd;
 
 	expand_mode = is_expand(&limiter);
-	fd = ft_open(file,O_CREAT | O_WRONLY | O_TRUNC ,0600);
+	fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
-		return 0;
+		return (0);
 	line = readline("> ");
-	while (ft_strcmp(line,limiter))
+	while (ft_strcmp(line, limiter))
 	{
 		if (!line)
-			break;
-		if(expand_mode && *line)
+			break ;
+		if (expand_mode && *line)
 			line = parameter_expansion(line);
-		joined_line = ft_strjoin(line,"\n");
-		write(fd,joined_line,ft_strlen(joined_line));
+		joined_line = ft_strjoin(line, "\n");
+		write(fd, joined_line, ft_strlen(joined_line));
 		free(line);
 		free(joined_line);
 		line = readline("> ");
 	}
 	close(fd);
-	fd = open(file,O_RDONLY,0);
+	fd = open(file, O_RDONLY, 0);
 	if (fd == -1)
-		return 0;
+		return (0);
 	cmd->infile = fd;
-	return 1;
+	return (1);
 }
+
 // if a redirection fails we stop and don't execute the command
-int handle_redirection(t_cmd *cmd,t_token *tokens)
+int	handle_redirection(t_cmd *cmd, t_token *tokens)
 {
-	int status;
+	int	status;
 
 	while (tokens && tokens->type != PIPE)
 	{
-		if (tokens->type == REDIRECTION )
+		if (tokens->type == REDIRECTION)
 		{
-			status = redirect(cmd,tokens->token,(tokens->next)->token);
+			status = redirect(cmd, tokens->token, (tokens->next)->token);
 			if (!status)
-				return status;
+				return (status);
 			tokens = tokens->next;
 			tokens->type = FILE;
 		}
 		else if (tokens->type == HEREDOC)
 		{
 			tokens = tokens->next;
-			status = handle_heredoc(cmd,tokens->token,here_doc_name());
+			status = handle_heredoc(cmd, tokens->token, here_doc_name());
 			if (!status)
-				return status;
+				return (status);
 		}
 		else
 			tokens = tokens->next;
 	}
 	return (1);
 }
-// we check if fds are different to 0 because by default they are initialized to 0 by calloc
-void close_fds(t_cmd *cmd)
+// we check if fds are different to 0 because 
+//by default they are initialized to 0 by calloc
+void	close_fds(t_cmd *cmd)
 {
 	if (cmd->infile != 0)
 		close(cmd->infile);
@@ -138,7 +153,7 @@ void close_fds(t_cmd *cmd)
 		close(cmd->outfile);
 }
 
-void handle_cmd(t_cmd *cmd,t_token *tokens)
+void handle_cmd(t_cmd *cmd, t_token *tokens)
 {
 	int		wc;
 	int		i;
@@ -153,7 +168,7 @@ void handle_cmd(t_cmd *cmd,t_token *tokens)
 			wc++;
 		tokens = tokens->next;
 	}
-	options = ft_calloc(sizeof(char *) * (wc+1));
+	options = ft_calloc(sizeof(char *) * (wc + 1));
 	i = 0;
 	while (head && head->type != PIPE)
 	{
@@ -165,7 +180,7 @@ void handle_cmd(t_cmd *cmd,t_token *tokens)
 	cmd->cmd = options[0];
 }
 
-t_token	*add_cmd(t_cmd **cmds,t_token *tokens)
+t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 {
 	t_cmd	*new;
 	t_cmd	*last;
@@ -173,38 +188,38 @@ t_token	*add_cmd(t_cmd **cmds,t_token *tokens)
 
 	last = *cmds;
 	new = ft_calloc(sizeof(t_cmd));
-	handle_pipes(new,tokens);
-	if(tokens->type == PIPE)
+	handle_pipes(new, tokens);
+	if (tokens->type == PIPE)
 		tokens = tokens->next;
-	status = handle_redirection(new,tokens);
+	status = handle_redirection(new, tokens);
 	if (!status)
 	{
 		close_fds(new);
 		free(new);
 		perror("");
-		return next_pipe(tokens);
+		return (next_pipe(tokens));
 	}
-	handle_cmd(new,tokens);
+	handle_cmd(new, tokens);
 	if (!last)
 	{
 		*cmds = new;
-		return next_pipe(tokens);
+		return (next_pipe(tokens));
 	}
 	while (last->next)
 		last = last->next;
 	last->next = new;
-	return next_pipe(tokens);
+	return (next_pipe(tokens));
 }
 
 t_cmd	*convert_to_cmds(t_token *tokens)
 {
-	t_token *head;
-	t_cmd *cmds;
+	t_token	*head;
+	t_cmd	*cmds;
 
 	head = tokens;
 	cmds = NULL;
 	open_pipes(head);
-	while(tokens)
-		tokens = add_cmd(&cmds,tokens);
-	return cmds;
+	while (tokens)
+		tokens = add_cmd(&cmds, tokens);
+	return (cmds);
 }
