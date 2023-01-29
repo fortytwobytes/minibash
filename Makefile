@@ -1,5 +1,6 @@
 CC			= cc
-CFLAGS		=  -g -I includes # -Wall -Wextra -Werror 
+CFLAGS		= -Wall -Wextra -Werror -g -I includes 
+CEXTRA		= -fsanitize=address,undefined,integer -Wshadow -Wuninitialized -Wunreachable-code
 RM			= rm -rf
 MKDIR		= mkdir -p
 USERS		= $(USER)
@@ -21,11 +22,11 @@ NAME		= minishell
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) -L/goinfre/$(USERS)/.brew/opt/readline/lib -I/goinfre/$(USERS)/.brew/opt/readline/include -lreadline   $(OBJS)  -o $(NAME)
+	@$(CC) $(CEXTRA) $(CFLAGS) -L/goinfre/$(USERS)/.brew/opt/readline/lib -I/goinfre/$(USERS)/.brew/opt/readline/include -lreadline   $(OBJS)  -o $(NAME)
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@$(CC) $(LINK) $(CFLAGS)   -c $< -o $@
+	@$(CC) $(LINK) $(CEXTRA) $(CFLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(BIN_DIR)

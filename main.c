@@ -6,11 +6,9 @@ void	init_global(char **envp);
 
 int	main(int argc, char **argv, char *envp[])
 {
-	// first we need to search inside the ft_getenv() if NULL
-	// we test the hardcoded PATH if not we print fatal
-
-	// when they run `bash -i ./minishell` or 'unset PATH'
-	// we should hardcode some paths to make the same behavior as bash
+	(void)argc;
+	(void)argv;
+	
 	init_global(envp);
 	shell_loop();
 	// parse_line("$@");
