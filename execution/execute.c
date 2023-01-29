@@ -37,9 +37,9 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		if (cmd->outfile != 0)
 			ft_dup2(cmd->outfile, 1);
 		close_all_fds(head);
-		if (is_builtins(head->cmd))
+		if (is_builtins(cmd->cmd))
 		{
-			hardcode_builtins(cmd->args,cmd->outfile); 
+			hardcode_builtins(cmd->args,1); 
 			exit(1111); // ^ should return exit status
 		}
 		cmd->path = ft_getpath(cmd->cmd);
@@ -77,6 +77,8 @@ void	execute(t_cmd *head)
 
 	tmp = head;
 	last_pid = 0;
+	if (!head)
+		return;
 	if (is_builtins(head->cmd) && !head->next)
 	{
 		hardcode_builtins(head->args,head->outfile); // this fucntion should return the exit status of the builtins 

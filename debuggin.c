@@ -45,7 +45,10 @@ void	hardcode_builtins(char **args, int outfile)
 	if (!ft_strcmp(args[0], "unset"))
 		unset(args, outfile);
 	if (!ft_strcmp(args[0], "env"))
+	{
 		env(args, outfile);
+	}
+		
 	if (!ft_strcmp(args[0], "exit"))
 		exit(EXIT_SUCCESS);
 }

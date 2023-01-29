@@ -7,6 +7,7 @@ void	env(char **args, int fd)
 	char *value;
 	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next)
 	{
+
 		ft_putstr_fd(tmp->name, fd);
 		ft_putchar_fd('=', fd);
 		if (!ft_strcmp(tmp->name, "PWD"))
