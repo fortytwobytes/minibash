@@ -18,3 +18,6 @@ SIGKILL:
 *	export str="" ==> str=
 *	export str=   ==> this should not work
 *	export var$1=value ==> var=value
+
+
+cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory 

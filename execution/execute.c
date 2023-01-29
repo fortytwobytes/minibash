@@ -26,7 +26,6 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 {
 	pid_t	pid;
 
-	// check if builtin;
 	pid = ft_fork();
 	if (pid == -1)
 		return -1;
