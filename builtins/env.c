@@ -3,8 +3,6 @@
 void	env(char **args, int fd)
 {
 	(void)args;
-	int i = 0;
-	char *value;
 	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next)
 	{
 		ft_putstr_fd(tmp->name, fd);
