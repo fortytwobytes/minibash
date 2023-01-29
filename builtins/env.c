@@ -11,8 +11,6 @@ void	env(char **args, int fd)
 		ft_putchar_fd('=', fd);
 		if (!ft_strcmp(tmp->name, "PWD"))
 			ft_putstr_fd(global.pwd, fd);
-		else if (!ft_strcmp(tmp->name, "SHLVL"))
-			ft_putnbr_fd(global.shlvl, fd);
 		else
 			ft_putstr_fd(tmp->value, fd);
 		ft_putchar_fd('\n', fd);

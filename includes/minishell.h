@@ -54,7 +54,7 @@ void shell_loop(void);
 
 /*----- DEBUGGIN -----*/
 void	print_global(char *path, char *env, char *our_env);
-void	hardcode_builtins(char **args);
+
 
 #include "utils.h"
 #include "srcs.h"
