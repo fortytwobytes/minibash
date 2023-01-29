@@ -4,7 +4,6 @@
 // NOTE! you should condider adding debbugin.c next to main.c in your MAKEFILE
 
 void	print_global(char *path, char *env, char *our_env);
-void    hardcode_builtins(char **args);
 
 
 // this function gets 3 arguments: path, sysenv, our_env
@@ -33,40 +32,42 @@ void	print_global(char *path, char *env, char *our_env)
 }
 
 // hardcode builtins for quick testing
-void	hardcode_builtins(char **args)
+void	hardcode_builtins(char **args, int outfile)
 {
-	if (*args == NULL)
-		return ;
 	if (!ft_strcmp(args[0], "cd"))
-		cd(args, 1);
+		cd(args, outfile);
 	if (!ft_strcmp(args[0], "pwd"))
-		pwd(args, 1);
+		pwd(args, outfile);
 	if (!ft_strcmp(args[0], "echo"))
-		echo(args, 1);
+		echo(args, outfile);
 	if (!ft_strcmp(args[0], "export"))
-		export(args, 1);
+		export(args, outfile);
 	if (!ft_strcmp(args[0], "unset"))
-		unset(args, 1);
+		unset(args, outfile);
 	if (!ft_strcmp(args[0], "env"))
-		env(args, 1);
-	if (!ft_strcmp(args[0], "./minishell")) // this case should be added
 	{
-		global.shlvl++;
-		// for dubshells
-		shell_loop();
-		// we should execute minishell as a normal command here
+		env(args, outfile);
 	}
+		
 	if (!ft_strcmp(args[0], "exit"))
-	{
-		free_split(args);
-		global.shlvl--;
 		exit(EXIT_SUCCESS);
-		// exit should behave like ctrl + d
-		// if we are in a subshell we should exit the subshell
-		// not the whole program
-	}
-	if (!ft_strcmp("here", args[0]))
-	{
-		printf("%s\n",here_doc_name());
-	}
+}
+
+int	is_builtins(char *cmd)
+{
+	if (!ft_strcmp(cmd, "cd"))
+		return 1;
+	if (!ft_strcmp(cmd, "pwd"))
+		return 1;
+	if (!ft_strcmp(cmd, "echo"))
+		return 1;
+	if (!ft_strcmp(cmd, "export"))
+		return 1;
+	if (!ft_strcmp(cmd, "unset"))
+		return 1;
+	if (!ft_strcmp(cmd, "env"))
+		return 1;
+	if (!ft_strcmp(cmd, "exit"))
+		return 1;
+	return  0;
 }

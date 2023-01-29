@@ -28,6 +28,7 @@ char *get_name(char *token)
 	int	name_len;
 
 	i = 0;
+	name_len = -1;
 	while(token[i])
 	{
 		name_len = -1;

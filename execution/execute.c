@@ -14,11 +14,14 @@ void	close_all_fds(t_cmd *head)
 		tmp = tmp->next;
 	}
 }
+
 void command_not_found()
 {
 	write(2,"command not found\n",19);
 	exit(127);
 }
+
+// if fork fails the exit status is 1
 int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 {
 	pid_t	pid;
@@ -29,29 +32,59 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		return -1;
 	if (pid == 0)
 	{
-		cmd->path = ft_getpath(cmd->cmd);
-		if (cmd->path == NULL)
-			command_not_found();
 		if (cmd->infile != 0)
 			ft_dup2(cmd->infile, 0);
 		if (cmd->outfile != 0)
 			ft_dup2(cmd->outfile, 1);
 		close_all_fds(head);
+		if (is_builtins(cmd->cmd))
+		{
+			hardcode_builtins(cmd->args,1); 
+			exit(1111); // ^ should return exit status
+		}
+		cmd->path = ft_getpath(cmd->cmd);
+		if (cmd->path == NULL)
+			command_not_found();
 		ft_execve(cmd->path, cmd->args);
 	}
 	return pid;
+}
+
+void wait_all_childs(int last_pid)
+{
+	int		pid;
+	int		status;
+	int		tmp_pid;
+
+	pid = 0;
+	tmp_pid = last_pid;
+	if (last_pid == 0)
+		return ;
+	while (pid != -1)
+	{
+		pid = wait(&status);
+		if (last_pid == pid)
+			global.exit_status = WEXITSTATUS(status);
+	}
+	if (tmp_pid == -1)
+		global.exit_status = 1;
 }
 
 void	execute(t_cmd *head)
 {
 	t_cmd	*tmp;
 	int		last_pid;
-	int		status;
-	int		pid;
 
 	tmp = head;
 	last_pid = 0;
-	pid = 0;
+	if (!head)
+		return;
+	if (is_builtins(head->cmd) && !head->next)
+	{
+		hardcode_builtins(head->args,head->outfile); // this fucntion should return the exit status of the builtins 
+		close_all_fds(head);
+		return ;
+	}
 	while (tmp)
 	{
 		if (tmp->cmd)
@@ -61,12 +94,5 @@ void	execute(t_cmd *head)
 		tmp = tmp->next;
 	}
 	close_all_fds(head);
-	if (last_pid == 0)
-		return ;
-	while (pid != -1)
-	{
-		pid = wait(&status);
-		if (last_pid == pid)
-			global.exit_status = WEXITSTATUS(status);
-	}
+	wait_all_childs(last_pid);
 }
