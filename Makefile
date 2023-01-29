@@ -1,5 +1,6 @@
 CC			= cc
-CFLAGS		=  -g -I includes # -Wall -Wextra -Werror 
+CFLAGS		= -Wall -Wextra -Werror -g -I includes 
+CEXTRA		= -fsanitize=address,undefined,integer -Wshadow -Wuninitialized -Wunreachable-code
 RM			= rm -rf
 MKDIR		= mkdir -p
 USERS		= $(USER)
