@@ -20,10 +20,10 @@ int	word_split_count(char *line)
 	int	flag;
 
 	flag = 1;
-	i = 0;
+	i = -1;
 	count = 0;
 	q = -1;
-	while (line[i])
+	while (line[++i])
 	{
 		if (line[i] != ' ' && line[i] != '\t')
 		{
@@ -37,7 +37,6 @@ int	word_split_count(char *line)
 		}
 		else
 			flag = 1;
-		i++;
 	}
 	return (count);
 }
