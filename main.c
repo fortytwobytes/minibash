@@ -13,8 +13,6 @@ int	main(int argc, char **argv, char *envp[])
 	// we should hardcode some paths to make the same behavior as bash
 	init_global(envp);
 	shell_loop();
-	// parse_line("$HD");
-	// printf("%s",get_env_value("$HOME"));
 	return (0);
 }
 
@@ -33,6 +31,4 @@ void	init_global(char **envp)
 		add_env(&global.envs,ft_strdup("SHLVL"),ft_strdup("1"));
 	else
 		ft_setenv("SHLVL" , ft_itoa(ft_atoi(tmp_shlvl) + 1));
-	// +1 because we are in a new shell level
-	// free(tmp_shlvl);
 }

@@ -72,8 +72,6 @@ char	*ft_getenv(char *name)
 	t_envs *tmp;
 
 	tmp = global.envs;
-	if (!tmp)
-		return (NULL);
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -152,8 +150,6 @@ void ft_setenv(char *name, char *value)
 	t_envs *tmp;
 
 	tmp = global.envs;
-	if (!tmp)
-		return ;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))

@@ -41,7 +41,6 @@ struct s_global
 	char	*path;	
 	char	*pwd;
 	char	_;
-	int		shlvl;
 	int		exit_status;
 	t_envs	*envs;
 };
