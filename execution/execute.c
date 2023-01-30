@@ -83,6 +83,7 @@ void	execute(t_cmd *head)
 	{
 		global.exit_status = exec_builtins(head->args, head->outfile);
 		close_all_fds(head);
+		free_cmd(head);
 		return ;
 	}
 	while (tmp)
