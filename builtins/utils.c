@@ -38,3 +38,25 @@ int	exec_builtins(char **args, int outfile)
 	return (111111);
 }
 
+void	index_envs(void)
+{
+	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next) {
+		tmp->index = 0;
+	}
+	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next) {
+		for (t_envs *tmp1 = global.envs; tmp1; tmp1 = tmp1->next) {
+			if (ft_strcmp(tmp->name, tmp1->name) > 0) {
+				tmp->index++;
+			}
+		}
+	}
+}
+
+int	size_of_env(void)
+{
+	int i = 0;
+	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next) {
+		i++;
+	}
+	return (i);
+}

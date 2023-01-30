@@ -19,7 +19,7 @@ char	*ft_strdup(char *s1)
 
 	i = 0;
 	dup = ft_calloc(sizeof(char) * (ft_strlen(s1) + 1));
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		dup[i] = s1[i];
 		i++;

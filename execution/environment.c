@@ -7,7 +7,11 @@ void	add_env(t_envs **envs, char *name, char *value)
 
 	new = ft_calloc(sizeof(t_envs));
 	new->name = ft_strdup(name);
-	new->value = ft_strdup(value);
+	if (value == NULL)
+		new->value = NULL;
+	else
+		new->value = ft_strdup(value);
+	new->index = 0;
 	new->next = NULL;
 	if (!envs || !*envs)
 	{
@@ -99,17 +103,24 @@ char	*get_env_value(char *name)
 	return ("");
 }
 
-int	is_updated(char *name, char *value)
+int	is_updated(char *name, char *value, int option)
 {
 	t_envs	*tmp;
+	char	*holder;
 
 	tmp = global.envs;
+	if (value == NULL)
+		return (FALSE);
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
 		{
-			free(tmp->value);
-			tmp->value = ft_strdup(value);
+			holder = tmp->value;
+			if (option == ADD)
+				tmp->value = ft_strdup(value);
+			else if (option == APPEND)
+				tmp->value = ft_strjoin(holder, value);
+			free(holder);
 			return (TRUE);
 		}
 		tmp = tmp->next;
