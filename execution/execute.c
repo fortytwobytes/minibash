@@ -95,4 +95,5 @@ void	execute(t_cmd *head)
 	}
 	close_all_fds(head);
 	wait_all_childs(last_pid);
+	free_cmd(head);
 }

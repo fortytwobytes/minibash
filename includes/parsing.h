@@ -64,5 +64,6 @@ void	free_tokens(t_token *tokens);
 void	tokenise_heredoc(t_token *token);
 int		is_operator(char c);
 t_token	*word_spliting(t_token *token);
+void free_cmd(t_cmd *head);
 
 #endif // PARSING_H

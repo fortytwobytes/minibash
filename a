@@ -1,0 +1,13 @@
+Makefile
+README.md
+a
+a.out
+bin
+builtins
+execution
+includes
+main.c
+minishell
+parsing
+srcs
+utils
