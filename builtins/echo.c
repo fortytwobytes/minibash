@@ -1,17 +1,19 @@
 #include "builtin.h"
 
-static int  is_flag_n(char *flag); 
-static void echo_args(int *n, char **args, int fd);
+static int	is_flag_n(char *flag);
+static void	echo_args(int *n, char **args, int fd);
 
 void	echo(char **args, int fd)
 {
-	int new_line = TRUE;
-	int i = 1;
+	int	new_line;
+	int	i;
 
+	new_line = TRUE;
+	i = 1;
 	if (args[i] == NULL)
 	{
 		ft_putstr_fd("\n", fd);
-		return;
+		return ;
 	}
 	if (is_flag_n(args[i]))
 	{
@@ -23,9 +25,11 @@ void	echo(char **args, int fd)
 		ft_putstr_fd("\n", fd);
 }
 
-static	int is_flag_n(char *flag)
+static	int	is_flag_n(char *flag)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!ft_strcmp(flag, "-n"))
 		return (TRUE);
 	if (flag[0] != '-')
@@ -40,9 +44,9 @@ static	int is_flag_n(char *flag)
 	return (TRUE);
 }
 
-static	void echo_args(int *n, char **args, int fd)
+static	void	echo_args(int *n, char **args, int fd)
 {
-	int i;
+	int	i;
 
 	(void) n;
 	i = 0;

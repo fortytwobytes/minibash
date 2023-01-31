@@ -5,9 +5,8 @@ void	env(char **args, int fd)
 	(void)args;
 	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next)
 	{
-
 		if (tmp->value == NULL)
-			continue;
+			continue ;
 		ft_putstr_fd(tmp->name, fd);
 		ft_putchar_fd('=', fd);
 		if (!ft_strcmp(tmp->name, "PWD"))

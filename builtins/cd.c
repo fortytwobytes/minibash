@@ -4,12 +4,15 @@ char		*ft_getenv(char *name);
 static int	args_len(char **args);
 static void	update_pwd(void);
 
-void cd(char **args, int fd)
+void	cd(char **args, int fd)
 {
-	int i = args_len(args);
+	int		i;
+	char	*home;
+
+	i = args_len(args);
 	if (i == 1)
 	{
-		char *home = ft_getenv("HOME");
+		home = ft_getenv("HOME");
 		if (!home)
 			fatal("cd", "HOME not set");
 		else if (chdir(home) != 0)
@@ -20,13 +23,15 @@ void cd(char **args, int fd)
 		if (chdir(args[1]))
 			fatal("cd", "no such file or directory");
 	}
-	ft_putchar_fd(0, fd); // just in case of a redirection or a pipe
+	ft_putchar_fd(0, fd);
 	update_pwd();
 }
 
-static int args_len(char **args)
+static int	args_len(char **args)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (args[i])
 		i++;
 	return (i);

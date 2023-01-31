@@ -54,8 +54,11 @@ void	index_envs(void)
 
 int	size_of_env(void)
 {
-	int i = 0;
-	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next) {
+	int	i;
+
+	i = 0;
+	for (t_envs *tmp = global.envs; tmp; tmp = tmp->next) 
+	{
 		i++;
 	}
 	return (i);
