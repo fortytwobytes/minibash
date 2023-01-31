@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 23:37:12 by relkabou          #+#    #+#             */
+/*   Updated: 2023/02/01 00:09:38 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
@@ -6,7 +18,7 @@
 void	shell_loop(void);
 void	execute(t_cmd *head);
 int		exec_single_cmd(t_cmd *head, t_cmd *cmd);
-
+void	command_not_found(void);
 int		is_updated(char *name, char *value, int option);
 void	add_env(t_envs **envs, char *name, char *value);
 void	pop_env(char *name);

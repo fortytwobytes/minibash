@@ -1,11 +1,11 @@
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -I includes 
-#CEXTRA		= -fsanitize=address,undefined,integer -Wshadow -Wuninitialized -Wunreachable-code
+# CEXTRA		= -fsanitize=address,undefined -Wshadow -Wuninitialized -Wunreachable-code
 RM			= rm -rf
 MKDIR		= mkdir -p
 USERS		= $(USER)
-COMP        = -L/goinfre/$(USERS)/.brew/opt/readline/lib
-LINK 		= -I/goinfre/$(USERS)/.brew/opt/readline/include
+# COMP        = -L/goinfre/$(USERS)/.brew/opt/readline/lib
+# LINK 		= -I/goinfre/$(USERS)/.brew/opt/readline/include
 
 SRCS		= $(wildcard srcs/*.c builtins/*.c execution/*.c parsing/*.c utils/*.c main.c debuggin.c)
 SRCS_DIRS	= $(dir $(SRCS))
@@ -22,11 +22,11 @@ NAME		= minishell
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) -L/goinfre/$(USERS)/.brew/opt/readline/lib -I/goinfre/$(USERS)/.brew/opt/readline/include -lreadline $(OBJS)  -o $(NAME)
+	@$(CC) $(LINK) $(CFLAGS) $(CEXTRA) $(OBJS) -o $(NAME) -lreadline
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@$(CC) $(LINK) $(CFLAGS)  -c $< -o $@
+	@$(CC) $(LINK) $(CFLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(BIN_DIR)

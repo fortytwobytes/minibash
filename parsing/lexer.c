@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:58:50 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/01/29 19:44:49 by mtagemou         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:52:49 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ char	**split_by_blank(char *line)
 	return (res);
 }
 
-// in first we split the words by blank characters and remove them , then we separate the words from the operators 
+// in first we split the words by blank characters and remove them , then we
+// separate the words from the operators 
 // and create token ,then we parse the semantics of the tokens created
 t_cmd	*parse_line(char *line)
 {

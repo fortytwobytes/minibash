@@ -3,6 +3,7 @@ bin/
 minishell
 venv/
 .vscode/
+.idea/
 
 # Prerequisites
 *.d
