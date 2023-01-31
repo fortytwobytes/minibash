@@ -5,8 +5,11 @@ static int	is_export_valid(char *envname);
 
 char	*get_name_(char *args)
 {
-	char *buffer = NULL;
-	int	i = 0;
+	char	*buffer;
+	int		i;
+
+	i = 0;
+	buffer = NULL;
 	while (args[i])
 	{
 		if (args[i] == '=')
@@ -37,7 +40,7 @@ char	*get_value_(int index, char *str)
 	return (buffer);
 }
 
-void export(char **args, int fd)
+void	export(char **args, int fd)
 {
 	char	*name;
 	char	*value;
@@ -52,7 +55,8 @@ void export(char **args, int fd)
 	args++;
 	while (*args)
 	{
-		if ((idx = is_export_valid(*args) == -1)) {
+		if ((idx = is_export_valid(*args) == -1))
+		{
 			printf("bash: export: `%s': not a valid identifier\n", *args);
 			args++;
 			continue ;
@@ -64,7 +68,7 @@ void export(char **args, int fd)
 			is_modified = FALSE;
 		else if (*(*args + idx) == '+')
 			is_modified = is_updated(name, value, APPEND);
-		else 
+		else
 			is_modified = is_updated(name, value, ADD);
 		if (is_modified == FALSE)
 			add_env(&global.envs, name, value);
@@ -73,9 +77,11 @@ void export(char **args, int fd)
 	ft_putchar_fd(0, fd);
 }
 
-static void print_export(int fd)
+static void	print_export(int fd)
 {
-	int size = size_of_env();
+	int	size;
+
+	size = size_of_env();
 	index_envs();
 	for (int counter = 0; counter < size; counter++)
 	{
@@ -103,7 +109,9 @@ static void print_export(int fd)
 
 static int	is_export_valid(char *exp)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!is_lower(*exp) && !is_upper(*exp) && *exp != '_')
 		return (-1);
 	while (exp[i])

@@ -39,7 +39,7 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		close_all_fds(head);
 		if (is_builtins(cmd->cmd))
 		{
-			exit_status = exec_builtins(cmd->args, cmd->outfile);
+			exit_status = exec_builtins(cmd->args, 1);
 			exit(exit_status);
 		}
 		cmd->path = ft_getpath(cmd->cmd);
@@ -70,6 +70,21 @@ void	wait_all_childs(int last_pid)
 		global.exit_status = 1;
 }
 
+int	one_builtin(t_cmd *head)
+{
+	if (is_builtins(head->cmd) && !head->next)
+	{
+		if (head->outfile)
+			global.exit_status = exec_builtins(head->args, head->outfile);
+		else
+			global.exit_status = exec_builtins(head->args, 1);
+		close_all_fds(head);
+		free_cmd(head);
+		return (1);
+	}
+	return (0);
+}
+
 void	execute(t_cmd *head)
 {
 	t_cmd	*tmp;
@@ -79,13 +94,8 @@ void	execute(t_cmd *head)
 	last_pid = 0;
 	if (!head)
 		return ;
-	if (is_builtins(head->cmd) && !head->next)
-	{
-		global.exit_status = exec_builtins(head->args, head->outfile);
-		close_all_fds(head);
-		free_cmd(head);
+	if (one_builtin(head))
 		return ;
-	}
 	while (tmp)
 	{
 		if (tmp->cmd)
