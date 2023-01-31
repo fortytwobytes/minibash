@@ -83,6 +83,7 @@ void	execute(t_cmd *head)
 	{
 		global.exit_status = exec_builtins(head->args, head->outfile);
 		close_all_fds(head);
+		free_cmd(head);
 		return ;
 	}
 	while (tmp)
@@ -95,4 +96,5 @@ void	execute(t_cmd *head)
 	}
 	close_all_fds(head);
 	wait_all_childs(last_pid);
+	free_cmd(head);
 }

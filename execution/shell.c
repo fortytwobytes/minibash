@@ -13,6 +13,7 @@ void	shell_loop(void)
 		add_history(line);
 		cmd = parse_line(line);
 		execute(cmd);
+		
 		free(line);
 	}
 }
