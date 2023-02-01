@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:13:52 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 23:47:26 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:07:41 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	export_conditions(int idx, char *arg)
 	else
 		is_modified = is_updated(name, value, ADD);
 	if (is_modified == FALSE)
-		add_env(&global.envs, name, value);
+		add_env(& g_global.envs, name, value);
 	free(name);
 	free(value);
 }
@@ -63,7 +63,7 @@ static void	print_export_helper(int fd, int counter)
 {
 	t_envs	*tmp;
 
-	tmp = global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		if (counter == tmp->index)

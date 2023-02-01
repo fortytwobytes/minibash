@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 23:03:18 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 23:44:01 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:08:17 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	index_envs(void)
 	t_envs	*tmp;
 	t_envs	*tmp1;
 
-	tmp = global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		tmp->index = 0;
 		tmp = tmp->next;
 	}
-	tmp = global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
-		tmp1 = global.envs;
+		tmp1 = g_global.envs;
 		while (tmp1)
 		{
 			if (ft_strcmp(tmp->name, tmp1->name) > 0)
@@ -81,7 +81,7 @@ int	size_of_env(void)
 	t_envs	*tmp;
 
 	i = 0;
-	tmp = global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		i++;
