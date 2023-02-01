@@ -8,8 +8,8 @@ int	main(int argc, char **argv, char *envp[])
 	(void)argc;
 	(void)argv;
 
+	rl_catch_signals = 0;
 	init_global(envp);
-	handle_signals();
 	shell_loop();
 	return (0);
 }

@@ -38,7 +38,7 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		return (-1);
 	if (pid == 0)
 	{
-		restore_signals();
+		default_signals();
 		if (cmd->infile != 0)
 			ft_dup2(cmd->infile, 0);
 		if (cmd->outfile != 0)

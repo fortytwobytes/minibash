@@ -18,8 +18,7 @@
 void handle_parent_SIGINT(int sig)
 {
 	(void)sig;
-	if (ft_atoi(get_env_value("SHLVL")) == 2)
-		write(1,"\n",1);
+	write(1,"\n",1);
 	rl_on_new_line();
 	rl_replace_line("",0);
 	rl_redisplay();
@@ -36,7 +35,7 @@ void handle_signals()
 	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
 }
 
-void restore_signals()
+void default_signals()
 {
 	struct sigaction sa_SIGINT;
 	struct sigaction sa_SIGQUIT;
@@ -46,3 +45,14 @@ void restore_signals()
 	sigaction(SIGINT,&sa_SIGINT,NULL);
 	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
 }
+
+void ignore_signals()
+{
+	struct sigaction sa_SIGINT;
+	struct sigaction sa_SIGQUIT;
+
+	sa_SIGINT.sa_handler = SIG_IGN; 
+	sa_SIGQUIT.sa_handler = SIG_IGN;
+	sigaction(SIGINT,&sa_SIGINT,NULL);
+	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
+} 
