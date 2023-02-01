@@ -51,7 +51,6 @@ struct s_envs
 
 struct s_global
 {
-	char	**env;
 	int		exit_status;
 	t_envs	*envs;
 };

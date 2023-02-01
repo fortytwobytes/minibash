@@ -24,7 +24,7 @@ void	add_env(t_envs **envs, char *name, char *value);
 void	pop_env(char *name);
 char	*ft_getenv(char *name);
 char	*get_env_value(char *name);
-t_envs	*envs_init(void);
+t_envs	*envs_init(char **env);
 void	ft_setenv(char *name, char *value);
 
 char	**dynamic_env(void);
@@ -32,5 +32,7 @@ char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);
 void    update_env(char *name, char *value);
 
+void restore_signals();
+void handle_signals();
 
 #endif // EXECUTION_H

@@ -8,6 +8,7 @@ int	main(int argc, char **argv, char *envp[])
 	(void)argc;
 	(void)argv;
 
+	handle_signals();
 	init_global(envp);
 	shell_loop();
 	return (0);
@@ -17,9 +18,8 @@ void	init_global(char **envp)
 {
 	char	*tmp_shlvl;
 
-	global.env = envp;
 	global.exit_status = 0;
-	global.envs = envs_init();
+	global.envs = envs_init(envp);
 	tmp_shlvl = ft_getenv("SHLVL");
 	if (!tmp_shlvl)
 		add_env(&global.envs, ft_strdup("SHLVL"), ft_strdup("1"));
