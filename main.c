@@ -10,7 +10,6 @@ int	main(int argc, char **argv, char *envp[])
 
 	init_global(envp);
 	handle_signals();
-	parse_line("echo '$PWD'$PWD");
 	shell_loop();
 	return (0);
 }
