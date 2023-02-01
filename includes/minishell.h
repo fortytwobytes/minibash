@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "readline/readline.h"
 # include "readline/history.h"
 
@@ -51,7 +52,6 @@ struct s_envs
 
 struct s_global
 {
-	char	**env;
 	int		exit_status;
 	t_envs	*envs;
 };

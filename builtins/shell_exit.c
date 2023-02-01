@@ -32,7 +32,7 @@ int	shell_exit(char **args)
 	if (is_all_num(args[1]))
 	{
 		if (args[2] == NULL)
-			exit(ft_atoi(args[0]));
+			exit(ft_atoi(args[1]));
 		else
 		{
 			ft_putstr_fd("too many arguments\n", 2);

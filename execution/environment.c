@@ -61,7 +61,7 @@ void	pop_env(char *name)
 	}
 }
 
-t_envs	*envs_init(void)
+t_envs	*envs_init(char **env)
 {
 	int		i;
 	char	*name;
@@ -71,9 +71,9 @@ t_envs	*envs_init(void)
 
 	i = 0;
 	envs = NULL;
-	while (global.env && global.env[i])
+	while (env && env[i])
 	{
-		sp = ft_split(global.env[i], '=');
+		sp = ft_split(env[i], '=');
 		name = sp[0];
 		value = sp[1];
 		add_env(&envs, name, value);

@@ -108,11 +108,13 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 		free(joined_line);
 		line = readline("> ");
 	}
+	free(line);
 	close(fd);
 	fd = open(file, O_RDONLY, 0);
 	if (fd == -1)
 		return (0);
 	cmd->infile = fd;
+	free(file);
 	return (1);
 }
 

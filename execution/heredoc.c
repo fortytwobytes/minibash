@@ -31,11 +31,14 @@ static char	*get_id(char *name)
 {
 	char		*id;
 	static int	i; 
+	char		*id2;
 
 	if (!name)
 		return (NULL);
 	while (*name && !is_num(*name))
 		name++;
-	id = ft_strjoin_sep(name, ft_itoa(i++), '_');
+	id2 = ft_itoa(i++);
+	id = ft_strjoin_sep(name, id2, '_');
+	free(id2);
 	return (id);
 }
