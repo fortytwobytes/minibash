@@ -87,7 +87,7 @@ int replace_before_name(char *new_token,char *token)
 	}
 	return i;
 }
-// "     / q
+
 // this function remplace the string value in the string
 // name and returns an allocated string
 // we add one the len of name bc it doesn't contain the '$' char
@@ -103,13 +103,6 @@ char	*replace_name_value(char *token, char *name, char *value)
 	j = 0;
 	new_token = ft_calloc(ft_strlen(token)
 			+ (ft_strlen(value) - ft_strlen(name)) + 1);
-	// while (token[i] != '$' || j == 1)
-	// {
-	// 	if (token[i] == '\'')
-	// 		j = !j;
-	// 	new_token[i] = token[i];
-	// 	i++;
-	// }
 	i = replace_before_name(new_token,token);
 	k = i;
 	j = 0;
