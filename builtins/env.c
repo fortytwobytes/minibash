@@ -17,7 +17,7 @@ void	env(char **args, int fd)
 	t_envs	*tmp;
 
 	(void) args;
-	tmp = global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		if (tmp->value == NULL)

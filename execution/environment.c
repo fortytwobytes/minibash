@@ -41,7 +41,7 @@ void	pop_env(char *name)
 	t_envs	*tmp;
 	t_envs	*prev;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	prev = NULL;
 	while (tmp)
 	{
@@ -50,7 +50,7 @@ void	pop_env(char *name)
 			if (prev)
 				prev->next = tmp->next;
 			else
-				global.envs = tmp->next;
+				g_global.envs = tmp->next;
 			free(tmp->name);
 			free(tmp->value);
 			free(tmp);
@@ -87,7 +87,7 @@ char	*ft_getenv(char *name)
 {
 	t_envs	*tmp;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -101,9 +101,9 @@ char	*get_env_value(char *name)
 {
 	t_envs	*tmp;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	if (*name == '?')
-		return (ft_itoa(global.exit_status));
+		return (ft_itoa(g_global.exit_status));
 	if (!tmp)
 		return (NULL);
 	while (tmp)

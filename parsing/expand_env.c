@@ -67,7 +67,7 @@ char	*get_name(char *token)
 
 // we need to check if the variable is not inside double quotes to 
 // not expand it , but check if we don't have double quotes before 
-int replace_before_name(char *new_token,char *token)
+int	replace_before_name(char *new_token,char *token)
 {
 	int	i;
 	int dbl_quotes;

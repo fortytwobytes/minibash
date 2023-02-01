@@ -19,11 +19,13 @@ void	shell_loop(void)
 
 	while (TRUE)
 	{
+		handle_signals();
 		line = readline(PROMPT);
 		if (!line)
 			break ;
 		add_history(line);
 		cmd = parse_line(line);
+		ignore_signals();
 		execute(cmd);
 		free(line);
 	}

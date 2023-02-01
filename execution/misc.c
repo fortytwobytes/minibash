@@ -23,7 +23,7 @@ int	is_updated(char *name, char *value, int option)
 	t_envs	*tmp;
 	char	*holder;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	if (value == NULL)
 		return (FALSE);
 	while (tmp)
@@ -51,7 +51,7 @@ char	**dynamic_env(void)
 	t_envs	*tmp;
 
 	i = 0;
-	tmp = global.envs;
+	tmp =g_global.envs;
 	while (tmp)
 	{
 		tmp = tmp->next;
@@ -59,7 +59,7 @@ char	**dynamic_env(void)
 	}
 	env = ft_calloc(sizeof(char *) * (i + 1));
 	j = 0;
-	tmp = global.envs;
+	tmp =g_global.envs;
 	while (j < i)
 	{
 		if (tmp->value == NULL)
@@ -76,7 +76,7 @@ void	ft_setenv(char *name, char *value)
 {
 	t_envs	*tmp;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -94,7 +94,7 @@ void	update_env(char *name, char *value)
 	t_envs *tmp;
 	char *holder;
 
-	tmp = global.envs;
+	tmp =g_global.envs;
 	if (!name || !value)
 		return;
 	while (tmp)
