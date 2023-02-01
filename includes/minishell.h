@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:37:22 by relkabou          #+#    #+#             */
-/*   Updated: 2023/01/31 23:59:38 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 07:02:20 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ struct s_envs
 struct s_global
 {
 	char	**env;
-	char	*path;	
-	char	*pwd;
 	int		exit_status;
 	t_envs	*envs;
 };

@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:05:40 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:10:53 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 07:04:07 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,27 @@ void	ft_setenv(char *name, char *value)
 			free(tmp->value);
 			tmp->value = value;
 			return ;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	update_env(char *name, char *value)
+{
+	t_envs *tmp;
+	char *holder;
+
+	tmp = global.envs;
+	if (!name || !value)
+		return;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, name))
+		{
+			holder = tmp->value;
+			tmp->value = ft_strdup(value);
+			free(holder);
+			return;
 		}
 		tmp = tmp->next;
 	}

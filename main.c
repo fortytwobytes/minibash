@@ -19,9 +19,7 @@ void	init_global(char **envp)
 
 	global.env = envp;
 	global.exit_status = 0;
-	global.pwd = getcwd(NULL, 0);
 	global.envs = envs_init();
-	global.path = ft_strdup("/bin/");
 	tmp_shlvl = ft_getenv("SHLVL");
 	if (!tmp_shlvl)
 		add_env(&global.envs, ft_strdup("SHLVL"), ft_strdup("1"));

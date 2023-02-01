@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:37:12 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:09:38 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 06:35:30 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ void	ft_setenv(char *name, char *value);
 char	**dynamic_env(void);
 char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);
+void    update_env(char *name, char *value);
+
 
 #endif // EXECUTION_H

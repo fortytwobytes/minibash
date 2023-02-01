@@ -6,14 +6,53 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:13:52 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:13:53 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 07:06:18 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
+char		*get_name_(char *args);
+char		*get_value_(int index, char *str);
 static void	print_export(int fd);
 static int	is_export_valid(char *envname);
+
+void	export(char **args, int fd)
+{
+	char	*name;
+	char	*value;
+	int		idx;
+	int		is_modified;
+
+	if (*(args + 1) == NULL)
+	{
+		print_export(fd);
+		return ;
+	}
+	args++;
+	while (*args)
+	{
+		if ((idx = is_export_valid(*args) == -1))
+		{
+			fatal("export", "not a valid identifier");
+			args++;
+			continue ;
+		}
+		name = get_name_(*args);
+		idx = ft_strlen(name);
+		value = get_value_(idx, *args);
+		if (*(*args + idx) == 0)
+			is_modified = FALSE;
+		else if (*(*args + idx) == '+')
+			is_modified = is_updated(name, value, APPEND);
+		else
+			is_modified = is_updated(name, value, ADD);
+		if (is_modified == FALSE)
+			add_env(&global.envs, name, value);
+		args++;
+	}
+	ft_putchar_fd(0, fd);
+}
 
 char	*get_name_(char *args)
 {
@@ -50,43 +89,6 @@ char	*get_value_(int index, char *str)
 	buffer = ft_calloc(len - index + 1);
 	ft_memcpy(buffer, str + index + 1, len - index);
 	return (buffer);
-}
-
-void	export(char **args, int fd)
-{
-	char	*name;
-	char	*value;
-	int		idx;
-	int		is_modified;
-
-	if (*(args + 1) == NULL)
-	{
-		print_export(fd);
-		return ;
-	}
-	args++;
-	while (*args)
-	{
-		if ((idx = is_export_valid(*args) == -1))
-		{
-			printf("bash: export: `%s': not a valid identifier\n", *args);
-			args++;
-			continue ;
-		}
-		name = get_name_(*args);
-		idx = ft_strlen(name);
-		value = get_value_(idx, *args);
-		if (*(*args + idx) == 0)
-			is_modified = FALSE;
-		else if (*(*args + idx) == '+')
-			is_modified = is_updated(name, value, APPEND);
-		else
-			is_modified = is_updated(name, value, ADD);
-		if (is_modified == FALSE)
-			add_env(&global.envs, name, value);
-		args++;
-	}
-	ft_putchar_fd(0, fd);
 }
 
 static void	print_export(int fd)

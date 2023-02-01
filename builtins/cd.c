@@ -1,30 +1,26 @@
 #include "builtin.h"
 
-char		*ft_getenv(char *name);
+static void	home_case(void);
 static int	args_len(char **args);
-static void	update_pwd(void);
+static void	update_pwd(char *new_path);
 
 void	cd(char **args, int fd)
 {
 	int		i;
-	char	*home;
 
 	i = args_len(args);
+	if (ft_getenv("OLDPWD") == NULL)
+		add_env(&global.envs, ft_strdup("OLDPWD"), ft_strdup(""));
 	if (i == 1)
-	{
-		home = ft_getenv("HOME");
-		if (!home)
-			fatal("cd", "HOME not set");
-		else if (chdir(home) != 0)
-			fatal("cd", "no such file or directory");
-	}
-	else if (i >= 2)
+		return (home_case(),
+			ft_putchar_fd(0, fd), update_pwd(ft_getenv("HOME")));
+	else
 	{
 		if (chdir(args[1]))
 			fatal("cd", "no such file or directory");
 	}
 	ft_putchar_fd(0, fd);
-	update_pwd();
+	update_pwd(args[1]);
 }
 
 static int	args_len(char **args)
@@ -37,11 +33,30 @@ static int	args_len(char **args)
 	return (i);
 }
 
-static void	update_pwd(void)
+static void	update_pwd(char *new_path)
 {
-	char	*tmp;
+	char	*new_wd;
 
-	tmp = global.pwd;
-	global.pwd = getcwd(NULL, 0);
-	free(tmp);
+	update_env("OLDPWD", ft_getenv("PWD"));
+	new_wd = getcwd(NULL, 0);
+	if (new_wd == NULL)
+	{
+		new_wd = ft_strjoin_sep(ft_getenv("OLDPWD"), new_path, '/');
+		update_env("PWD", new_wd);
+		fatal("cd", "error retrieving current directory");
+	}
+	else
+		update_env("PWD", new_wd);
+	free(new_wd);
+}
+
+static void home_case(void)
+{
+	char	*home;
+
+	home = ft_getenv("HOME");
+	if (!home)
+		return (fatal("cd", "HOME not set"));
+	if (chdir(home) != 0)
+		fatal("cd", "no such file or directory");
 }
