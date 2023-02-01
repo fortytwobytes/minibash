@@ -1,35 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 23:37:22 by relkabou          #+#    #+#             */
+/*   Updated: 2023/02/01 07:02:20 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include <sys/wait.h>
-#include "readline/readline.h"
-#include "readline/history.h"
+# include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <stdarg.h>
+# include <sys/wait.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 
-#define TRUE 1
-#define FALSE 0
+# define TRUE 1
+# define FALSE 0
 
-#define PROMPT "$> "
+# define PROMPT "$> "
 
-#define READ 0
-#define WRITE 1
+# define READ 0
+# define WRITE 1
 
-#define ADD 1
-#define APPEND 2
+# define ADD 1
+# define APPEND 2
 
-typedef struct s_envs t_envs;
+typedef struct s_envs	t_envs;
 typedef struct s_cmd	t_cmd;
 typedef struct s_global	t_global;
 
-/* ---- Global variable ---- */
-extern t_global	global;
-/* ------------------------- */
+extern t_global	global; // global variable must start with g_ (NORM)
 
 struct s_envs
 {
@@ -42,23 +52,17 @@ struct s_envs
 struct s_global
 {
 	char	**env;
-	char	*path;	
-	char	*pwd;
 	int		exit_status;
 	t_envs	*envs;
 };
 
-// "_", "pwd", this variables should be always 
-// updated whenever a command get executed
-// "_" is a special variable that holds the last command's argument 
-// i don't know if i'm gonna use it or not
-
 void	shell_loop(void);
 
-#include "builtin.h"
-#include "execution.h"
-#include "parsing.h"
-#include "srcs.h"
-#include "utils.h"
+// missaligned includes declaration (NORM) 
+# include "builtin.h"
+# include "execution.h"
+# include "parsing.h"
+# include "srcs.h"
+# include "utils.h"
 
 #endif // MINISHELL_H

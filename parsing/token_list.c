@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:44:55 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/01/29 19:44:57 by mtagemou         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:49:36 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 // in this function we chose the type of passed string 
 // the possible strings are sequences of operators or  noraml chars
-// if the sequence of operators is not to be handle by our minishell we name it by the token OPERATOR wich should syntax error
+// if the sequence of operators is not to be handle by our minishell we name 
+// it by the token OPERATOR wich should syntax error
 // else the token are allowed 
 int	choose_token_type(char *s)
 {
@@ -80,19 +81,5 @@ void	tokenise_heredoc(t_token *token)
 		if (token->type == HEREDOC)
 			(token->next)->type = LIMITER;
 		token = token->next;
-	}
-}
-
-void	free_tokens(t_token *tokens)
-{	
-	t_token	*prev;
-
-	while (tokens)
-	{
-		prev = tokens;
-		if (prev->type != WORD && prev->type != LIMITER)
-			free(tokens->token);
-		tokens = tokens->next;
-		free(prev);
 	}
 }

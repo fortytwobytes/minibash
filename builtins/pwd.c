@@ -3,6 +3,10 @@
 void	pwd(char **args, int fd)
 {
 	(void) args;
-	ft_putstr_fd(global.pwd, fd);
+
+	char	*pwdir;
+
+	pwdir = ft_getenv("PWD");
+	ft_putstr_fd(pwdir, fd);
 	ft_putchar_fd('\n', fd);
 }

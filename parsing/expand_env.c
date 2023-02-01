@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:44:24 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/01/29 19:44:26 by mtagemou         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:56:09 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ char	*parameter_expansion(char *token)
 	free(name);
 	return (parameter_expansion(new_token));
 }
-

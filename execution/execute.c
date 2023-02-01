@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/01 00:04:51 by relkabou          #+#    #+#             */
+/*   Updated: 2023/02/01 00:05:50 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execution.h"
 
 void	close_all_fds(t_cmd *head)
@@ -13,12 +25,6 @@ void	close_all_fds(t_cmd *head)
 			ft_close(tmp->infile);
 		tmp = tmp->next;
 	}
-}
-
-void	command_not_found(void)
-{
-	write(2, "command not found\n", 19);
-	exit(127);
 }
 
 // if fork fails the exit status is 1
