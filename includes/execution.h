@@ -32,7 +32,7 @@ char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);
 void    update_env(char *name, char *value);
 
-void restore_signals();
-void handle_signals();
-
+void	default_signals();
+void	handle_signals();
+void	ignore_signals();
 #endif // EXECUTION_H

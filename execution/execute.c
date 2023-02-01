@@ -38,7 +38,7 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 		return (-1);
 	if (pid == 0)
 	{
-		restore_signals();
+		default_signals();
 		if (cmd->infile != 0)
 			ft_dup2(cmd->infile, 0);
 		if (cmd->outfile != 0)
@@ -71,10 +71,10 @@ void	wait_all_childs(int last_pid)
 	{
 		pid = wait(&status);
 		if (last_pid == pid)
-			global.exit_status = WEXITSTATUS(status);
+			g_global.exit_status = WEXITSTATUS(status);
 	}
 	if (tmp_pid == -1)
-		global.exit_status = 1;
+		g_global.exit_status = 1;
 }
 
 int	one_builtin(t_cmd *head)
@@ -82,9 +82,9 @@ int	one_builtin(t_cmd *head)
 	if (is_builtins(head->cmd) && !head->next)
 	{
 		if (head->outfile)
-			global.exit_status = exec_builtins(head->args, head->outfile);
+			g_global.exit_status = exec_builtins(head->args, head->outfile);
 		else
-			global.exit_status = exec_builtins(head->args, 1);
+			g_global.exit_status = exec_builtins(head->args, 1);
 		close_all_fds(head);
 		free_cmd(head);
 		return (1);

@@ -10,7 +10,7 @@ void	cd(char **args, int fd)
 
 	i = args_len(args);
 	if (ft_getenv("OLDPWD") == NULL)
-		add_env(&global.envs, ft_strdup("OLDPWD"), ft_strdup(""));
+		add_env(&g_global.envs, ft_strdup("OLDPWD"), ft_strdup(""));
 	if (i == 1)
 		return (home_case(),
 			ft_putchar_fd(0, fd), update_pwd(ft_getenv("HOME")));

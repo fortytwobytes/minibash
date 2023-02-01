@@ -74,50 +74,6 @@ int	redirect(t_cmd *cmd, char *type, char *file)
 	return (1);
 }
 
-int	is_expand(char **limiter)
-{
-	if (contains(*limiter, '"') || contains(*limiter, '\''))
-	{
-		*limiter = quotes_removal(*limiter);
-		return (0);
-	}
-	return (1);
-}
-
-int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
-{
-	int		expand_mode;
-	char	*line;
-	char	*joined_line;
-	int		fd;
-
-	expand_mode = is_expand(&limiter);
-	fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	if (fd == -1)
-		return (0);
-	line = readline("> ");
-	while (ft_strcmp(line, limiter))
-	{
-		if (!line)
-			break ;
-		if (expand_mode && *line)
-			line = parameter_expansion(line);
-		joined_line = ft_strjoin(line, "\n");
-		write(fd, joined_line, ft_strlen(joined_line));
-		free(line);
-		free(joined_line);
-		line = readline("> ");
-	}
-	free(line);
-	close(fd);
-	fd = open(file, O_RDONLY, 0);
-	if (fd == -1)
-		return (0);
-	cmd->infile = fd;
-	free(file);
-	return (1);
-}
-
 // if a redirection fails we stop and don't execute the command
 int	handle_redirection(t_cmd *cmd, t_token *tokens)
 {
@@ -146,16 +102,9 @@ int	handle_redirection(t_cmd *cmd, t_token *tokens)
 	return (1);
 }
 // we check if fds are different to 0 because 
-//by default they are initialized to 0 by calloc
-void	close_fds(t_cmd *cmd)
-{
-	if (cmd->infile != 0)
-		close(cmd->infile);
-	if (cmd->outfile != 0)
-		close(cmd->outfile);
-}
+// by default they are initialized to 0 by calloc
 
-void handle_cmd(t_cmd *cmd, t_token *tokens)
+void	handle_cmd(t_cmd *cmd, t_token *tokens)
 {
 	int		wc;
 	int		i;
@@ -180,37 +129,6 @@ void handle_cmd(t_cmd *cmd, t_token *tokens)
 	}
 	cmd->args = options;
 	cmd->cmd = options[0];
-}
-
-t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
-{
-	t_cmd	*new;
-	t_cmd	*last;
-	int		status;
-
-	last = *cmds;
-	new = ft_calloc(sizeof(t_cmd));
-	handle_pipes(new, tokens);
-	if (tokens->type == PIPE)
-		tokens = tokens->next;
-	status = handle_redirection(new, tokens);
-	if (!status)
-	{
-		close_fds(new);
-		free(new);
-		perror("");
-		return (next_pipe(tokens));
-	}
-	handle_cmd(new, tokens);
-	if (!last)
-	{
-		*cmds = new;
-		return (next_pipe(tokens));
-	}
-	while (last->next)
-		last = last->next;
-	last->next = new;
-	return (next_pipe(tokens));
 }
 
 t_cmd	*convert_to_cmds(t_token *tokens)

@@ -26,3 +26,42 @@ void	free_cmd(t_cmd *head)
 		head = tmp;
 	}
 }
+
+void	close_fds(t_cmd *cmd)
+{
+	if (cmd->infile != 0)
+		close(cmd->infile);
+	if (cmd->outfile != 0)
+		close(cmd->outfile);
+}
+
+t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
+{
+	t_cmd	*new;
+	t_cmd	*last;
+	int		status;
+
+	last = *cmds;
+	new = ft_calloc(sizeof(t_cmd));
+	handle_pipes(new, tokens);
+	if (tokens->type == PIPE)
+		tokens = tokens->next;
+	status = handle_redirection(new, tokens);
+	if (!status)
+	{
+		close_fds(new);
+		free(new);
+		perror("");
+		return (next_pipe(tokens));
+	}
+	handle_cmd(new, tokens);
+	if (!last)
+	{
+		*cmds = new;
+		return (next_pipe(tokens));
+	}
+	while (last->next)
+		last = last->next;
+	last->next = new;
+	return (next_pipe(tokens));
+}

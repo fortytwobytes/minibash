@@ -48,7 +48,7 @@ void	export(char **args, int fd)
 		else
 			is_modified = is_updated(name, value, ADD);
 		if (is_modified == FALSE)
-			add_env(&global.envs, name, value);
+			add_env(&g_global.envs, name, value);
 		args++;
 	}
 	ft_putchar_fd(0, fd);
@@ -99,7 +99,7 @@ static void	print_export(int fd)
 	index_envs();
 	for (int counter = 0; counter < size; counter++)
 	{
-		for (t_envs *tmp = global.envs; tmp; tmp = tmp->next)
+		for (t_envs *tmp = g_global.envs; tmp; tmp = tmp->next)
 		{
 			if (counter == tmp->index)
 			{
