@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:43 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:04:44 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:09:58 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_getpath(char *cmd)
 		else
 			return (free_split(sp_paths), tmp);
 	}
+	free_split(sp_paths);
 	return (NULL);
 }
 

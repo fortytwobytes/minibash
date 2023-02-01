@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/01 23:08:50 by relkabou          #+#    #+#             */
+/*   Updated: 2023/02/01 23:08:53 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin.h"
 
 static void	home_case(void);
@@ -9,8 +21,6 @@ void	cd(char **args, int fd)
 	int		i;
 
 	i = args_len(args);
-	if (ft_getenv("OLDPWD") == NULL)
-		add_env(&global.envs, ft_strdup("OLDPWD"), ft_strdup(""));
 	if (i == 1)
 		return (home_case(),
 			ft_putchar_fd(0, fd), update_pwd(ft_getenv("HOME")));
@@ -50,7 +60,7 @@ static void	update_pwd(char *new_path)
 	free(new_wd);
 }
 
-static void home_case(void)
+static void	home_case(void)
 {
 	char	*home;
 

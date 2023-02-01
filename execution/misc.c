@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:05:40 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 07:04:07 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 22:41:33 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	**dynamic_env(void)
 	return (env);
 }
 
+// the value should be allocated before calling ft_setenv
 void	ft_setenv(char *name, char *value)
 {
 	t_envs	*tmp;

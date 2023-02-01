@@ -20,9 +20,10 @@ void	init_global(char **envp)
 
 	global.exit_status = 0;
 	global.envs = envs_init(envp);
+	// to check later SHLVL should not start with 1 always
 	tmp_shlvl = ft_getenv("SHLVL");
 	if (!tmp_shlvl)
-		add_env(&global.envs, ft_strdup("SHLVL"), ft_strdup("1"));
+		add_env(&global.envs, "SHLVL", "1");
 	else
 		ft_setenv("SHLVL", ft_itoa(ft_atoi(tmp_shlvl) + 1));
 }

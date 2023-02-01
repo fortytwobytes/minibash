@@ -4,6 +4,7 @@ minishell
 venv/
 .vscode/
 .idea/
+Makefile
 
 # Prerequisites
 *.d

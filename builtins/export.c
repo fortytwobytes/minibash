@@ -6,135 +6,97 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:13:52 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 07:06:18 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 23:47:26 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-char		*get_name_(char *args);
-char		*get_value_(int index, char *str);
 static void	print_export(int fd);
-static int	is_export_valid(char *envname);
+static void	export_conditions(int idx, char *arg);
+static void	print_export_helper(int fd, int counter);
 
 void	export(char **args, int fd)
 {
-	char	*name;
-	char	*value;
-	int		idx;
-	int		is_modified;
+	int	idx;
 
 	if (*(args + 1) == NULL)
-	{
-		print_export(fd);
-		return ;
-	}
+		return (print_export(fd));
 	args++;
 	while (*args)
 	{
-		if ((idx = is_export_valid(*args) == -1))
+		idx = is_export_valid(*args);
+		if (idx == -1)
 		{
 			fatal("export", "not a valid identifier");
 			args++;
 			continue ;
 		}
-		name = get_name_(*args);
-		idx = ft_strlen(name);
-		value = get_value_(idx, *args);
-		if (*(*args + idx) == 0)
-			is_modified = FALSE;
-		else if (*(*args + idx) == '+')
-			is_modified = is_updated(name, value, APPEND);
-		else
-			is_modified = is_updated(name, value, ADD);
-		if (is_modified == FALSE)
-			add_env(&global.envs, name, value);
+		export_conditions(idx, *args);
 		args++;
 	}
 	ft_putchar_fd(0, fd);
 }
 
-char	*get_name_(char *args)
+static void	export_conditions(int idx, char *arg)
 {
-	char	*buffer;
-	int		i;
+	char	*name;
+	char	*value;
+	int		is_modified;
 
-	i = 0;
-	buffer = NULL;
-	while (args[i])
-	{
-		if (args[i] == '=')
-			break ;
-		if (args[i] == '+' && args[i + 1] == '=')
-			break ;
-		i++;
-	}
-	buffer = ft_calloc(i + 1);
-	ft_memcpy(buffer, args, i);
-	return (buffer);
+	name = get_name_(arg);
+	idx = ft_strlen(name);
+	value = get_value_(idx, arg);
+	if (*(arg + idx) == 0)
+		is_modified = FALSE;
+	else if (*(arg + idx) == '+')
+		is_modified = is_updated(name, value, APPEND);
+	else
+		is_modified = is_updated(name, value, ADD);
+	if (is_modified == FALSE)
+		add_env(&global.envs, name, value);
+	free(name);
+	free(value);
 }
 
-char	*get_value_(int index, char *str)
+static void	print_export_helper(int fd, int counter)
 {
-	int		len;
-	char	*buffer;
+	t_envs	*tmp;
 
-	len = ft_strlen(str);
-	if (str[index] == 0)
-		return (NULL);
-	if (str[index] == '+')
-		index ++;
-	else if (str[index + 1] == 0)
-		return (ft_strdup(""));
-	buffer = ft_calloc(len - index + 1);
-	ft_memcpy(buffer, str + index + 1, len - index);
-	return (buffer);
+	tmp = global.envs;
+	while (tmp)
+	{
+		if (counter == tmp->index)
+		{
+			if (!ft_strcmp(tmp->name, "_"))
+				break ;
+			ft_putstr_fd("declare -x ", fd);
+			ft_putstr_fd(tmp->name, fd);
+			if (tmp->value != NULL)
+			{
+				ft_putchar_fd('=', fd);
+				ft_putchar_fd('\"', fd);
+				ft_putstr_fd(tmp->value, fd);
+				ft_putchar_fd('\"', fd);
+			}
+			ft_putchar_fd('\n', fd);
+			break ;
+		}
+		tmp = tmp->next;
+	}
 }
 
 static void	print_export(int fd)
 {
 	int	size;
+	int	counter;
 
+	counter = 0;
 	size = size_of_env();
 	index_envs();
-	for (int counter = 0; counter < size; counter++)
+	while (counter < size)
 	{
-		for (t_envs *tmp = global.envs; tmp; tmp = tmp->next)
-		{
-			if (counter == tmp->index)
-			{
-				if (!ft_strcmp(tmp->name, "_"))
-					break ;
-				ft_putstr_fd("declare -x ", fd);
-				ft_putstr_fd(tmp->name, fd);
-				if (tmp->value != NULL)
-				{
-					ft_putchar_fd('=', fd);
-					ft_putchar_fd('\"', fd);
-					ft_putstr_fd(tmp->value, fd);
-					ft_putchar_fd('\"', fd);
-				}
-				ft_putchar_fd('\n', fd);
-				break ;
-			}
-		}
+		print_export_helper(fd, counter);
+		counter++;
 	}
-}
-
-static int	is_export_valid(char *exp)
-{
-	int	i;
-
-	i = 0;
-	if (!is_lower(*exp) && !is_upper(*exp) && *exp != '_')
-		return (-1);
-	while (exp[i])
-	{
-		if (exp[i] == '=')
-			return (i + 1);
-		if (exp[i] == '+' && exp[i + 1] == '=')
-			return (i + 2);
-		i++;
-	}
-	return (i);
 }
