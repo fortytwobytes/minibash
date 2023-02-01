@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:55 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:04:56 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 05:21:21 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ char	*here_doc_name(void)
 
 static char	*get_id(char *name)
 {
-	char	*id;
+	char		*id;
+	static int	i; 
 
 	if (!name)
 		return (NULL);
 	while (*name && !is_num(*name))
 		name++;
-	id = name;
-	return (ft_strdup(id));
+	id = ft_strjoin_sep(name, ft_itoa(i++), '_');
+	return (id);
 }
