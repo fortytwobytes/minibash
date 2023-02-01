@@ -41,7 +41,7 @@ typedef struct s_envs	t_envs;
 typedef struct s_cmd	t_cmd;
 typedef struct s_global	t_global;
 
-extern t_global	global; // global variable must start with g_ (NORM)
+extern t_global	g_global; //g_global variable must start with g_ (NORM)
 
 struct s_envs
 {

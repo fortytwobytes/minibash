@@ -28,7 +28,7 @@ int	shell_exit(char **args)
 {
 	ft_putstr_fd("exit\n", 2);
 	if (args[1] == NULL)
-		exit(global.exit_status);
+		exit(g_global.exit_status);
 	if (is_all_num(args[1]))
 	{
 		if (args[2] == NULL)
