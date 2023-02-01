@@ -20,27 +20,31 @@ int	word_split_count(char *line)
 	int	flag;
 
 	flag = 1;
-	i = -1;
+	i = 0;
 	count = 0;
 	q = -1;
-	while (line[++i])
+	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t')
 		{
 			if (line[i] == '"' || line[i] == '\'')
 				q = next_quote(i + 1, line[i], line);
 			if (q != -1)
+			{
 				i = q;
+				q = -1;
+			}
 			if (flag != 0)
 				count++;
 			flag = 0;
 		}
 		else
 			flag = 1;
+		i++;
 	}
 	return (count);
 }
-
+//"mtagemou"mtagemou
 static char	*get_next_word(char *s, int *index)
 {
 	int		i;

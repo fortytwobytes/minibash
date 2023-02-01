@@ -40,13 +40,17 @@ char	*get_name(char *token)
 {
 	int	i;
 	int	name_len;
+	int	dbl_quote;
 
 	i = 0;
 	name_len = -1;
+	dbl_quote = -1;
 	while (token[i])
 	{
 		name_len = -1;
-		if (token[i] == '\'')
+		if (token[i] == '"')
+			dbl_quote *= -1;
+		if (token[i] == '\'' && dbl_quote == -1)
 			i = next_quote(i + 1, token[i], token);
 		if (token[i] == '$')
 			name_len = get_name_len(token, i);
@@ -61,6 +65,29 @@ char	*get_name(char *token)
 	return (ft_substr(token, i, i + name_len));
 }
 
+// we need to check if the variable is not inside double quotes to 
+// not expand it , but check if we don't have double quotes before 
+int replace_before_name(char *new_token,char *token)
+{
+	int	i;
+	int dbl_quotes;
+	int sgl_quotes;
+	
+	dbl_quotes = 0;
+	sgl_quotes = 0;
+	i = 0;
+	while(token[i] != '$' || sgl_quotes )
+	{
+		if (token[i] == '\'' && !dbl_quotes)
+			sgl_quotes = !sgl_quotes;
+		if (token[i] == '"')
+			dbl_quotes = !dbl_quotes;
+		new_token[i] = token[i];
+		i++;
+	}
+	return i;
+}
+// "     / q
 // this function remplace the string value in the string
 // name and returns an allocated string
 // we add one the len of name bc it doesn't contain the '$' char
@@ -76,13 +103,14 @@ char	*replace_name_value(char *token, char *name, char *value)
 	j = 0;
 	new_token = ft_calloc(ft_strlen(token)
 			+ (ft_strlen(value) - ft_strlen(name)) + 1);
-	while (token[i] != '$' || j == 1)
-	{
-		if (token[i] == '\'')
-			j = !j;
-		new_token[i] = token[i];
-		i++;
-	}
+	// while (token[i] != '$' || j == 1)
+	// {
+	// 	if (token[i] == '\'')
+	// 		j = !j;
+	// 	new_token[i] = token[i];
+	// 	i++;
+	// }
+	i = replace_before_name(new_token,token);
 	k = i;
 	j = 0;
 	while (value[j])
