@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:05:40 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 07:04:07 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/01 22:41:33 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_updated(char *name, char *value, int option)
 	t_envs	*tmp;
 	char	*holder;
 
-	tmp =g_global.envs;
+	tmp = g_global.envs;
 	if (value == NULL)
 		return (FALSE);
 	while (tmp)
@@ -51,7 +51,7 @@ char	**dynamic_env(void)
 	t_envs	*tmp;
 
 	i = 0;
-	tmp =g_global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		tmp = tmp->next;
@@ -59,7 +59,7 @@ char	**dynamic_env(void)
 	}
 	env = ft_calloc(sizeof(char *) * (i + 1));
 	j = 0;
-	tmp =g_global.envs;
+	tmp = g_global.envs;
 	while (j < i)
 	{
 		if (tmp->value == NULL)
@@ -71,11 +71,12 @@ char	**dynamic_env(void)
 	return (env);
 }
 
+// the value should be allocated before calling ft_setenv
 void	ft_setenv(char *name, char *value)
 {
 	t_envs	*tmp;
 
-	tmp =g_global.envs;
+	tmp = g_global.envs;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -93,7 +94,7 @@ void	update_env(char *name, char *value)
 	t_envs *tmp;
 	char *holder;
 
-	tmp =g_global.envs;
+	tmp = g_global.envs;
 	if (!name || !value)
 		return;
 	while (tmp)

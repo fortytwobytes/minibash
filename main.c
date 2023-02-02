@@ -29,6 +29,7 @@ void	init_global(char **envp)
 {
 	char	*tmp_shlvl;
 
+	// to check later SHLVL should not start with 1 always
 	g_global.exit_status = 0;
 	g_global.envs = envs_init(envp);
 	tmp_shlvl = ft_getenv("SHLVL");

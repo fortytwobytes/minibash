@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/01 23:03:18 by relkabou          #+#    #+#             */
+/*   Updated: 2023/02/02 00:08:17 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin.h"
 
 int	is_builtins(char *cmd)
@@ -34,31 +46,63 @@ int	exec_builtins(char **args, int outfile)
 	if (!ft_strcmp(args[0], "env"))
 		env(args, outfile);
 	if (!ft_strcmp(args[0], "exit"))
-		return (shell_exit(args));
-	return (111111);
+		shell_exit(args);
+	return (1111111);
 }
 
 void	index_envs(void)
 {
-	for (t_envs *tmp =g_global.envs; tmp; tmp = tmp->next) {
+	t_envs	*tmp;
+	t_envs	*tmp1;
+
+	tmp = g_global.envs;
+	while (tmp)
+	{
 		tmp->index = 0;
+		tmp = tmp->next;
 	}
-	for (t_envs *tmp =g_global.envs; tmp; tmp = tmp->next) {
-		for (t_envs *tmp1 =g_global.envs; tmp1; tmp1 = tmp1->next) {
-			if (ft_strcmp(tmp->name, tmp1->name) > 0) {
+	tmp = g_global.envs;
+	while (tmp)
+	{
+		tmp1 = g_global.envs;
+		while (tmp1)
+		{
+			if (ft_strcmp(tmp->name, tmp1->name) > 0)
 				tmp->index++;
-			}
+			tmp1 = tmp1->next;
 		}
+		tmp = tmp->next;
 	}
 }
 
 int	size_of_env(void)
 {
+	int		i;
+	t_envs	*tmp;
+
+	i = 0;
+	tmp = g_global.envs;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+int	is_export_valid(char *exp)
+{
 	int	i;
 
 	i = 0;
-	for (t_envs *tmp =g_global.envs; tmp; tmp = tmp->next) 
+	if (!is_lower(*exp) && !is_upper(*exp) && *exp != '_')
+		return (-1);
+	while (exp[i])
 	{
+		if (exp[i] == '=')
+			return (i + 1);
+		if (exp[i] == '+' && exp[i + 1] == '=')
+			return (i + 2);
 		i++;
 	}
 	return (i);
