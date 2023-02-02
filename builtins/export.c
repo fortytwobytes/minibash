@@ -12,14 +12,16 @@
 
 #include "builtin.h"
 
-static void	print_export(int fd);
+static int	print_export(int fd);
 static void	export_conditions(int idx, char *arg);
 static void	print_export_helper(int fd, int counter);
 
-void	export(char **args, int fd)
+int	export(char **args, int fd)
 {
 	int	idx;
+	int exit_status;
 
+	exit_status = 1;
 	if (*(args + 1) == NULL)
 		return (print_export(fd));
 	args++;
@@ -32,10 +34,12 @@ void	export(char **args, int fd)
 			args++;
 			continue ;
 		}
+		exit_status = 0;
 		export_conditions(idx, *args);
 		args++;
 	}
 	ft_putchar_fd(0, fd);
+	return exit_status;
 }
 
 static void	export_conditions(int idx, char *arg)
@@ -86,7 +90,7 @@ static void	print_export_helper(int fd, int counter)
 	}
 }
 
-static void	print_export(int fd)
+static int	print_export(int fd)
 {
 	int	size;
 	int	counter;
@@ -99,4 +103,5 @@ static void	print_export(int fd)
 		print_export_helper(fd, counter);
 		counter++;
 	}
+	return (0);
 }

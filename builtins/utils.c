@@ -34,20 +34,20 @@ int	is_builtins(char *cmd)
 int	exec_builtins(char **args, int outfile)
 {
 	if (!ft_strcmp(args[0], "cd"))
-		cd(args, outfile);
+		return (cd(args, outfile));
 	if (!ft_strcmp(args[0], "pwd"))
 		pwd(args, outfile);
 	if (!ft_strcmp(args[0], "echo"))
 		echo(args, outfile);
 	if (!ft_strcmp(args[0], "export"))
-		export(args, outfile);
+		return (export(args, outfile));
 	if (!ft_strcmp(args[0], "unset"))
 		unset(args, outfile);
 	if (!ft_strcmp(args[0], "env"))
 		env(args, outfile);
 	if (!ft_strcmp(args[0], "exit"))
 		shell_exit(args);
-	return (1111111);
+	return (0);
 }
 
 void	index_envs(void)

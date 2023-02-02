@@ -12,25 +12,34 @@
 
 #include "builtin.h"
 
-static void	home_case(void);
+static int	home_case(void);
 static int	args_len(char **args);
 static void	update_pwd(char *new_path);
 
-void	cd(char **args, int fd)
+int	cd(char **args, int fd)
 {
 	int		i;
+	int exit_status;
 
 	i = args_len(args);
 	if (i == 1)
-		return (home_case(),
-			ft_putchar_fd(0, fd), update_pwd(ft_getenv("HOME")));
+	{
+		exit_status = home_case();
+		ft_putchar_fd(0, fd); 
+		update_pwd(ft_getenv("HOME"));
+		return exit_status;
+	}
 	else
 	{
 		if (chdir(args[1]))
+		{
 			fatal("cd", "no such file or directory");
+			return (1);
+		}
 	}
 	ft_putchar_fd(0, fd);
 	update_pwd(args[1]);
+	return (0);
 }
 
 static int	args_len(char **args)
@@ -60,13 +69,20 @@ static void	update_pwd(char *new_path)
 	free(new_wd);
 }
 
-static void	home_case(void)
+static int	home_case(void)
 {
 	char	*home;
 
 	home = ft_getenv("HOME");
 	if (!home)
-		return (fatal("cd", "HOME not set"));
+	{
+		fatal("cd", "HOME not set");
+		return (1);
+	}
 	if (chdir(home) != 0)
+	{
 		fatal("cd", "no such file or directory");
+		return (1);
+	}
+	return (0);
 }
