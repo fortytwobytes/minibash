@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 // this function copies the token string into a new 
-// allocated string without copying the -1 occurenccense
+// allocated string without copying the -1 occurenccense=
 char	*trim_quotes(char *token, int quotes_len)
 {
 	char	*trimed_token;

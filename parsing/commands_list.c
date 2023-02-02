@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-// free(head->cmd);
-// free(head->path);
 void	free_cmd(t_cmd *head)
 {
 	t_cmd	*tmp;
@@ -35,13 +33,45 @@ void	close_fds(t_cmd *cmd)
 		close(cmd->outfile);
 }
 
+void add(t_cmd **cmds,t_cmd *new)
+{
+	t_cmd *last;
+
+	last = *cmds;
+	if (!last)
+		*cmds = new;
+	else
+	{
+		while (last->next)
+			last = last->next;
+		last->next = new;
+	}
+}
+t_token *free_cmds(t_cmd *new ,t_token *tokens)
+{
+	t_token *tmp;
+	
+
+	free(new);
+	if (!tokens)
+		return NULL;
+	if (tokens->type == PIPE)
+		tokens = tokens->next;
+	while (tokens && tokens->type != PIPE)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		if (tmp->type == WORD)
+			free(tmp->token);
+	}
+	return (tokens);
+}
+
 t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 {
 	t_cmd	*new;
-	t_cmd	*last;
 	int		status;
 
-	last = *cmds;
 	new = ft_calloc(sizeof(t_cmd));
 	handle_pipes(new, tokens);
 	if (tokens->type == PIPE)
@@ -50,18 +80,10 @@ t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 	if (!status)
 	{
 		close_fds(new);
-		free(new);
-		perror("");
-		return (next_pipe(tokens));
+		g_global.exit_status = 1;
+		return (free_cmds(new,tokens));
 	}
 	handle_cmd(new, tokens);
-	if (!last)
-	{
-		*cmds = new;
-		return (next_pipe(tokens));
-	}
-	while (last->next)
-		last = last->next;
-	last->next = new;
+	add(cmds,new);
 	return (next_pipe(tokens));
 }

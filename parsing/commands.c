@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-//!! to handle : exit status of a failed rederction
 void	open_pipes(t_token	*tokens)
 {
 	while (tokens)
