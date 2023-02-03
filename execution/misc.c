@@ -91,12 +91,12 @@ void	ft_setenv(char *name, char *value)
 
 void	update_env(char *name, char *value)
 {
-	t_envs *tmp;
-	char *holder;
+	t_envs	*tmp;
+	char	*holder;
 
 	tmp = g_global.envs;
 	if (!name || !value)
-		return;
+		return ;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
@@ -104,7 +104,7 @@ void	update_env(char *name, char *value)
 			holder = tmp->value;
 			tmp->value = ft_strdup(value);
 			free(holder);
-			return;
+			return ;
 		}
 		tmp = tmp->next;
 	}

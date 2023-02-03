@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// |>
-// unset varaible khawia
-
-
 #include "minishell.h"
 
 void	shell_loop(void)
@@ -34,7 +30,7 @@ void	shell_loop(void)
 			g_global.heredoc_flag = 0;
 			close_all_fds(cmd);
 			free_cmd(cmd);
-			continue;
+			continue ;
 		}
 		ignore_signals();
 		execute(cmd);
