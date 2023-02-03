@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 23:03:18 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/02 00:08:17 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:09:11 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_builtins(char **args, int outfile)
 	if (!ft_strcmp(args[0], "export"))
 		return (export(args, outfile));
 	if (!ft_strcmp(args[0], "unset"))
-		unset(args, outfile);
+		return (unset(args, outfile));
 	if (!ft_strcmp(args[0], "env"))
 		env(args, outfile);
 	if (!ft_strcmp(args[0], "exit"))
