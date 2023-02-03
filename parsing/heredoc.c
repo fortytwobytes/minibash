@@ -46,14 +46,12 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 
 	expand_mode = is_expand(&limiter);
 	sigint_heredoc();
-	fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
 		return (0);
 	line = readline("> ");
-	while (ft_strcmp(line, limiter))
+	while (line && ft_strcmp(line, limiter))
 	{
-		if (!line)
-			break;
 		if (expand_mode && *line)
 			line = parameter_expansion(line);
 		joined_line = ft_strjoin(line, "\n");
@@ -67,9 +65,11 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 	{
 		ft_dup2(g_global.heredoc_flag,0);
 		ft_close(g_global.heredoc_flag);
+		g_global.exit_status =1;
 	}
 	free(line);
 	close(fd);
+	free(limiter);
 	fd = open(file, O_RDONLY, 0);
 	if (fd == -1)
 		return (0);

@@ -19,7 +19,7 @@ void	free_tokens(t_token *tokens)
 	while (tokens)
 	{
 		prev = tokens;
-		if (prev->type != WORD)
+		if (prev->type != WORD && prev->type != LIMITER)
 			free(tokens->token);
 		tokens = tokens->next;
 		free(prev);
