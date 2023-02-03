@@ -33,21 +33,21 @@ int	redirect(t_cmd *cmd, char *type, char *file)
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 			return (0);
-		cmd->outfile = fd;
+		check_and_redirect(&cmd->outfile, fd);
 	}
 	if (!ft_strcmp(type, ">"))
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY, 0644);
 		if (fd == -1)
 			return (0);
-		cmd->outfile = fd;
+		check_and_redirect(&cmd->outfile, fd);
 	}
 	if (!ft_strcmp(type, "<"))
 	{
 		fd = ft_open(file, O_RDONLY, 0);
 		if (fd == -1)
 			return (0);
-		cmd->infile = fd;
+		check_and_redirect(&cmd->infile, fd);
 	}
 	return (1);
 }
@@ -61,24 +61,20 @@ int	handle_redirection(t_cmd *cmd, t_token *tokens)
 	{
 		if (tokens->type == REDIRECTION)
 		{
+			if (!tokens->next)
+				return (0);
 			status = redirect(cmd, tokens->token, (tokens->next)->token);
 			if (!status)
 				return (status);
 			tokens = tokens->next;
 			tokens->type = FILE;
 		}
-		else if (tokens->type == HEREDOC)
-		{
-			tokens = tokens->next;
-			status = handle_heredoc(cmd, tokens->token, here_doc_name());
-			if (!status)
-				return (status);
-		}
 		else
 			tokens = tokens->next;
 	}
 	return (1);
 }
+
 // we check if fds are different to 0 because 
 // by default they are initialized to 0 by calloc
 

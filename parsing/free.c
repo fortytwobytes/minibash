@@ -25,3 +25,16 @@ void	free_tokens(t_token *tokens)
 		free(prev);
 	}
 }
+
+void	free_all(t_token *tokens)
+{
+	t_token	*prev;
+
+	while (tokens)
+	{
+		prev = tokens;
+		free(tokens->token);
+		tokens = tokens->next;
+		free(prev);
+	}
+}

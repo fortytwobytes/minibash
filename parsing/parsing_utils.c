@@ -50,3 +50,11 @@ void	free_token_word(t_token *token, char *word)
 	free(word);
 	free(token);
 }
+
+// if pipe is already open
+void	check_and_redirect(int *inf_out, int fd)
+{
+	if (*inf_out != 0)
+		close(*inf_out);
+	*inf_out = fd;
+}

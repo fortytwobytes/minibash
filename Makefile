@@ -26,7 +26,7 @@ $(NAME): $(OBJS)
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@$(CC) $(LINK) $(CFLAGS)  -c $<  -o $@
+	@$(CC) $(LINK) $(CFLAGS)  -c $< -o $@ 
 
 clean:
 	@$(RM) $(BIN_DIR)

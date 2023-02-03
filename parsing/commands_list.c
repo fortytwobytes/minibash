@@ -76,7 +76,7 @@ t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 	handle_pipes(new, tokens);
 	if (tokens->type == PIPE)
 		tokens = tokens->next;
-	status = handle_redirection(new, tokens);
+	status = (handle_heredocs(new, tokens) && handle_redirection(new, tokens));
 	if (!status)
 	{
 		close_fds(new);

@@ -77,5 +77,8 @@ t_token	*next_pipe(t_token *tokens);
 void	open_pipes(t_token	*tokens);
 void	expands_dollars_dollars(char *token);
 void	free_token_word(t_token *token, char *word);
+void	check_and_redirect(int *inf_out, int fd);
+void	free_all(t_token *tokens);
+int		handle_heredocs(t_cmd *cmd, t_token *tokens);
 
 #endif // PARSING_H

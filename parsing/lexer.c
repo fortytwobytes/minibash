@@ -127,6 +127,7 @@ t_cmd	*parse_line(char *line)
 	if (!parse(tokens))
 	{
 		g_global.exit_status = 258;
+		free_all(tokens);
 		ft_putstr_fd("$> : syntax error\n", 2);
 		return (NULL);
 	}
@@ -136,3 +137,4 @@ t_cmd	*parse_line(char *line)
 	free_tokens(tokens);
 	return (cmds);
 }
+// pipe && rederiction
