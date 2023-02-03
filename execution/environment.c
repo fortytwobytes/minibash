@@ -109,7 +109,11 @@ char	*get_env_value(char *name)
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->name, name))
-			return (tmp->value);
+		{
+			if (tmp->value)
+				return (tmp->value);
+			return ("");
+		}
 		tmp = tmp->next;
 	}
 	return ("");

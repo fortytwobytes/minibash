@@ -22,6 +22,36 @@ int	is_expand(char **limiter)
 	return (1);
 }
 
+void change_flag(int s)
+{
+	(void)s;
+	g_global.heredoc_flag = dup(0);
+ 	close(0);
+}
+
+
+int handle_heredoc_suite(t_cmd *cmd, char *limiter, char *file,int fd)
+{
+	handle_signals();
+	close(fd);
+	free(limiter);
+	fd = open(file, O_RDONLY, 0);
+	if (fd == -1)
+		return (0);
+	cmd->infile = fd;
+	free(file);
+	return (1);
+}
+void check_heredoc()
+{
+	if (g_global.heredoc_flag)
+	{
+		ft_dup2(g_global.heredoc_flag,0);
+		ft_close(g_global.heredoc_flag);
+		g_global.exit_status =1;
+	}
+}
+
 int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 {
 	int		expand_mode;
@@ -30,14 +60,13 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 	int		fd;
 
 	expand_mode = is_expand(&limiter);
-	fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	sigint_heredoc();
+	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);
 	line = readline("> ");
-	while (ft_strcmp(line, limiter))
+	while (line && ft_strcmp(line, limiter))
 	{
-		if (!line)
-			break ;
 		if (expand_mode && *line)
 			line = parameter_expansion(line);
 		joined_line = ft_strjoin(line, "\n");
@@ -47,11 +76,6 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 		line = readline("> ");
 	}
 	free(line);
-	close(fd);
-	fd = open(file, O_RDONLY, 0);
-	if (fd == -1)
-		return (0);
-	cmd->infile = fd;
-	free(file);
-	return (1);
+	check_heredoc();
+	return (handle_heredoc_suite(cmd,limiter,file,fd));
 }

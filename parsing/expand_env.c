@@ -107,7 +107,11 @@ char	*replace_name_value(char *token, char *name, char *value)
 	k = i;
 	j = 0;
 	while (value[j])
+	{
+		if (value[j] == '$')
+			value[j] = -1;
 		new_token[i++] = value[j++];
+	}
 	k += ft_strlen(name);
 	while (token[k])
 		new_token[i++] = token[k++];
