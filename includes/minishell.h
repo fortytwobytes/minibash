@@ -54,6 +54,7 @@ struct s_envs
 struct s_global
 {
 	int		exit_status;
+	int		heredoc_flag;
 	t_envs	*envs;
 };
 

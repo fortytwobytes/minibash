@@ -71,7 +71,8 @@ int		handle_heredoc(t_cmd *cmd, char *limiter, char *file);
 t_token	*next_pipe(t_token *tokens);
 t_token	*next_pipe(t_token *tokens);
 void	handle_pipes(t_cmd *cmd, t_token *tokens);
-int	handle_redirection(t_cmd *cmd, t_token *tokens);
+int		handle_redirection(t_cmd *cmd, t_token *tokens);
 void	handle_cmd(t_cmd *cmd, t_token *tokens);
+char	*get_next_line(int fd);
 
 #endif // PARSING_H

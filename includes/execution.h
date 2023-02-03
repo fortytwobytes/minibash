@@ -26,6 +26,7 @@ char	*ft_getenv(char *name);
 char	*get_env_value(char *name);
 t_envs	*envs_init(char **env);
 void	ft_setenv(char *name, char *value);
+void	close_all_fds(t_cmd *head);
 
 char	**dynamic_env(void);
 char	*here_doc_name(void);
