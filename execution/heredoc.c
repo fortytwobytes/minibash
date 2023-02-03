@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:55 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 05:21:21 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:51:10 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,34 @@ char	*here_doc_name(void)
 {
 	char	*name;
 	char	*tty_name;
-	char	*id;
 
 	tty_name = ttyname(0);
-	id = get_id(tty_name);
-	name = ft_strjoin("/tmp/.heredoc_", id);
-	free(id);
+	name = get_id(tty_name);
 	return (name);
 }
 
 static char	*get_id(char *name)
 {
 	char		*id;
-	static int	i; 
+	static int	i;
 	char		*id2;
+	char		*tmp;
 
 	if (!name)
 		return (NULL);
 	while (*name && !is_num(*name))
 		name++;
-	id2 = ft_itoa(i++);
-	id = ft_strjoin_sep(name, id2, '_');
-	free(id2);
+	while (TRUE)
+	{
+		id2 = ft_itoa(i);
+		tmp = ft_strjoin_sep(name, id2, '_');
+		id = ft_strjoin("/tmp/.heredoc_", tmp);
+		free(id2);
+		free(tmp);
+		i++;
+		if (access(id, F_OK) == -1)
+			break ;
+		free(id);
+	}
 	return (id);
 }
