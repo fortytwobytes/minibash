@@ -22,15 +22,14 @@ int	is_expand(char **limiter)
 	return (1);
 }
 
-void change_flag(int s)
+void	change_flag(int s)
 {
 	(void)s;
 	g_global.heredoc_flag = dup(0);
- 	close(0);
+	close(0);
 }
 
-
-int handle_heredoc_suite(t_cmd *cmd, char *limiter, char *file,int fd)
+int	handle_heredoc_suite(t_cmd *cmd, char *limiter, char *file, int fd)
 {
 	handle_signals();
 	close(fd);
@@ -42,13 +41,14 @@ int handle_heredoc_suite(t_cmd *cmd, char *limiter, char *file,int fd)
 	free(file);
 	return (1);
 }
-void check_heredoc()
+
+void	check_heredoc(void)
 {
 	if (g_global.heredoc_flag)
 	{
-		ft_dup2(g_global.heredoc_flag,0);
+		ft_dup2(g_global.heredoc_flag, 0);
 		ft_close(g_global.heredoc_flag);
-		g_global.exit_status =1;
+		g_global.exit_status = 1;
 	}
 }
 
@@ -77,5 +77,5 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 	}
 	free(line);
 	check_heredoc();
-	return (handle_heredoc_suite(cmd,limiter,file,fd));
+	return (handle_heredoc_suite(cmd, limiter, file, fd));
 }

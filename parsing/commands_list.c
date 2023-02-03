@@ -33,9 +33,9 @@ void	close_fds(t_cmd *cmd)
 		close(cmd->outfile);
 }
 
-void add(t_cmd **cmds,t_cmd *new)
+void	add(t_cmd **cmds, t_cmd *new)
 {
-	t_cmd *last;
+	t_cmd	*last;
 
 	last = *cmds;
 	if (!last)
@@ -47,14 +47,14 @@ void add(t_cmd **cmds,t_cmd *new)
 		last->next = new;
 	}
 }
-t_token *free_cmds(t_cmd *new ,t_token *tokens)
+
+t_token	*free_cmds(t_cmd *new, t_token *tokens)
 {
-	t_token *tmp;
-	
+	t_token	*tmp;
 
 	free(new);
 	if (!tokens)
-		return NULL;
+		return (NULL);
 	if (tokens->type == PIPE)
 		tokens = tokens->next;
 	while (tokens && tokens->type != PIPE)
@@ -81,9 +81,9 @@ t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 	{
 		close_fds(new);
 		g_global.exit_status = 1;
-		return (free_cmds(new,tokens));
+		return (free_cmds(new, tokens));
 	}
 	handle_cmd(new, tokens);
-	add(cmds,new);
+	add(cmds, new);
 	return (next_pipe(tokens));
 }

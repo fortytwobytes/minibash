@@ -19,15 +19,15 @@ static void	update_pwd(char *new_path);
 int	cd(char **args, int fd)
 {
 	int		i;
-	int exit_status;
+	int		exit_status;
 
 	i = args_len(args);
 	if (i == 1)
 	{
 		exit_status = home_case();
-		ft_putchar_fd(0, fd); 
+		ft_putchar_fd(0, fd);
 		update_pwd(ft_getenv("HOME"));
-		return exit_status;
+		return (exit_status);
 	}
 	else
 	{

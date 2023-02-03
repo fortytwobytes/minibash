@@ -40,8 +40,7 @@
 typedef struct s_envs	t_envs;
 typedef struct s_cmd	t_cmd;
 typedef struct s_global	t_global;
-
-extern t_global	g_global;
+extern t_global			g_global;
 
 struct s_envs
 {
@@ -59,12 +58,9 @@ struct s_global
 };
 
 void	shell_loop(void);
-
-// missaligned includes declaration (NORM) 
 # include "builtin.h"
 # include "execution.h"
 # include "parsing.h"
 # include "srcs.h"
 # include "utils.h"
-
 #endif // MINISHELL_H

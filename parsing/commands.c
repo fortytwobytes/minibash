@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-void	open_pipes(t_token	*tokens)
-{
-	while (tokens)
-	{
-		if (tokens->type == PIPE)
-			ft_pipe(tokens->pipe);
-		tokens = tokens->next;
-	}
-}
-
-t_token	*next_pipe(t_token *tokens)
-{
-	if (!tokens)
-		return (NULL);
-	if (tokens->type == PIPE)
-		tokens = tokens->next;
-	while (tokens && tokens->type != PIPE)
-		tokens = tokens->next;
-	return (tokens);
-}
-
 // cat | ls | grep
 // during exucution infile and outfile should be closee
 // in the child and parent process

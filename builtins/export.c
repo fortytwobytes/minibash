@@ -19,7 +19,7 @@ static void	print_export_helper(int fd, int counter);
 int	export(char **args, int fd)
 {
 	int	idx;
-	int exit_status;
+	int	exit_status;
 
 	exit_status = 1;
 	if (*(args + 1) == NULL)
@@ -39,7 +39,7 @@ int	export(char **args, int fd)
 		args++;
 	}
 	ft_putchar_fd(0, fd);
-	return exit_status;
+	return (exit_status);
 }
 
 static void	export_conditions(int idx, char *arg)
