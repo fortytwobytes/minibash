@@ -83,6 +83,8 @@ t_token	*add_cmd(t_cmd **cmds, t_token *tokens)
 		g_global.exit_status = 1;
 		return (free_cmds(new, tokens));
 	}
+	else
+		g_global.exit_status = 0;
 	handle_cmd(new, tokens);
 	add(cmds, new);
 	return (next_pipe(tokens));
