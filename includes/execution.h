@@ -15,6 +15,9 @@
 
 # include "minishell.h"
 
+typedef struct s_envs	t_envs;
+typedef struct s_cmd	t_cmd;
+
 void	shell_loop(void);
 void	execute(t_cmd *head);
 int		exec_single_cmd(t_cmd *head, t_cmd *cmd);

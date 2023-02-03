@@ -12,8 +12,6 @@
 
 #include "builtin.h"
 
-// should print if a valid identifier : bash: unset:
-// `/Users/mtagemou': not a valid identifier
 static int	unset_regex(char *s);
 
 int	unset(char **args, int fd)

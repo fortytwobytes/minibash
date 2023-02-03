@@ -25,6 +25,11 @@
 # include <termios.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+# include "builtin.h"
+# include "parsing.h"
+# include "execution.h"
+# include "srcs.h"
+# include "utils.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -37,10 +42,10 @@
 # define ADD 1
 # define APPEND 2
 
-typedef struct s_envs	t_envs;
-typedef struct s_cmd	t_cmd;
 typedef struct s_global	t_global;
 extern t_global			g_global;
+typedef struct s_envs	t_envs;
+typedef struct s_cmd	t_cmd;
 
 struct s_envs
 {
@@ -58,9 +63,4 @@ struct s_global
 };
 
 void	shell_loop(void);
-# include "builtin.h"
-# include "execution.h"
-# include "parsing.h"
-# include "srcs.h"
-# include "utils.h"
 #endif // MINISHELL_H
