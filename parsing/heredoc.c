@@ -29,12 +29,27 @@ void change_flag(int s)
  	close(0);
 }
 
-void sigint_heredoc()
-{
-	struct sigaction sa_SIGINT;
 
-	sa_SIGINT.sa_handler = &change_flag;
-	sigaction(SIGINT,&sa_SIGINT,NULL);
+int handle_heredoc_suite(t_cmd *cmd, char *limiter, char *file,int fd)
+{
+	handle_signals();
+	close(fd);
+	free(limiter);
+	fd = open(file, O_RDONLY, 0);
+	if (fd == -1)
+		return (0);
+	cmd->infile = fd;
+	free(file);
+	return (1);
+}
+void check_heredoc()
+{
+	if (g_global.heredoc_flag)
+	{
+		ft_dup2(g_global.heredoc_flag,0);
+		ft_close(g_global.heredoc_flag);
+		g_global.exit_status =1;
+	}
 }
 
 int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
@@ -46,7 +61,7 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 
 	expand_mode = is_expand(&limiter);
 	sigint_heredoc();
-	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);
 	line = readline("> ");
@@ -60,20 +75,7 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 		free(joined_line);
 		line = readline("> ");
 	}
-	handle_signals();
-	if (g_global.heredoc_flag)
-	{
-		ft_dup2(g_global.heredoc_flag,0);
-		ft_close(g_global.heredoc_flag);
-		g_global.exit_status =1;
-	}
 	free(line);
-	close(fd);
-	free(limiter);
-	fd = open(file, O_RDONLY, 0);
-	if (fd == -1)
-		return (0);
-	cmd->infile = fd;
-	free(file);
-	return (1);
+	check_heredoc();
+	return (handle_heredoc_suite(cmd,limiter,file,fd));
 }

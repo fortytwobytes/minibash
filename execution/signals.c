@@ -56,3 +56,11 @@ void ignore_signals()
 	sigaction(SIGINT,&sa_SIGINT,NULL);
 	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
 } 
+
+void sigint_heredoc()
+{
+	struct sigaction sa_SIGINT;
+
+	sa_SIGINT.sa_handler = &change_flag;
+	sigaction(SIGINT,&sa_SIGINT,NULL);
+}

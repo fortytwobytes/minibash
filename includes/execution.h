@@ -36,4 +36,7 @@ void    update_env(char *name, char *value);
 void	default_signals(void);
 void	handle_signals(void);
 void	ignore_signals(void);
+void	sigint_heredoc(void);
+void	change_flag(int s);
+
 #endif // EXECUTION_H
