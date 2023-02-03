@@ -103,6 +103,8 @@ int	is_export_valid(char *exp)
 			return (i + 1);
 		if (exp[i] == '+' && exp[i + 1] == '=')
 			return (i + 2);
+		if (!is_env_name(exp[i]))
+			return (-1);
 		i++;
 	}
 	return (i);
