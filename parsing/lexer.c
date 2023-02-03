@@ -118,13 +118,15 @@ t_cmd	*parse_line(char *line)
 	words = split_by_blank(line);
 	if (words == NULL)
 	{
-		ft_putstr_fd("$> : syntax errorrr\n", 2);
+		g_global.exit_status = 258;
+		ft_putstr_fd("$> : syntax error\n", 2);
 		return (NULL);
 	}
 	tokens = split_by_operator(words);
 	free_split(words);
 	if (!parse(tokens))
 	{
+		g_global.exit_status = 258;
 		ft_putstr_fd("$> : syntax error\n", 2);
 		return (NULL);
 	}

@@ -22,11 +22,11 @@ NAME		= minishell
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) -L/goinfre/$(USERS)/.brew/opt/readline/lib -I/goinfre/$(USERS)/.brew/opt/readline/include -lreadline $(OBJS) -fsanitize=address -o $(NAME)
+	@$(CC) -L/goinfre/$(USERS)/.brew/opt/readline/lib -I/goinfre/$(USERS)/.brew/opt/readline/include -lreadline $(OBJS)  -o $(NAME)
 
 $(BIN_DIR)%.o: %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@$(CC) $(LINK) $(CFLAGS)  -c $< -fsanitize=address -o $@
+	@$(CC) $(LINK) $(CFLAGS)  -c $<  -o $@
 
 clean:
 	@$(RM) $(BIN_DIR)

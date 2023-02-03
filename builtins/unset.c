@@ -14,7 +14,7 @@
 
 // should print if a valid identifier : bash: unset:
 // `/Users/mtagemou': not a valid identifier
-static int	unset_regex(char c);
+static int	unset_regex(char *s);
 
 int	unset(char **args, int fd)
 {
@@ -23,7 +23,7 @@ int	unset(char **args, int fd)
 	args++;
 	while (*args)
 	{
-		if (unset_regex(*(*args)))
+		if (unset_regex(*args))
 		{
 			fatal("unset", "invalid identifier");
 			return (1);
@@ -37,7 +37,16 @@ int	unset(char **args, int fd)
 	return (0);
 }
 
-static int	unset_regex(char c)
+static int	unset_regex(char *s)
 {
-	return (!is_upper(c) && !is_lower(c) && c != '_');
+	if (!is_lower(*s) && !is_upper(*s) && *s != '_')
+		return (1);
+	s++;
+	while (*s)
+	{
+		if (!is_env_name(*s))
+			return (1);
+		s++;
+	}
+	return (0);
 }

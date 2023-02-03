@@ -24,12 +24,7 @@ char	*ft_getpath(char *cmd)
 		return (ft_strdup(cmd));
 	paths = ft_getenv("PATH");
 	if (!paths)
-	{
-		tmp = ft_strjoin("/bin/", cmd);
-		if (access(tmp, X_OK) == -1)
-			return (free(tmp), NULL);
-		return (tmp);
-	}
+		return (NULL);
 	sp_paths = ft_split(paths, ':');
 	while (sp_paths[++i])
 	{
