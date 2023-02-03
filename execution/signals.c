@@ -14,53 +14,54 @@
 
 // rl_on_new_line  : tells that we moved to a nl
 // rl_replace_line : replace the content of the rl buffer 
-// rl_redisplay    : change what is on the screen with the actual content of the buffer
-void handle_parent_SIGINT(int sig)
+// rl_redisplay    : change what is on the screen with
+//  the actual content of the buffer
+void	handle_parent_sigint(int sig)
 {
 	(void)sig;
-	write(1,"\n",1);
+	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("",0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void handle_signals()
+void	handle_signals(void)
 {
-	struct sigaction sa_SIGINT;
-	struct sigaction sa_SIGQUIT;
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
-	sa_SIGINT.sa_handler = &handle_parent_SIGINT;
-	sa_SIGQUIT.sa_handler = SIG_IGN;
-	sigaction(SIGINT,&sa_SIGINT,NULL);
-	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
+	sa_sigint.sa_handler = &handle_parent_sigint;
+	sa_sigquit.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
-void default_signals()
+void	default_signals(void)
 {
-	struct sigaction sa_SIGINT;
-	struct sigaction sa_SIGQUIT;
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
-	sa_SIGINT.sa_handler = SIG_DFL; 
-	sa_SIGQUIT.sa_handler = SIG_DFL;
-	sigaction(SIGINT,&sa_SIGINT,NULL);
-	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
+	sa_sigint.sa_handler = SIG_DFL;
+	sa_sigquit.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
-void ignore_signals()
+void	ignore_signals(void)
 {
-	struct sigaction sa_SIGINT;
-	struct sigaction sa_SIGQUIT;
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
-	sa_SIGINT.sa_handler = SIG_IGN; 
-	sa_SIGQUIT.sa_handler = SIG_IGN;
-	sigaction(SIGINT,&sa_SIGINT,NULL);
-	sigaction(SIGQUIT,&sa_SIGQUIT,NULL);
-} 
+	sa_sigint.sa_handler = SIG_IGN;
+	sa_sigquit.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
+}
 
-void sigint_heredoc()
+void	sigint_heredoc(void)
 {
-	struct sigaction sa_SIGINT;
+	struct sigaction	sa_sigint;
 
-	sa_SIGINT.sa_handler = &change_flag;
-	sigaction(SIGINT,&sa_SIGINT,NULL);
+	sa_sigint.sa_handler = &change_flag;
+	sigaction(SIGINT, &sa_sigint, NULL);
 }
