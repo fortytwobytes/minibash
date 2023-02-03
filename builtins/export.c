@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:13:52 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/02 00:07:41 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:25:37 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_export_helper(int fd, int counter);
 int	export(char **args, int fd)
 {
 	int	idx;
-	int exit_status;
+	int	exit_status;
 
 	exit_status = 1;
 	if (*(args + 1) == NULL)
@@ -39,7 +39,7 @@ int	export(char **args, int fd)
 		args++;
 	}
 	ft_putchar_fd(0, fd);
-	return exit_status;
+	return (exit_status);
 }
 
 static void	export_conditions(int idx, char *arg)

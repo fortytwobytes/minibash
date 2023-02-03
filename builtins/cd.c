@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 23:08:50 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 23:08:53 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:25:20 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static void	update_pwd(char *new_path);
 int	cd(char **args, int fd)
 {
 	int		i;
-	int exit_status;
+	int		exit_status;
 
 	i = args_len(args);
 	if (i == 1)
 	{
 		exit_status = home_case();
-		ft_putchar_fd(0, fd); 
+		ft_putchar_fd(0, fd);
 		update_pwd(ft_getenv("HOME"));
-		return exit_status;
+		return (exit_status);
 	}
 	else
 	{
