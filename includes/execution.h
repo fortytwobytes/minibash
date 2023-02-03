@@ -31,7 +31,7 @@ void	close_all_fds(t_cmd *head);
 char	**dynamic_env(void);
 char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);
-void    update_env(char *name, char *value);
+void	update_env(char *name, char *value);
 
 void	default_signals(void);
 void	handle_signals(void);

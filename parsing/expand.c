@@ -68,13 +68,8 @@ char	*quotes_removal(char *token)
 
 // we will loop the linked list and remove empty strings that resulted from 
 // an unkown variable expansion .
-t_token	*remove_empty_tokens(t_token *tokens)
+t_token	*remove_empty_tokens(t_token *tokens, t_token *head, t_token *prev)
 {
-	t_token	*prev;
-	t_token	*head;
-
-	prev = NULL;
-	head = tokens;
 	while (tokens)
 	{
 		if (*(tokens->token) == 0)
@@ -82,15 +77,13 @@ t_token	*remove_empty_tokens(t_token *tokens)
 			if (prev == NULL)
 			{
 				head = tokens->next;
-				free(tokens->token);
-				free(tokens);
+				free_token_word(tokens, tokens->token);
 				tokens = head;
 			}
 			else
 			{
 				prev->next = tokens->next;
-				free(tokens->token);
-				free(tokens);
+				free_token_word(tokens, tokens->token);
 				tokens = prev->next;
 			}
 		}
@@ -125,7 +118,7 @@ t_token	*expand_tokens(t_token *tokens)
 		token = token->next;
 	}
 	token = tokens;
-	tokens = remove_empty_tokens(token);
+	tokens = remove_empty_tokens(token, token, NULL);
 	head = tokens;
 	while (tokens)
 	{

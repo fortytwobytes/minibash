@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+void	init_values(int *flag, int *i, int *count, int *q)
+{
+	*flag = 1;
+	*i = 0;
+	*count = 0;
+	*q = -1;
+}
+
 int	word_split_count(char *line)
 {
 	int	count;
@@ -19,21 +27,16 @@ int	word_split_count(char *line)
 	int	q;
 	int	flag;
 
-	flag = 1;
-	i = 0;
-	count = 0;
-	q = -1;
+	init_values(&flag, &i, &count, &flag);
 	while (line[i])
 	{
+		q = -1;
 		if (line[i] != ' ' && line[i] != '\t')
 		{
 			if (line[i] == '"' || line[i] == '\'')
 				q = next_quote(i + 1, line[i], line);
 			if (q != -1)
-			{
 				i = q;
-				q = -1;
-			}
 			if (flag != 0)
 				count++;
 			flag = 0;
@@ -44,7 +47,7 @@ int	word_split_count(char *line)
 	}
 	return (count);
 }
-//"mtagemou"mtagemou
+
 static char	*get_next_word(char *s, int *index)
 {
 	int		i;

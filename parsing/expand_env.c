@@ -67,16 +67,16 @@ char	*get_name(char *token)
 
 // we need to check if the variable is not inside double quotes to 
 // not expand it , but check if we don't have double quotes before 
-int	replace_before_name(char *new_token,char *token)
+int	replace_before_name(char *new_token, char *token)
 {
 	int	i;
-	int dbl_quotes;
-	int sgl_quotes;
-	
+	int	dbl_quotes;
+	int	sgl_quotes;
+
 	dbl_quotes = 0;
 	sgl_quotes = 0;
 	i = 0;
-	while(token[i] != '$' || sgl_quotes )
+	while (token[i] != '$' || sgl_quotes)
 	{
 		if (token[i] == '\'' && !dbl_quotes)
 			sgl_quotes = !sgl_quotes;
@@ -85,7 +85,7 @@ int	replace_before_name(char *new_token,char *token)
 		new_token[i] = token[i];
 		i++;
 	}
-	return i;
+	return (i);
 }
 
 // this function remplace the string value in the string
@@ -103,7 +103,7 @@ char	*replace_name_value(char *token, char *name, char *value)
 	j = 0;
 	new_token = ft_calloc(ft_strlen(token)
 			+ (ft_strlen(value) - ft_strlen(name)) + 1);
-	i = replace_before_name(new_token,token);
+	i = replace_before_name(new_token, token);
 	k = i;
 	j = 0;
 	while (value[j])
@@ -117,18 +117,6 @@ char	*replace_name_value(char *token, char *name, char *value)
 		new_token[i++] = token[k++];
 	free(token);
 	return (new_token);
-}
-
-// in this function we remplace the -1 occurences with $
-// i need dollars dollars dollars is what i need
-void	expands_dollars_dollars(char *token)
-{
-	while (*token)
-	{
-		if (*token == -1)
-			*token = '$';
-		token++;
-	}
 }
 
 // this funtion search for variable name and replace it by its value recursivly

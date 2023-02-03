@@ -56,7 +56,6 @@ t_cmd	*convert_to_cmds(t_token *tokens);
 char	*parameter_expansion(char *token);
 char	*get_value(char *s);
 char	*quotes_removal(char *token);
-
 void	add_back(t_token **head, char *s);
 void	add_middle(t_token *token, char *word);
 void	print_list(t_token *head);
@@ -74,5 +73,9 @@ void	handle_pipes(t_cmd *cmd, t_token *tokens);
 int		handle_redirection(t_cmd *cmd, t_token *tokens);
 void	handle_cmd(t_cmd *cmd, t_token *tokens);
 char	*get_next_line(int fd);
+t_token	*next_pipe(t_token *tokens);
+void	open_pipes(t_token	*tokens);
+void	expands_dollars_dollars(char *token);
+void	free_token_word(t_token *token, char *word);
 
 #endif // PARSING_H
