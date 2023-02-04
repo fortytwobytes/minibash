@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtagemou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:38:41 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/02/01 12:38:43 by mtagemou         ###   ########.fr       */
+/*   Updated: 2023/02/04 02:31:47 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handle_parent_sigint(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
+	g_global.exit_status = 1;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
