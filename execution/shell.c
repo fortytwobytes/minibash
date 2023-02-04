@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:46 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:04:47 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/04 02:28:52 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	shell_loop(void)
 			g_global.heredoc_flag = 0;
 			close_all_fds(cmd);
 			free_cmd(cmd);
+			free(line);
 			continue ;
 		}
 		ignore_signals();
