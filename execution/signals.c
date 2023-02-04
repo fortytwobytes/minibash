@@ -48,12 +48,18 @@ void	default_signals(void)
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
+void set_exit_status(int sig)
+{
+    (void)sig;
+    ft_putchar_fd('\n', 1);
+}
+
 void	ignore_signals(void)
 {
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
 
-	sa_sigint.sa_handler = SIG_IGN;
+	sa_sigint.sa_handler = &set_exit_status;
 	sa_sigquit.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
 	sigaction(SIGQUIT, &sa_sigquit, NULL);

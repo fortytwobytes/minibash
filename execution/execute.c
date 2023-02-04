@@ -71,7 +71,12 @@ void	wait_all_childs(int last_pid)
 	{
 		pid = wait(&status);
 		if (last_pid == pid)
-			g_global.exit_status = WEXITSTATUS(status);
+        {
+            if (!WIFSIGNALED(status))
+                g_global.exit_status = WEXITSTATUS(status);
+            else
+                g_global.exit_status = 130;
+        }
 	}
 	if (tmp_pid == -1)
 		g_global.exit_status = 1;
