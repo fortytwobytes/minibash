@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:44:16 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:00:03 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/04 02:24:28 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	redirect(t_cmd *cmd, char *type, char *file)
 	}
 	if (!ft_strcmp(type, ">"))
 	{
-		fd = ft_open(file, O_CREAT | O_WRONLY, 0644);
+		fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == -1)
 			return (0);
 		check_and_redirect(&cmd->outfile, fd);
