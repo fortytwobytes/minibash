@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:51 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 00:05:50 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:50:00 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void	wait_all_childs(int last_pid)
 	{
 		pid = wait(&status);
 		if (last_pid == pid)
-        {
-            if (!WIFSIGNALED(status))
-                g_global.exit_status = WEXITSTATUS(status);
-            else
-                g_global.exit_status = 130;
-        }
+		{
+			if (!WIFSIGNALED(status))
+				g_global.exit_status = WEXITSTATUS(status);
+			else
+				g_global.exit_status = 130;
+		}
 	}
 	if (tmp_pid == -1)
 		g_global.exit_status = 1;

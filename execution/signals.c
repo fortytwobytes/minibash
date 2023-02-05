@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:38:41 by mtagemou          #+#    #+#             */
-/*   Updated: 2023/02/04 02:31:47 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:51:56 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,6 @@ void	default_signals(void)
 	sa_sigquit.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sa_sigint, NULL);
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
-}
-
-void set_exit_status(int sig)
-{
-    (void)sig;
-    ft_putchar_fd('\n', 1);
 }
 
 void	ignore_signals(void)

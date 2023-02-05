@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 23:37:12 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/01 06:35:30 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:52:13 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_envs	*envs_init(char **env);
 void	ft_setenv(char *name, char *value);
 void	close_all_fds(t_cmd *head);
 
+void	set_exit_status(int sig);
 char	**dynamic_env(void);
 char	*here_doc_name(void);
 char	*ft_getpath(char *cmd);

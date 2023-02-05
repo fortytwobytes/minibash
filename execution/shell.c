@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:46 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/04 02:28:52 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:52:03 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ void	shell_loop(void)
 		execute(cmd);
 		free(line);
 	}
+}
+
+void	set_exit_status(int sig)
+{
+	(void)sig;
+	ft_putchar_fd('\n', 1);
 }
