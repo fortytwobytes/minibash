@@ -38,9 +38,3 @@ void	shell_loop(void)
 		free(line);
 	}
 }
-
-void	set_exit_status(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', 1);
-}
