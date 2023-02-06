@@ -27,7 +27,7 @@ void	echo(char **args, int fd)
 		ft_putstr_fd("\n", fd);
 		return ;
 	}
-	if (is_flag_n(args[i]))
+	while (args[i] && is_flag_n(args[i]))
 	{
 		new_line = FALSE;
 		i++;
