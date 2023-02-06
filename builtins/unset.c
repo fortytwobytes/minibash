@@ -27,7 +27,10 @@ int	unset(char **args, int fd)
 			return (1);
 		}
 		if (!ft_strcmp(*args, "_"))
+		{
+			args++;
 			continue ;
+		}
 		pop_env(*args);
 		args++;
 	}

@@ -68,7 +68,7 @@ int	handle_heredoc(t_cmd *cmd, char *limiter, char *file)
 	while (line && ft_strcmp(line, limiter))
 	{
 		if (expand_mode && *line)
-			line = parameter_expansion(line);
+			line = heredoc_expansion(line);
 		joined_line = ft_strjoin(line, "\n");
 		write(fd, joined_line, ft_strlen(joined_line));
 		free(line);

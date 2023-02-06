@@ -80,5 +80,7 @@ void	free_token_word(t_token *token, char *word);
 void	check_and_redirect(int *inf_out, int fd);
 void	free_all(t_token *tokens);
 int		handle_heredocs(t_cmd *cmd, t_token *tokens);
+int		get_name_len(char *token, int i);
+char	*heredoc_expansion(char *line);
 
 #endif // PARSING_H
