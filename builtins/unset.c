@@ -26,8 +26,6 @@ int	unset(char **args, int fd)
 			fatal("unset", "invalid identifier");
 			return (1);
 		}
-		if (!ft_strcmp(*args, "_"))
-			continue ;
 		pop_env(*args);
 		args++;
 	}
