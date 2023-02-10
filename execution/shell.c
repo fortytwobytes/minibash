@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 00:04:46 by relkabou          #+#    #+#             */
-/*   Updated: 2023/02/05 16:52:03 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:27:49 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_space(char c);
+static void	ft_add_history(char *line);
 
 void	shell_loop(void)
 {
@@ -23,7 +26,7 @@ void	shell_loop(void)
 		line = readline(PROMPT);
 		if (!line)
 			break ;
-		add_history(line);
+		ft_add_history(line);
 		cmd = parse_line(line);
 		if (g_global.heredoc_flag)
 		{
@@ -37,4 +40,24 @@ void	shell_loop(void)
 		execute(cmd);
 		free(line);
 	}
+}
+
+static void	ft_add_history(char *line)
+{
+	char	*ptr;
+
+	ptr = line;
+	if (!line)
+		return ;
+	while (*line && is_space(*line))
+	{
+		line++;
+	}
+	if (*line != 0)
+		add_history(ptr);
+}
+
+static int	is_space(char c)
+{
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
 }
