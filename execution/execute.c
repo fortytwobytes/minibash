@@ -57,6 +57,8 @@ int	exec_single_cmd(t_cmd *head, t_cmd *cmd)
 	return (pid);
 }
 
+// A command that is terminated by a signal should return 128
+// The signal number for SIGINT is 2
 void	wait_all_childs(int last_pid)
 {
 	int		pid;
@@ -75,7 +77,7 @@ void	wait_all_childs(int last_pid)
 			if (!WIFSIGNALED(status))
 				g_global.exit_status = WEXITSTATUS(status);
 			else
-				g_global.exit_status = 130;
+				g_global.exit_status = 128 + SIGINT;
 		}
 	}
 	if (tmp_pid == -1)
@@ -120,3 +122,4 @@ void	execute(t_cmd *head)
 	wait_all_childs(last_pid);
 	free_cmd(head);
 }
+
