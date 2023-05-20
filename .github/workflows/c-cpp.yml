@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: make
+    - uses: actions/checkout@v2
+    - name: Install readline
+      run: sudo apt-get install libreadline-dev
+    - name: Build
       run: make
