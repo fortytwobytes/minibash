@@ -23,8 +23,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
-# include "readline/readline.h"
-# include "readline/history.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "builtin.h"
 # include "parsing.h"
 # include "execution.h"
