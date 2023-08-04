@@ -34,7 +34,7 @@
 # define TRUE 1
 # define FALSE 0
 
-# define PROMPT "$> "
+# define PROMPT "minishell $> "
 
 # define READ 0
 # define WRITE 1
