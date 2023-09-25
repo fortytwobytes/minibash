@@ -32,8 +32,8 @@ int	get_name_len(char *token, int i)
 	return (name_len);
 }
 
-// this function returns the first occurence of a variable name 
-// if we have an occurence of a $ alone we just mark it with -1 
+// this function returns the first occurrence of a variable name 
+// if we have an occurrence of a $ alone we just mark it with -1 
 // to not interump with further calls to this function
 // we will change the -1 latter
 char	*get_name(char *token)
@@ -119,7 +119,7 @@ char	*replace_name_value(char *token, char *name, char *value)
 	return (new_token);
 }
 
-// this funtion search for variable name and replace it by its value recursivly
+// this function search for variable name and replace it by its value recursively
 char	*parameter_expansion(char *token)
 {
 	char	*name;

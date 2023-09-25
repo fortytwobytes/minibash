@@ -42,9 +42,9 @@ int	position_of_operator(char *s)
 // this function get the next word either string or sequence of operator
 // we have three case :
 // 1 - "simple word" => a word without operator we just duplicate it
-// 2 - |||"simple wolrd" => operators in the beguining so we group them
+// 2 - |||"simple world" => operators in the beguining so we group them
 //     in a single word
-// 3 - "simple world" | "s iadhf" => opeartor in the middle so we substr
+// 3 - "simple world" | "s iadhf" => operator in the middle so we substr
 //     until the operator
 char	*get_word(char *s, size_t *index)
 {

@@ -33,7 +33,7 @@ t_token	*next_pipe(t_token *tokens)
 	return (tokens);
 }
 
-// in this function we remplace the -1 occurences with $
+// in this function we remplace the -1 occurrences with $
 // i need dollars dollars dollars is what i need
 void	expands_dollars_dollars(char *token)
 {

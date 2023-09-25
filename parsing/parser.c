@@ -46,7 +46,7 @@ int	check_redirections(t_token *tokens)
 }
 
 // this functions checks if there is a word after a pipe before
-// the apperance of another pipe
+// the appearance of another pipe
 // word | word => valid
 // word | | word => invalid
 int	word_after(t_token *tokens)

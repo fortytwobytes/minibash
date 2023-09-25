@@ -13,9 +13,9 @@
 #include "minishell.h"
 
 // in this function we chose the type of passed string 
-// the possible strings are sequences of operators or  noraml chars
+// the possible strings are sequences of operators or  normal chars
 // if the sequence of operators is not to be handle by our minishell we name 
-// it by the token OPERATOR wich should syntax error
+// it by the token OPERATOR which should syntax error
 // else the token are allowed 
 int	choose_token_type(char *s)
 {

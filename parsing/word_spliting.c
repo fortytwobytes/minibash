@@ -92,7 +92,7 @@ char	**my_split(char *line, int wc)
 
 // if wc == 0 that means that we need to remove this token ,
 //  we will do it in a separate function 
-// if wc == 1 means that no spliting is required 
+// if wc == 1 means that no splitting is required 
 // if wc > 1 means that the variable expansion caused a blank separator 
 // in the middle of the token 
 // so we need to split it into two words

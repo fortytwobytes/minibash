@@ -67,7 +67,7 @@ char	*quotes_removal(char *token)
 }
 
 // we will loop the linked list and remove empty strings that resulted from 
-// an unkown variable expansion .
+// an unknown variable expansion .
 t_token	*remove_empty_tokens(t_token *tokens, t_token *head, t_token *prev)
 {
 	while (tokens)
@@ -96,9 +96,9 @@ t_token	*remove_empty_tokens(t_token *tokens, t_token *head, t_token *prev)
 	return (head);
 }
 
-//in the expansion part we only have to handle paramter expansion ($) and quotes
+//in the expansion part we only have to handle parameter expansion ($) and quotes
 //removal and we will implement these expansions in the same order of the 
-//bash cad variable expansion , word spliting => after word spliting we shall 
+//bash cad variable expansion , word splitting => after word splitting we shall 
 // remove
 // unquoted  empty strings that did result from a variable expension ,
 // then quotes removal
