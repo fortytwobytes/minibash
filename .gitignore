@@ -1,5 +1,6 @@
-# MINISHEL
+# MINIBASh
 bin/
+build/
 minibash
 venv/
 .vscode/
