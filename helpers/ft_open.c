@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs.h"
+#include "helpers.h"
 
 int	ft_open(char *path, int flags, int mode)
 {

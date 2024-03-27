@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dups.c                                          :+:      :+:    :+:   */
+/*   ft_waits.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 23:33:22 by relkabou          #+#    #+#             */
-/*   Updated: 2023/01/31 23:33:23 by relkabou         ###   ########.fr       */
+/*   Created: 2023/01/31 23:33:38 by relkabou          #+#    #+#             */
+/*   Updated: 2023/01/31 23:33:39 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs.h"
+#include "helpers.h"
 
-void	ft_dup(int fd)
+void	ft_waitpid(pid_t pid)
 {
-	if (dup(fd) == -1)
+	int	status;
+
+	if (waitpid(pid, &status, 0) == -1)
+		ft_exit(WEXITSTATUS(status), strerror(errno));
+}
+
+void	ft_wait(int *status)
+{
+	if (wait(status) == -1)
 		ft_exit(errno, strerror(errno));
 }
 
-void	ft_dup2(int oldfd, int newfd)
+void	ft_wait3(int *status, int options, struct rusage *rusage)
 {
-	if (dup2(oldfd, newfd) == -1)
+	if (wait3(status, options, rusage) == -1)
+		ft_exit(errno, strerror(errno));
+}
+
+void	ft_wait4(pid_t pid, int *status, int options, struct rusage *rusage)
+{
+	if (wait4(pid, status, options, rusage) == -1)
 		ft_exit(errno, strerror(errno));
 }
