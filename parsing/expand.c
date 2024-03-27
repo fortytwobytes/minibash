@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // this function copies the token string into a new 
 // allocated string without copying the -1 occurenccense=

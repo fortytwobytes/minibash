@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 void	init_values(int *flag, int *i, int *count, int *q)
 {

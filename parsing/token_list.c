@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // in this function we chose the type of passed string 
 // the possible strings are sequences of operators or  normal chars
-// if the sequence of operators is not to be handle by our minishell we name 
+// if the sequence of operators is not to be handle by our minibash we name
 // it by the token OPERATOR which should syntax error
 // else the token are allowed 
 int	choose_token_type(char *s)

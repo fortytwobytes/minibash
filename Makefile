@@ -21,9 +21,9 @@ BIN_DIR		= build/
 OBJS		= $(SRCS:%.c=$(BIN_DIR)%.o)
 OBJS_DIRS	= $(dir $(OBJS))
 
-INCLUDES	= includes/builtin.h includes/execution.h includes/minishell.h includes/parsing.h includes/helpers.h includes/utils.h
+INCLUDES	= includes/builtin.h includes/execution.h includes/minibash.h includes/parsing.h includes/helpers.h includes/utils.h
 
-NAME		= minishell
+NAME		= minibash
 
 
 all: $(NAME)

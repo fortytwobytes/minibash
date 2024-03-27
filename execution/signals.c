@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // rl_on_new_line  : tells that we moved to a nl
 // rl_replace_line : replace the content of the rl buffer 

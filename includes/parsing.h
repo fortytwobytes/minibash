@@ -13,7 +13,7 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "minishell.h"
+# include "minibash.h"
 
 # define EXIT_SYNTAX 258
 

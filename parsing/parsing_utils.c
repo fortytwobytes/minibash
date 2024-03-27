@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 void	open_pipes(t_token	*tokens)
 {

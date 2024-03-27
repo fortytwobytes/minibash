@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // this function returns the len of the variable name , exp : $abc => 4 , $ => 1
 // [A-Z]{1,}[A-Z0-9_]

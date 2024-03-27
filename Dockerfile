@@ -8,5 +8,5 @@ COPY . .
 
 RUN make
 
-ENTRYPOINT ["./minishell"]
+ENTRYPOINT ["./minibash"]
 

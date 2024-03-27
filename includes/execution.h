@@ -13,7 +13,7 @@
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include "minishell.h"
+# include "minibash.h"
 
 typedef struct s_envs	t_envs;
 typedef struct s_cmd	t_cmd;

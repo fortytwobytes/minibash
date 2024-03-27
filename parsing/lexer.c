@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // a function that return the position of the next quote char
 int	next_quote(int i, char quote, char *line)

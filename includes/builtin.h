@@ -13,7 +13,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include "minishell.h"
+# include "minibash.h"
 
 int		size_of_env(void);
 void	index_envs(void);

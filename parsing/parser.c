@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // this function checks if we have another type of operator except the ones
-// handled by our minishell
+// handled by our minibash
 int	check_invalid_operator(t_token *tokens)
 {
 	while (tokens)

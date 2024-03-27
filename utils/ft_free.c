@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minibash.h"
 
 // a function that free split return : a 2d array of string terminated by NULL;
 void	free_split(char **s)

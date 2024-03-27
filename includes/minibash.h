@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minibash.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINIBASH_H
+# define MINIBASH_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -34,7 +34,7 @@
 # define TRUE 1
 # define FALSE 0
 
-# define PROMPT "minishell $> "
+# define PROMPT "minibash $> "
 
 # define READ 0
 # define WRITE 1
@@ -63,4 +63,4 @@ struct s_global
 };
 
 void	shell_loop(void);
-#endif // MINISHELL_H
+#endif // MINIBASH_H

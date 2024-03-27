@@ -1,6 +1,6 @@
 # MINISHEL
 bin/
-minishell
+minibash
 venv/
 .vscode/
 .idea/

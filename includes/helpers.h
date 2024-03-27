@@ -13,7 +13,7 @@
 #ifndef SRCS_H
 # define SRCS_H
 
-# include "minishell.h"
+# include "minibash.h"
 
 int		ft_open(char *path, int oflag, int mode);
 void	ft_close(int fildes);
