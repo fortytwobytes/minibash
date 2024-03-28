@@ -1,0 +1,11 @@
+.git/
+.idea/
+.github/
+.vscode/
+bin/
+build/
+.gitignore
+.dockerignore
+compose.yml
+Dockerfile
+README.md

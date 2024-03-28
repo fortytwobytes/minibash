@@ -9,3 +9,4 @@
     - with Makefile
      `make && ./minibash`
 
+* If you have docker simply run `docker compose run --rm minibash`

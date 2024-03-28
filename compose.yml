@@ -1,0 +1,10 @@
+---
+services:
+  minibash:
+    container_name: minibash
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    tty: true
